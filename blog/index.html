@@ -213,7 +213,9 @@
                         </a>
                     </article>
 
-                    <!-- Post 7 -->
+                    <!-- Additional Posts (Hidden by default) -->
+                    <div id="hidden-posts" style="display: contents;">
+                        <!-- Post 7 -->
                     <article class="blog-card reveal" data-category="assets">
                         <a href="download-lottie-animations.html" class="blog-card-link">
                             <div class="blog-card-thumb">
@@ -300,9 +302,15 @@
                             </div>
                         </a>
                     </article>
+                </div> <!-- End hidden posts -->
 
-
+                <!-- View More Button -->
+                <div id="view-more-container" style="grid-column: 1 / -1; text-align: center; padding-top: 60px;">
+                    <button id="view-more-btn" class="btn btn-outline" style="min-width: 200px; padding: 16px 32px; border-radius: 999px;">
+                        View More Guides
+                    </button>
                 </div>
+            </div>
 
 
             </div>
@@ -322,11 +330,6 @@
                 </div>
             </div>
             <!-- Toast Notification -->
-            <div id="toast" class="toast">
-                <div class="toast-icon">✨</div>
-                <div class="toast-content">
-                    <strong>Subscribed!</strong>
-                    <p>Welcome to the laboratory.</p>
                 </div>
             </div>
         </section>
@@ -426,6 +429,25 @@
                 });
             }
         });
+        // View More Logic
+        const viewMoreBtn = document.getElementById('view-more-btn');
+        const hiddenPosts = document.querySelectorAll('#hidden-posts .blog-card');
+        
+        // Hide initially
+        hiddenPosts.forEach(card => card.style.display = 'none');
+
+        if (viewMoreBtn) {
+            viewMoreBtn.addEventListener('click', () => {
+                hiddenPosts.forEach(card => {
+                    card.style.display = 'block';
+                    // Re-trigger reveal animation
+                    setTimeout(() => {
+                        card.classList.add('reveal-active');
+                    }, 50);
+                });
+                document.getElementById('view-more-container').style.display = 'none';
+            });
+        }
     </script>
 </body>
 
