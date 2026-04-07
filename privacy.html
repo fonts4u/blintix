@@ -88,7 +88,7 @@
     <!-- Content -->
     <main class="privacy-content">
         <h1>Privacy Policy</h1>
-        <span class="last-updated">Last Updated: February 2026</span>
+        <span class="last-updated">Last Updated: <span id="updated-date">April 07, 2026</span></span>
 
         <p>At Blintix Studio, our philosophy is "radical simplicity and intense focus". This philosophy extends directly
             into how we handle your data. We build software that respects your privacy by design, avoiding dark patterns
@@ -170,6 +170,18 @@
             </div>
         </div>
     </footer>
+    <script>
+        // Dynamic Date for Privacy Policy
+        function updateDate() {
+            const dateSpan = document.getElementById('updated-date');
+            if (dateSpan) {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const today = new Date().toLocaleDateString('en-US', options);
+                dateSpan.textContent = today;
+            }
+        }
+        window.addEventListener('DOMContentLoaded', updateDate);
+    </script>
 </body>
 
 </html>
