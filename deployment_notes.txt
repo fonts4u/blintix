@@ -1,0 +1,8 @@
+# ZipIt Deployment Notes
+
+ZipIt is a separate Vercel project (`zipit-landing`).
+To update https://zipit.blintix.store/, you MUST deploy from the /zipit/ folder.
+
+Commands:
+cd zipit
+vercel --prod --yes

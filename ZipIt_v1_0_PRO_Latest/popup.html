@@ -1,0 +1,2788 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ZipIt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #000000;
+      --surface: #121212;
+      --border: #262626;
+      --border-light: #333333;
+      --text: #ffffff;
+      --muted: #a1a1a6;
+      --accent: #ff5c1a;
+      --green: #22c55e;
+      --red: #ef4444;
+      --blue: #3b82f6;
+      --yellow: #f59e0b;
+    }
+
+    body.light-mode {
+      --bg: #f4f5ff;
+      --surface: #ffffff;
+      --border: #edf0f5;
+      --border-light: #f5f7fa;
+      --text: #1a1b1f;
+      --muted: #8a8d98;
+      --accent: #ff5c1a;
+      --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08), 0 4px 12px -4px rgba(0, 0, 0, 0.03);
+    }
+
+    html {
+      min-width: 500px;
+      min-height: 600px;
+      height: 100%;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    body {
+      font-family: 'Geist', -apple-system, sans-serif;
+      width: 500px;
+      /* Base for popup */
+      min-height: 600px;
+      /* Base for popup */
+      display: flex;
+      flex-direction: column;
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* Side Panel or Full Height Adjustment */
+    @media screen and (min-height: 700px) {
+      body {
+        width: 100%;
+        height: 100vh;
+      }
+    }
+
+    /* Sidebar mode overrides */
+    @media (min-height: 1000px),
+    (min-width: 600px) {
+
+      /* This helps when it's pinned to a tall/wide sidebar */
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        width: 100%;
+      }
+    }
+
+    /* Side Panel specific override */
+    :not(:root):fullscreen,
+    html {
+      height: 100%;
+    }
+
+    .main-wrapper {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      /* Stretch to fill parent */
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      position: relative;
+    }
+
+    /* Panels */
+    .mode-panel {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .mode-panel.active {
+      display: flex;
+    }
+
+    #panel-analysis.active {
+      flex: 1 1 0%;
+      height: 100%;
+    }
+
+    /* Professional Sidebar Pinning */
+    .dashboard {
+      background: var(--surface);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .dash-content {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      min-height: 0;
+    }
+
+    body.light-mode .dash-content {
+      background-color: #f3f4ff;
+    }
+
+    .footer {
+      padding: 8px 16px;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    body.light-mode .header {
+      background-color: #f3f4ff;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-icon {
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-name {
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.4px;
+    }
+
+    /* Mode Tabs */
+    .mode-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .mode-tab {
+      background: var(--surface);
+      padding: 12px 14px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      border: none;
+      text-align: center;
+      font-family: inherit;
+      color: var(--muted);
+      position: relative;
+    }
+
+    .mode-tab:hover {
+      background: var(--surface);
+    }
+
+    body.light-mode .mode-tab:hover {
+      background: #29558c;
+      color: #ffffff;
+    }
+
+    body.light-mode .mode-tab:hover .mode-tab-name,
+    body.light-mode .mode-tab:hover .mode-tab-desc {
+      color: #ffffff;
+    }
+
+    .mode-tab.active {
+      color: var(--text);
+      background: var(--surface);
+    }
+
+    .mode-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    body.light-mode .mode-tab.active {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    body.light-mode .mode-tab.active .mode-tab-name {
+      color: var(--text);
+    }
+
+    .mode-tab-name {
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .mode-tab.active .mode-tab-name {
+      color: var(--text);
+    }
+
+    .mode-tab-desc {
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .mode-pill {
+      font-size: 8px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .pill-full {
+      background: rgba(255, 92, 26, 0.15);
+      color: var(--accent);
+    }
+
+    .pill-design {
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--green);
+    }
+
+    .pill-inspect {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--blue);
+    }
+
+    .pill-beta {
+      background: rgba(234, 88, 12, 0.25);
+      color: #fb923c;
+      border: 0.5px solid rgba(234, 88, 12, 0.3);
+    }
+
+
+    /* URL row */
+    .url-row {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+
+    .url-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .url-dot.on {
+      background: var(--green);
+      box-shadow: 0 0 5px var(--green);
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.3
+      }
+    }
+
+    .url-dot.on {
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    #current-url {
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+    }
+
+    /* Panels */
+    .mode-panel.active {
+      display: flex !important;
+      flex-direction: column !important;
+      flex: 1 !important;
+      min-height: 0 !important;
+      overflow: hidden !important;
+      animation: tabFadeIn 0.3s ease-out;
+    }
+
+    @keyframes tabFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #panel-analysis.active {
+      display: flex !important;
+      flex-direction: column !important;
+      flex: 1 !important;
+    }
+
+    /* Professional Thin Scrollbars */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-light);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--muted);
+    }
+
+    /* Sections */
+
+    .section-title {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    /* Typography Scale */
+    .typo-scale {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .typo-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    body.light-mode .typo-item {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    body.light-mode .typo-item:hover {
+      box-shadow: var(--card-shadow);
+    }
+
+    .typo-tag {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+    }
+
+    .typo-preview {
+      color: var(--text);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .typo-meta {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Contrast Badges */
+    .contrast-badge {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .contrast-pass {
+      background: rgba(34, 197, 94, 0.1);
+      color: var(--green);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .contrast-fail {
+      background: rgba(239, 68, 68, 0.08);
+      color: var(--red);
+      border: 1px solid rgba(239, 68, 68, 0.15);
+    }
+
+    body.light-mode .contrast-pass {
+      background: #f0fdf4;
+    }
+
+    body.light-mode .contrast-fail {
+      background: #fef2f2;
+    }
+
+    /* Confetti */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      pointer-events: none;
+      display: none;
+    }
+
+    .media-thumb {
+      cursor: grab;
+    }
+
+    /* Toggles */
+
+    /* Full toggles */
+    .section {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toggles {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+
+    .toggle-row:hover {
+      border-color: var(--border-light);
+    }
+
+    .toggle-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toggle-icon {
+      font-size: 13px;
+      width: 18px;
+      text-align: center;
+    }
+
+    .toggle-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .toggle-sub {
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .switch {
+      position: relative;
+      width: 32px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .switch input {
+      display: none;
+    }
+
+    .switch-track {
+      position: absolute;
+      inset: 0;
+      background: var(--border-light);
+      border-radius: 99px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      border: 1.5px solid var(--border);
+    }
+
+    .switch-thumb {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 12px;
+      height: 12px;
+      background: #fff;
+      border-radius: 50%;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    input:checked+.switch-track {
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 0 12px rgba(255, 92, 26, 0.4);
+    }
+
+    input:checked+.switch-track+.switch-thumb {
+      transform: translateX(14px);
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .switch input:disabled+.switch-track {
+      opacity: 0.4;
+      cursor: not-allowed;
+      filter: grayscale(1);
+    }
+
+    .switch:active .switch-thumb {
+      width: 14px;
+    }
+
+    .full-note {
+      margin-top: 12px;
+      padding: 10px 12px;
+      background: rgba(245, 158, 11, 0.05);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 8px;
+      font-size: 11px;
+      line-height: 1.4;
+      color: var(--yellow);
+      display: flex;
+      gap: 8px;
+    }
+
+    .full-note span {
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* Custom File Input */
+    .file-input {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .file-input input[type=file] {
+      font-size: 100px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .stat {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 15px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: default;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    }
+
+    .stat:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--green);
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0.8px;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+
+    body.light-mode .stat {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 24px 10px;
+      box-shadow: var(--card-shadow);
+    }
+
+    body.light-mode .stat:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.12);
+    }
+
+    body.light-mode .stat-value {
+      color: #1a1b1f;
+      text-shadow: none;
+    }
+
+    body.light-mode .stat-label {
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: 0.5px;
+    }
+
+    body.light-mode .stat-dot {
+      box-shadow: 0 0 8px var(--green);
+      top: 15px;
+      right: 20px;
+    }
+
+    body.light-mode .stat-label {
+      color: #666;
+    }
+
+    /* Sub Tabs Glassmorphism */
+    .font-sub-tabs {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 20px;
+      padding: 4px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      width: fit-content;
+    }
+
+    .font-sub-tab {
+      padding: 6px 16px;
+      border-radius: 99px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: inherit;
+    }
+
+    body.light-mode .font-sub-tabs {
+      background: #f1f3f7;
+      border: 1px solid var(--border);
+      padding: 3px;
+    }
+
+    .font-sub-tab.active {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border-color: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    body.light-mode .font-sub-tab.active {
+      background: #ffffff;
+      color: #1a1b1f;
+      border: 1px solid #e2e4e9;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    body.light-mode .font-sub-tab:hover:not(.active) {
+      color: #1a1b1f;
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    .file-btn {
+
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+
+    .file-input:hover .file-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--muted);
+    }
+
+    /* Progress */
+    .progress-wrap {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: none;
+    }
+
+    .progress-wrap.visible {
+      display: block;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .progress-label {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .progress-pct {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .progress-bar {
+      height: 3px;
+      background: var(--border-light);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 99px;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .progress-files {
+      margin-top: 5px;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .btn-ghost:hover {
+      color: var(--text);
+    }
+
+    /* Paywall Overlay */
+    .paywall-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .paywall-overlay.active {
+      display: flex;
+    }
+
+    .paywall-card {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      padding: 32px;
+      width: 100%;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .paywall-tag {
+      background: rgba(232, 82, 26, 0.1);
+      color: var(--accent);
+      padding: 6px 12px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    .paywall-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .paywall-desc {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .paywall-price {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .paywall-price span {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 400;
+      text-decoration: line-through;
+      margin-left: 8px;
+    }
+
+    .btn-upgrade {
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      width: 100%;
+      display: inline-block;
+      margin-top: 10px;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-upgrade:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    /* Status */
+    #status {
+      margin: 0 16px 10px;
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 7px;
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+
+    #status.visible {
+      display: flex;
+    }
+
+    #status.info {
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--blue);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    #status.success {
+      background: rgba(34, 197, 94, 0.1);
+      color: var(--green);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    #status.error {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--red);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    /* Actions */
+    .actions {
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, #ef7f25 0%, #E8521A 100%);
+      color: #fff;
+      border: 1px solid rgba(255, 107, 53, 0.2);
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(232, 82, 26, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255, 92, 26, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+      filter: brightness(1.1);
+    }
+
+    .btn-primary:active:not(:disabled) {
+      transform: translateY(0) scale(0.98);
+      filter: brightness(0.95);
+      box-shadow: 0 2px 8px rgba(255, 92, 26, 0.2);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-secondary {
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: rgba(255, 92, 26, 0.05);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 92, 26, 0.15);
+    }
+
+    .btn-secondary:active:not(:disabled) {
+      transform: translateY(0) scale(0.98);
+      background: rgba(255, 92, 26, 0.1);
+    }
+
+    .btn-secondary:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    #btn-lite {
+      background: var(--blue);
+    }
+
+
+
+    /* Footer */
+    .footer {
+      padding: 7px 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .footer-left,
+    .footer-right {
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .spinner {
+      width: 13px;
+      height: 13px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+
+    /* Analyze & Export UI */
+    .preview-container {
+      margin-top: 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      overflow-y: auto;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 11px;
+      white-space: pre-wrap;
+      display: none;
+    }
+
+    .preview-container.visible {
+      display: block;
+    }
+
+    .export-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .btn-secondary {
+      padding: 6px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--border-light);
+      border-color: var(--muted);
+      transform: translateY(-1px);
+    }
+
+    body.light-mode .btn-secondary {
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    body.light-mode .btn-secondary:hover {
+      background: #fafafa;
+      border-color: #bbbbbb;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transform: translateY(-1px);
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+
+    .preview-title {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .mode-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border-bottom: 2px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    /* Dashboard UI */
+    .dashboard {
+      background: var(--surface);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    #section-accessibility {
+      background: #09090b; /* Pitch black foundation */
+      padding-bottom: 30px;
+      color: white;
+    }
+
+    .gauge-card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .gauge-inner-card {
+      background: #18181B;
+      border: 1px solid #27272A;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .gauge-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      letter-spacing: -0.2px;
+    }
+    .gauge-wrapper {
+      position: relative;
+      width: 120px;
+      height: 65px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .gauge-svg {
+      width: 100%;
+      height: 100%;
+    }
+    .gauge-center-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+    }
+    .gauge-val {
+      font-size: 24px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+    }
+    .gauge-status {
+      font-size: 10px;
+      font-weight: 900;
+      color: #f97316;
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      line-height: 1;
+    }
+    .gauge-legend {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 9px;
+      font-weight: 800;
+      color: #71717A;
+    }
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .acc-category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+    .acc-category-card {
+      background: #18181B;
+      border-radius: 16px;
+      border: 1px solid #27272A;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .acc-category-header {
+      background: #27272A;
+      padding: 10px 6px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: #fff;
+      border-bottom: 1px solid #3F3F46;
+      letter-spacing: 0.3px;
+    }
+    .acc-category-body {
+      padding: 12px 5px;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      min-height: 50px;
+      align-items: center;
+    }
+    .acc-stat {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 800;
+      color: #A1A1AA;
+      margin: 1px 0;
+    }
+    .acc-icon-pass {
+      color: #22C55E;
+    }
+    .acc-icon-fail {
+      color: #EF4444;
+    }
+    .acc-manual {
+      font-size: 9px;
+      font-weight: 700;
+      color: #71717A;
+      text-align: center;
+      line-height: 1.3;
+      padding: 0 8px;
+    }
+
+    .matrix-box {
+      text-align: center;
+      padding: 10px 5px;
+      background: #111;
+      border-radius: 10px;
+      border: 1px solid #1a2e21;
+      transition: all 0.2s;
+    }
+    .matrix-box div:last-child {
+      color: #22c55e;
+      margin-top: 4px;
+    }
+    .dash-tabs {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 10px;
+      flex-shrink: 0;
+    }
+
+    .dash-tab {
+      padding: 12px 15px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .dash-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .dash-content {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+    }
+
+    /* Color Swatches */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 10px;
+    }
+
+    .color-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .color-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--muted);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    body.light-mode .color-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+
+    body.light-mode .color-card:hover {
+      box-shadow: var(--card-shadow);
+      border-color: var(--accent);
+    }
+
+    .color-card.copied::after {
+      content: '✓ Copied';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      backdrop-filter: blur(2px);
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .color-preview {
+      height: 60px;
+      width: 100%;
+    }
+
+    .color-info {
+      padding: 8px;
+    }
+
+    .color-name {
+      font-size: 9px;
+      color: var(--muted);
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 60px;
+    }
+
+    .color-hex {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* Font List */
+    .font-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    body.light-mode .font-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+
+    body.light-mode .font-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .font-aa {
+      width: 45px;
+      height: 45px;
+      background: var(--surface);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    body.light-mode .font-aa {
+      background: #f8f9fa;
+      border: 1px solid #eee;
+    }
+
+    .font-info {
+      flex: 1;
+    }
+
+    .font-family {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .font-meta {
+      font-size: 10px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .font-suggest {
+      font-size: 10px;
+      color: var(--muted);
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .font-suggest a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    body.light-mode .font-suggest a {
+      color: var(--accent);
+    }
+
+    body.light-mode .font-suggest a:hover {
+      text-decoration: underline;
+    }
+
+    /* Media Grid */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px;
+    }
+
+    .media-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .media-thumb {
+      height: 100px;
+      width: 100%;
+      background-size: 32px;
+      /* Logo size */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #141416;
+      /* Pre-loader Grey Logo Background */
+      background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg' opacity='0.2'%3E%3Crect width='100' height='100' rx='24' fill='%23666666' /%3E%3Cpath d='M56 18L28 55H48L42 82L72 45H52L56 18Z' fill='%23ffffff' /%3E%3C/svg%3E");
+    }
+
+    body.light-mode .media-thumb {
+      background-color: #f1f1f4;
+      border-bottom: 1px solid #e0e0e5;
+    }
+
+    body.light-mode .media-card {
+      background: #ffffff;
+      border-color: #e0e0e5;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+    }
+
+    /* Palette Swatch Effect */
+    #overview-palette div {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+    }
+
+    #overview-palette div:hover {
+      flex: 2 !important;
+      filter: brightness(1.1);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      z-index: 10;
+    }
+
+    body.light-mode .media-card:hover {
+      border-color: #bbbbbf;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .media-dl {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 10;
+    }
+
+    .media-card:hover .media-dl {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .media-dl:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: scale(1.1) !important;
+    }
+
+    body.light-mode .media-dl {
+      background: rgba(0, 0, 0, 0.05);
+      border-color: rgba(0, 0, 0, 0.1);
+      color: #000;
+    }
+
+    body.light-mode .media-dl:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* Video Thumb */
+    .media-video-thumb {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .media-play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      background: rgba(0, 0, 0, 0.55);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+      pointer-events: none;
+    }
+
+    .media-video-thumb:hover .media-play-icon {
+      background: rgba(255, 92, 26, 0.85);
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    /* Media Type Badge */
+    .media-meta {
+      padding: 4px 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .media-type-badge {
+      font-size: 8px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .image-badge {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--blue);
+    }
+
+    .video-badge {
+      background: rgba(255, 92, 26, 0.15);
+      color: var(--accent);
+    }
+
+    body.light-mode .image-badge {
+      background: rgba(59, 130, 246, 0.1);
+      color: #2563eb;
+    }
+
+    body.light-mode .video-badge {
+      background: rgba(255, 92, 26, 0.1);
+      color: #e84a00;
+    }
+
+    /* Export Buttons Footer */
+    .dash-footer {
+      padding: 12px 15px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: var(--bg);
+      flex-shrink: 0;
+    }
+
+    .btn-export {
+      flex: 1;
+      height: 38px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: 1px solid var(--border-light);
+      background: var(--surface);
+      color: var(--text);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-export:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-color: var(--muted);
+      filter: brightness(1.05);
+    }
+
+    .btn-export:active {
+      transform: translateY(0);
+    }
+
+    body.light-mode .btn-export {
+      background: #fff;
+      border-color: #eaeaea;
+      color: #000;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    body.light-mode .btn-export:hover {
+      background: #ffffff;
+      border-color: #000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+
+    #btn-sidepanel:hover {
+      color: var(--accent) !important;
+      background: rgba(255, 92, 26, 0.1) !important;
+      border-radius: 4px;
+    }
+
+    /* --- PREMIUM DOWNLOAD LOADER (GLASSMORPHISM) --- */
+    .download-overlay {
+      position: absolute;
+      top: 135px;
+      /* Below URL row */
+      left: 0;
+      right: 0;
+      bottom: 80px;
+      /* Above actions */
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+      animation: overlayFadeIn 0.3s ease;
+    }
+
+    .download-overlay.active {
+      display: flex;
+    }
+
+    @keyframes overlayFadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .loader-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 40px 30px;
+      width: 100%;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+
+    body.light-mode .loader-card {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .loader-ring-wrapper {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin-bottom: 24px;
+    }
+
+    .loader-ring-bg {
+      position: absolute;
+      inset: 0;
+      border: 4px solid rgba(255, 92, 26, 0.05);
+      border-radius: 50%;
+    }
+
+    .loader-ring-active {
+      position: absolute;
+      inset: 0;
+      border: 4px solid transparent;
+      border-top-color: var(--accent);
+      border-right-color: var(--accent);
+      border-radius: 50%;
+      animation: spinRing 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    @keyframes spinRing {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loader-glow {
+      position: absolute;
+      inset: -10px;
+      background: var(--accent);
+      filter: blur(25px);
+      opacity: 0.15;
+      border-radius: 50%;
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+
+      0%,
+      100% {
+        opacity: 0.1;
+        transform: scale(0.9);
+      }
+
+      50% {
+        opacity: 0.25;
+        transform: scale(1.1);
+      }
+    }
+
+    .loader-center-icon {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loader-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .loader-status-text {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 24px;
+      min-height: 1.5em;
+    }
+
+    .loader-bar-bg {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    body.light-mode .loader-bar-bg {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .loader-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), #ff8c00);
+      box-shadow: 0 0 15px var(--accent);
+      border-radius: 99px;
+      transition: width 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+    }
+
+    .loader-percent {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--text);
+      font-family: 'Geist', monospace;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-wrapper">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="logo-grad" x1="0" y1="0" x2="100" y2="100">
+                <stop offset="0%" stop-color="#FF7A00" />
+                <stop offset="100%" stop-color="#FF3D00" />
+              </linearGradient>
+            </defs>
+            <rect width="100" height="100" rx="24" fill="url(#logo-grad)" />
+            <circle cx="50" cy="50" r="32" fill="white" fill-opacity="0.15" />
+            <path d="M56 18L28 55H48L42 82L72 45H52L56 18Z" fill="white" />
+          </svg>
+        </div>
+        <span class="logo-name">ZipIt</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <button id="btn-refresh" title="Refresh Page Context"
+          style="background:none; border:none; cursor:pointer; color:var(--muted); padding:4px; display:flex;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3" />
+          </svg>
+        </button>
+
+        <button id="btn-theme" title="Toggle Theme"
+          style="background:none; border:none; cursor:pointer; color:var(--muted); padding:4px; display:flex;">
+          <svg id="theme-icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" style="display:none;">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg id="theme-icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <button id="btn-sidepanel" title="Pin to Sidebar"
+          style="background:none; border:none; cursor:pointer; color:var(--muted); padding:4px; display:flex;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <line x1="9" y1="3" x2="9" y2="21" />
+          </svg>
+        </button>
+        <span style="font-size:10px;color:var(--muted);">v1.3</span>
+      </div>
+    </div>
+
+    <div class="url-row">
+      <div class="section-title" style="margin-bottom: 0;">Target Website</div>
+      <div style="display: flex; align-items: center; gap: 8px; width: 100%;">
+        <div class="url-dot" id="url-dot"></div>
+        <div id="current-url"
+          style="font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1;">
+          Loading tab...</div>
+        <button title="Refresh Page Context"
+          style="background:none; border:none; cursor:pointer; color:var(--muted); padding:4px; display:flex;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mode Tabs -->
+    <div class="mode-tabs">
+      <button class="mode-tab active" id="tab-full">
+        <div class="mode-tab-name">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          Full
+        </div>
+        <div class="mode-tab-desc">Offline Bundle</div>
+        <span class="mode-pill pill-full">PRO</span>
+      </button>
+      <button class="mode-tab" id="tab-design">
+        <div class="mode-tab-name">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <path d="M12 2L2 7l10 5l10-5l-10-5zM2 17l10 5l10-5M2 12l10 5l10-5" />
+          </svg>
+          Design
+        </div>
+        <div class="mode-tab-desc">Extract Tokens</div>
+        <span class="mode-pill pill-design">UI</span>
+      </button>
+      <button class="mode-tab" id="tab-inspect">
+        <div class="mode-tab-name">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="22" y1="12" x2="18" y2="12" />
+            <line x1="6" y1="12" x2="2" />
+            <line x1="12" y1="6" x2="12" y2="2" />
+            <line x1="12" y1="22" x2="12" y2="18" />
+          </svg>
+          Inspect
+        </div>
+        <div class="mode-tab-desc">Analyze DOM</div>
+        <span class="mode-pill pill-beta">BETA</span>
+      </button>
+    </div>
+
+    <!-- Mode Panels -->
+    <div class="dashboard" style="overflow: hidden; display: flex; flex-direction: column; flex: 1;">
+
+      <!-- FULL PANEL -->
+      <div class="mode-panel active" id="panel-full" style="padding: 0;">
+        <div class="section">
+          <div class="section-title">ASSETS TO BUNDLE</div>
+          <div class="toggles">
+            <!-- HTML (Always) -->
+            <div class="toggle-row" title="Core HTML structure (Always included)">
+              <div class="toggle-left">
+                <span class="toggle-icon">📄</span>
+                <div>
+                  <div class="toggle-label">HTML</div>
+                  <div class="toggle-sub">Always included</div>
+                </div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" checked disabled>
+                <div class="switch-track"></div>
+                <div class="switch-thumb"></div>
+              </label>
+            </div>
+
+            <!-- CSS -->
+            <div class="toggle-row" title="Stylesheets and inline CSS blocks">
+              <div class="toggle-left">
+                <span class="toggle-icon">🎨</span>
+                <div>
+                  <div class="toggle-label">CSS</div>
+                  <div class="toggle-sub">Stylesheets + url() rewrite</div>
+                </div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="full-css" checked>
+                <div class="switch-track"></div>
+                <div class="switch-thumb"></div>
+              </label>
+            </div>
+
+            <!-- JS -->
+            <div class="toggle-row" title="Required scripts for interactivity">
+              <div class="toggle-left">
+                <span class="toggle-icon">⚙️</span>
+                <div>
+                  <div class="toggle-label">JavaScript</div>
+                  <div class="toggle-sub">All scripts</div>
+                </div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="full-js" checked>
+                <div class="switch-track"></div>
+                <div class="switch-thumb"></div>
+              </label>
+            </div>
+
+            <!-- Images -->
+            <div class="toggle-row" title="PNG, JPG, SVG, WebP, GIF">
+              <div class="toggle-left">
+                <span class="toggle-icon">🖼️</span>
+                <div>
+                  <div class="toggle-label">Images</div>
+                  <div class="toggle-sub">PNG, JPG, SVG, WebP, GIF</div>
+                </div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="full-img" checked>
+                <div class="switch-track"></div>
+                <div class="switch-thumb"></div>
+              </label>
+            </div>
+
+            <!-- Fonts -->
+            <div class="toggle-row" title="woff2, woff, ttf, otf">
+              <div class="toggle-left">
+                <span class="toggle-icon">🔤</span>
+                <div>
+                  <div class="toggle-label">Fonts</div>
+                  <div class="toggle-sub">woff2, woff, ttf, otf</div>
+                </div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="full-fonts" checked>
+                <div class="switch-track"></div>
+                <div class="switch-thumb"></div>
+              </label>
+            </div>
+
+            <!-- Media -->
+            <div class="toggle-row" title="Video, audio, JSON">
+              <div class="toggle-left">
+                <span class="toggle-icon">🎬</span>
+                <div>
+                  <div class="toggle-label">Media</div>
+                  <div class="toggle-sub">Video, audio, JSON</div>
+                </div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="full-media">
+                <div class="switch-track"></div>
+                <div class="switch-thumb"></div>
+              </label>
+            </div>
+          </div>
+
+          <div class="full-note">
+            <span>⚠️</span>
+            <div>Full mode rewrites ALL paths in HTML & CSS so the page opens offline from the ZIP with no CDN needed.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESIGN PANEL -->
+      <div class="mode-panel" id="panel-analysis">
+        <div class="dashboard">
+          <div class="dash-tabs">
+            <div class="dash-tab active" data-tab="overview">Overview</div>
+            <div class="dash-tab" data-tab="accessibility">Accessibility</div>
+            <div class="dash-tab" data-tab="colors">Colors</div>
+            <div class="dash-tab" data-tab="fonts">Fonts</div>
+            <div class="dash-tab" data-tab="media">Media</div>
+          </div>
+
+          <div class="dash-content" id="dash-scroll" style="position:relative; padding: 15px;">
+            <!-- Loader -->
+            <div id="design-loader"
+              style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--surface); z-index:50;">
+              <div class="spinner" style="margin-bottom:12px; width:24px; height:24px; border-width:3px;"></div>
+              <div style="font-size:12px; color:var(--text); font-weight:600;">Extracting Design...</div>
+              <div style="font-size:10px; color:var(--muted); margin-top:4px;">Scanning fonts, colors & media</div>
+            </div>
+
+            <div id="design-content-wrap" style="opacity:0; transition:opacity 0.3s ease;">
+              <!-- Design content stays same -->
+              <div id="design-empty-state" style="display:none; text-align:center; padding:80px 20px;">
+                <div style="font-size:32px; margin-bottom:10px; opacity:0.6;">🎨</div>
+                <div style="font-size:14px; font-weight:600; color:var(--text); margin-bottom:4px;">No Design Data Found
+                </div>
+                <div style="font-size:11px; color:var(--muted);">There are no CSS styles, fonts, or media on this page.
+                </div>
+              </div>
+              <div class="dash-section" id="section-overview">
+                <!-- Overview Content -->
+                <div
+                  style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 16px; position: relative;">
+                  <div
+                    style="background: var(--bg); height: 170px; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer;"
+                    id="overview-screenshot-wrap">
+                    <img id="overview-screenshot-img" src="" alt="Page Preview"
+                      style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: none;">
+                    <div id="overview-screenshot-loader"
+                      style="display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--muted);">
+                      <div class="spinner" style="width: 18px; height: 18px; border-width: 2px;"></div>
+                      <div style="font-size: 11px;">Capturing preview...</div>
+                    </div>
+                  </div>
+                  <div style="padding: 10px 14px; display: flex; align-items: center; gap: 10px;">
+                    <div id="overview-favicon"
+                      style="width: 20px; height: 20px; border-radius: 4px; background: var(--accent); font-size: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                      <img id="overview-favicon-img" src="" alt=""
+                        style="width: 100%; height: 100%; object-fit: contain; display: none;">
+                      <span id="overview-favicon-letter" style="font-weight: 700; color: white;">?</span>
+                    </div>
+                    <div>
+                      <div id="overview-site-title" style="font-size: 13px; font-weight: 700; color: var(--text);">Page
+                        Title</div>
+                      <div id="overview-site-domain" style="font-size: 10px; color: var(--blue);">domain.com</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Stats grid -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px;">
+                  <div class="stat" data-tab="colors">
+                    <div class="stat-value" id="dash-stat-colors">0</div>
+                    <div class="stat-label">Colors</div>
+                  </div>
+                  <div class="stat" data-tab="fonts">
+                    <div class="stat-value" id="dash-stat-fonts">0</div>
+                    <div class="stat-label">Fonts</div>
+                  </div>
+                  <div class="stat" data-tab="media">
+                    <div class="stat-value" id="dash-stat-media">0</div>
+                    <div class="stat-label">Media</div>
+                  </div>
+                </div>
+
+                <!-- Accessibility Glimpse -->
+                <div id="overview-accessibility-glimpse" 
+                  style="background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 12px; padding: 15px; margin-bottom: 24px; cursor: pointer; transition: all 0.2s;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                    <div style="font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;">Accessibility Score</div>
+                    <div style="font-size: 18px; font-weight: 800; color: var(--yellow);" id="glimpse-accessibility-score">74 / 100</div>
+                  </div>
+                  <div style="font-size: 11px; color: var(--muted);">Click to see contrast issues and missing alt text</div>
+                </div>
+
+                <div class="section-title">Site Palette</div>
+                <div id="overview-palette"
+                  style="display: flex; height: 60px; border-radius: 8px; overflow: hidden; margin-top: 10px;"></div>
+              </div>
+
+              <!-- Accessibility Section -->
+              <div class="dash-section" id="section-accessibility" style="display:none;">
+                <div style="padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; background: #121214; border-bottom: 1px solid #27272A;">
+                  <div style="font-size: 10px; font-weight: 900; color: #71717A; text-transform: uppercase; letter-spacing: 1px;">Audit Standard</div>
+                  <select id="select-wcag-level" style="background: #000; border: 1px solid #3F3F46; color: white; font-size: 11px; font-weight: 800; padding: 6px 12px; border-radius: 8px; outline: none; cursor: pointer; appearance: none; text-align: center;">
+                    <option value="2.0-A">WCAG 2.0 A</option>
+                    <option value="2.0-AA">WCAG 2.0 AA</option>
+                    <option value="2.1-A">WCAG 2.1 A</option>
+                    <option value="2.1-AA" selected>WCAG 2.1 AA</option>
+                    <option value="2.1-AAA">WCAG 2.1 AAA</option>
+                  </select>
+                </div>
+
+                <div style="padding: 20px;">
+                  <div class="gauge-card-grid">
+                    <!-- Score Gauge -->
+                    <div class="gauge-inner-card">
+                      <div class="gauge-title">Accessibility Score <span style="opacity:0.4; cursor:help;">ⓘ</span></div>
+                      <div class="gauge-wrapper">
+                        <svg viewBox="0 0 100 50" class="gauge-svg">
+                          <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#27272A" stroke-width="12" stroke-linecap="round"/>
+                          <path id="gauge-score-path" d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#22C55E" stroke-width="12" stroke-linecap="round" stroke-dasharray="126" stroke-dashoffset="126"/>
+                        </svg>
+                        <div class="gauge-center-content">
+                          <div class="gauge-val" id="acc-score-percent">0%</div>
+                          <div class="gauge-status" id="acc-score-status">Pending</div>
+                        </div>
+                      </div>
+                      <p style="font-size: 8px; color: #71717A; margin-top: 15px; line-height: 1.4; padding: 0 5px;">
+                        Automated score has limitations, <a href="#" style="color:#60A5FA; text-decoration: none; font-weight: 700;">learn more</a>
+                      </p>
+                    </div>
+
+                    <!-- WCAG Gauge -->
+                    <div class="gauge-inner-card">
+                      <div class="gauge-title">WCAG Compliance</div>
+                      <div class="gauge-wrapper">
+                        <svg viewBox="0 0 100 50" class="gauge-svg">
+                          <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#27272A" stroke-width="12" stroke-linecap="round"/>
+                          <path id="gauge-wcag-path" d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#EF4444" stroke-width="12" stroke-linecap="round" stroke-dasharray="126" stroke-dashoffset="126"/>
+                        </svg>
+                        <div class="gauge-center-content">
+                          <div class="gauge-val" id="acc-fail-count">0</div>
+                          <div class="gauge-status" style="color:#EF4444; font-weight: 900;">Failures</div>
+                        </div>
+                      </div>
+                      <div class="gauge-legend">
+                        <div class="legend-item"><span class="legend-dot" style="background:#52525B;"></span> A</div>
+                        <div class="legend-item"><span class="legend-dot" style="background:#71717A;"></span> AA</div>
+                        <div class="legend-item"><span class="legend-dot" style="background:#A1A1AA;"></span> AAA</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Category Grid -->
+                  <div class="acc-category-grid" id="acc-category-grid">
+                    <!-- Dynamic Categories -->
+                    <div class="acc-category-card">
+                      <div class="acc-category-header">Readability</div>
+                      <div class="acc-category-body" id="cat-readability">---</div>
+                    </div>
+                    <div class="acc-category-card">
+                      <div class="acc-category-header">Titles</div>
+                      <div class="acc-category-body" id="cat-titles">---</div>
+                    </div>
+                    <div class="acc-category-card">
+                      <div class="acc-category-header">General</div>
+                      <div class="acc-category-body" id="cat-general">---</div>
+                    </div>
+                    <div class="acc-category-card">
+                      <div class="acc-category-header">Clickables</div>
+                      <div class="acc-category-body" id="cat-clickables">---</div>
+                    </div>
+                    <div class="acc-category-card">
+                      <div class="acc-category-header">Graphics</div>
+                      <div class="acc-category-body" id="cat-graphics">---</div>
+                    </div>
+                    <div class="acc-category-card">
+                      <div class="acc-category-header">Document</div>
+                      <div class="acc-category-body" id="cat-document">---</div>
+                    </div>
+                    <div class="acc-category-card">
+                      <div class="acc-category-header">Forms</div>
+                      <div class="acc-category-body" id="cat-forms">---</div>
+                    </div>
+                    <div class="acc-category-card">
+                      <div class="acc-category-header">Lists</div>
+                      <div class="acc-category-body"><div class="acc-manual">Manual Audit Required</div></div>
+                    </div>
+                    <div class="acc-category-card">
+                      <div class="acc-category-header">Tables</div>
+                      <div class="acc-category-body"><div class="acc-manual">Manual Audit Required</div></div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div id="accessibility-issues-container" style="margin-top: 25px;">
+                  <!-- Issues will be injected here -->
+                </div>
+
+
+
+                <!-- Issue: Pro Contrast Checker -->
+                <div style="background: #18181B; border-radius: 16px; padding: 20px; margin-top: 25px; margin-bottom: 20px; color: white;">
+                  <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 25px;">
+                     <div style="background: #27272A; color: white; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px;">🎨</div>
+                     <div style="font-size: 16px; font-weight: 800; letter-spacing: -0.5px;">Color contrast checker</div>
+                  </div>
+
+                  <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+                    <div style="flex: 1; padding: 15px; background: #000; border-radius: 12px; border: 1px solid #27272A;">
+                       <div style="font-size: 9px; color: #71717A; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;">Foreground</div>
+                       <div style="display: flex; align-items: center; gap: 12px;">
+                         <div style="position: relative; width: 24px; height: 24px; border-radius: 4px; border: 1px solid #3F3F46; overflow: hidden;">
+                           <input type="color" id="contrast-fg-picker" value="#000000" style="position: absolute; top: -5px; left: -5px; width: 40px; height: 40px; border: none; padding: 0; background: none; cursor: pointer;">
+                         </div>
+                         <input type="text" id="contrast-fg-hex" value="#000000" style="width: 100%; border: none; background: none; color: white; font-size: 16px; font-weight: 900; outline: none; text-transform: uppercase; font-family: monospace;">
+                       </div>
+                    </div>
+                    <div style="flex: 1; padding: 15px; background: #000; border-radius: 12px; border: 1px solid #27272A;">
+                       <div style="font-size: 9px; color: #71717A; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;">Background</div>
+                       <div style="display: flex; align-items: center; gap: 12px;">
+                         <div style="position: relative; width: 24px; height: 24px; border-radius: 4px; border: 1px solid #3F3F46; overflow: hidden;">
+                           <input type="color" id="contrast-bg-picker" value="#ffffff" style="position: absolute; top: -5px; left: -5px; width: 40px; height: 40px; border: none; padding: 0; background: none; cursor: pointer;">
+                         </div>
+                         <input type="text" id="contrast-bg-hex" value="#ffffff" style="width: 100%; border: none; background: none; color: white; font-size: 16px; font-weight: 900; outline: none; text-transform: uppercase; font-family: monospace;">
+                       </div>
+                    </div>
+                  </div>
+
+                  <div id="manual-contrast-result-box" style="background: #DCFCE7; border-radius: 16px; padding: 25px; margin-bottom: 20px; transition: all 0.3s; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
+                     <div style="display: flex; align-items: baseline; gap: 8px;">
+                        <span style="font-size: 42px; font-weight: 900; color: #166534; line-height: 1;" id="manual-contrast-ratio">21.0</span>
+                        <span style="font-size: 16px; font-weight: 700; color: #166534; opacity: 0.7;">: 1 Ratio</span>
+                        <span style="margin-left: auto; font-size: 14px; font-weight: 900; color: #166534;" id="manual-contrast-status">PASS ✓</span>
+                     </div>
+                  </div>
+
+                  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                    <div class="matrix-box" id="matrix-normal">
+                       <div style="font-size: 9px; color: #71717A; font-weight: 700; text-transform: uppercase;">Normal</div>
+                       <div style="font-size: 11px; font-weight: 800; letter-spacing: 0.5px;">AA ✓ AAA ✓</div>
+                    </div>
+                    <div class="matrix-box" id="matrix-large">
+                       <div style="font-size: 9px; color: #71717A; font-weight: 700; text-transform: uppercase;">Large</div>
+                       <div style="font-size: 11px; font-weight: 800; letter-spacing: 0.5px;">AA ✓ AAA ✓</div>
+                    </div>
+                    <div class="matrix-box" id="matrix-graphics">
+                       <div style="font-size: 9px; color: #71717A; font-weight: 700; text-transform: uppercase;">Graphics</div>
+                       <div style="font-size: 11px; font-weight: 800; letter-spacing: 0.5px;">AA ✓</div>
+                    </div>
+                  </div>
+                <!-- NEW: Focus Order Feature -->
+                <div style="background: #18181B; border: 1px solid #27272A; border-radius: 16px; padding: 20px; margin-top: 25px; margin-bottom: 20px; color: white;">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                       <div style="background: rgba(59, 130, 246, 0.1); color: var(--blue); width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800;">🔗</div>
+                       <div style="font-size: 14px; font-weight: 700;">Focus Order Map</div>
+                    </div>
+                    <span class="mode-pill pill-beta">VISUAL</span>
+                  </div>
+                  <div style="font-size: 11px; color: var(--muted); margin-bottom: 15px; line-height: 1.5;">
+                    Verify that keyboard users move through your site in a logical sequence.
+                  </div>
+                  <button id="btn-show-focus-order" style="width: 100%; padding: 12px; font-size: 13px; font-weight: 800; background: #3B82F6; color: white; border: none; border-radius: 99px; cursor: pointer; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); transition: all 0.2s ease; text-transform: none; letter-spacing: 0.2px;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 6px 20px rgba(59, 130, 246, 0.5)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(59, 130, 246, 0.4)'">
+                    Visualize Tab Sequence
+                  </button>
+                </div>
+
+                <div style="text-align: center; padding: 25px 0 20px 0;">
+                  <button id="btn-download-accessibility-report" style="background: transparent; border: 1.5px solid #f97316; color: #f97316; padding: 10px 24px; font-size: 11px; font-weight: 800; border-radius: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: all 0.2s ease; text-transform: uppercase; letter-spacing: 0.5px;" onmouseover="this.style.background='rgba(249, 115, 22, 0.1)'" onmouseout="this.style.background='transparent'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="7 10 12 15 17 10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download Full Audit Report (.txt)
+                  </button>
+                </div>
+
+              </div>
+              <!-- Other design sections -->
+              <div class="dash-section" id="section-colors" style="display:none;">
+                <div class="color-grid" id="grid-colors"></div>
+              </div>
+              <div class="dash-section" id="section-fonts" style="display:none;">
+                <div class="font-sub-tabs"><button class="font-sub-tab active"
+                    data-sub="families">Families</button><button class="font-sub-tab" data-sub="scale">Scale</button>
+                </div>
+                <div id="sub-section-families">
+                  <div id="list-fonts"></div>
+                </div>
+                <div id="sub-section-scale" style="display:none;">
+                  <div
+                    style="display: flex; justify-content: space-between; align-items: center; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin-bottom: 12px;">
+                    <div>
+                      <div style="font-size: 9px; color: var(--muted); text-transform: uppercase;">Growth Factor</div>
+                      <div id="typescale-factor" style="font-size: 16px; font-weight: 800; color: var(--accent);">1.250
+                      </div>
+                    </div>
+                    <div style="text-align: right;">
+                      <div style="font-size: 9px; color: var(--muted); text-transform: uppercase;">Base Size (p)</div>
+                      <div id="typescale-base" style="font-size: 16px; font-weight: 800; color: var(--text);">16px</div>
+                    </div>
+                  </div>
+                  <!-- Scale Adjustment -->
+                  <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+                    <select id="select-standard-scale" style="
+                      flex: 1; background: var(--bg); border: 1px solid var(--border);
+                      border-radius: 6px; padding: 6px 10px; color: var(--text);
+                      font-size: 11px; font-weight: 500; appearance: none;
+                    ">
+                      <option value="1.067">Minor Second (1.067)</option>
+                      <option value="1.125">Major Second (1.125)</option>
+                      <option value="1.200">Minor Third (1.200)</option>
+                      <option value="1.250" selected>Major Third (1.250)</option>
+                      <option value="1.333">Perfect Fourth (1.333)</option>
+                      <option value="1.414">Augmented Fourth (1.414)</option>
+                      <option value="1.500">Perfect Fifth (1.500)</option>
+                      <option value="1.618">Golden Ratio (1.618)</option>
+                    </select>
+                    <button class="btn-primary" id="btn-apply-scale"
+                      style="width: auto; padding: 6px 14px; font-size: 11px;">Apply</button>
+                  </div>
+                  <div id="list-typescale" class="typo-scale"></div>
+                </div>
+              </div>
+              <div class="dash-section" id="section-media" style="display:none;">
+                <div class="media-grid" id="grid-media"></div>
+              </div>
+            </div>
+          </div>
+          <div class="dash-footer">
+            <div
+              style="font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;">
+              Export Options</div>
+            <div style="display: flex; gap: 10px;">
+              <button class="btn-export" id="btn-export-tailwind">Tailwind</button>
+              <button class="btn-export" id="btn-export-css-full">CSS</button>
+              <button class="btn-export" id="btn-export-json">JSON</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INSPECT PANEL -->
+      <div class="mode-panel" id="panel-inspect">
+        <div style="padding: 16px; text-align: center; border-bottom: 1px solid var(--border);">
+          <label style="display:inline-flex; align-items:center; gap:12px; cursor:pointer;">
+            <div class="switch"><input type="checkbox" id="toggle-inspect-mode">
+              <div class="switch-track"></div>
+              <div class="switch-thumb"></div>
+            </div>
+            <span style="font-weight: 600; font-size: 14px;">Inspect Mode</span>
+          </label>
+        </div>
+        <div id="inspector-content" style="padding: 16px;">
+          <div id="inspector-idle" style="text-align: center; padding: 40px 20px; color: var(--muted);">
+            <div style="font-size: 32px; margin-bottom: 10px;">🖱️</div>
+            <div style="font-size: 13px; font-weight: 600; color:var(--text);">Hover over an element</div>
+          </div>
+          <div id="inspector-data" style="display:none; flex-direction: column; gap: 15px;">
+            <div id="inspector-tabs"
+              style="display: flex; border-bottom: 1px solid var(--border-light); margin-bottom: 15px;">
+              <div class="dash-tab active" id="inspect-tab-style"
+                style="flex: 1; text-align: center; padding: 8px; font-size: 11px; cursor: pointer;">Style</div>
+              <div class="dash-tab" id="inspect-tab-media"
+                style="flex: 1; text-align: center; padding: 8px; font-size: 11px; cursor: pointer; display: none;">
+                Media</div>
+            </div>
+
+            <div id="inspector-tag" style="font-size: 16px; font-weight: 700;"></div>
+            <div id="inspector-selector"
+              style="font-size: 11px; font-family: monospace; background: rgba(59, 130, 246, 0.1); color: var(--blue); padding: 4px; border-radius: 4px;">
+            </div>
+
+            <div id="inspector-styles"></div>
+
+            <div id="inspector-media"
+              style="display: none; flex-direction: column; align-items: center; gap: 10px; padding: 10px; background: var(--surface); border-radius: 8px;">
+              <div
+                style="width: 100%; height: 120px; display: flex; align-items: center; justify-content: center; background: #000; border-radius: 4px; overflow: hidden;">
+                <img id="inspector-media-img" src="" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+              </div>
+              <div style="display: flex; width: 100%; justify-content: space-between; align-items: center;">
+                <span id="inspector-media-dim" style="font-size: 10px; color: var(--muted); font-weight: 600;"></span>
+                <button class="btn-primary" id="btn-download-inspector-media"
+                  style="width: auto; padding: 4px 10px; font-size: 10px;">Download</button>
+              </div>
+            </div>
+
+            <div id="inspector-style-actions" style="display: flex; gap: 10px; margin-top: 10px;">
+              <button class="btn-primary" id="btn-export-inspector" style="flex: 1.2;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span id="text-export-inspector">Export Component</span>
+                <span
+                  style="font-size:7px; background:rgba(255,255,255,0.2); color:white; padding:0px 4px; border-radius:3px; margin-left:4px; font-weight:800; vertical-align:middle;">BETA</span>
+              </button>
+              <button class="btn-secondary" id="btn-copy-figma" style="flex: 1;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                  </path>
+                </svg>
+                <span id="text-copy-figma">Copy Figma Layers</span>
+                <span
+                  style="font-size:7px; background:var(--accent); color:white; padding:0px 4px; border-radius:3px; margin-left:4px; font-weight:800; vertical-align:middle;">BETA</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress UI -->
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-header">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div class="spinner" style="width:12px; height:12px; border-width:2px;"></div>
+          <span class="progress-label" id="progress-label">Preparing...</span>
+        </div>
+        <span class="progress-pct" id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-files" id="progress-files"></div>
+    </div>
+
+    <!-- Status -->
+    <div id="status"></div>
+
+    <!-- Main CTA -->
+    <div class="actions">
+      <button class="btn-primary" id="btn-full" disabled>
+        <svg id="icon-full" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+        <span id="text-full">Download Whole Website</span>
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <span class="footer-left" id="footer-left">Ready</span>
+      <span class="footer-right">ZipIt v1.3</span>
+    </div>
+
+    <!-- COLOR DETAIL POPUP -->
+    <div id="color-detail-popup" style="
+      display: none; position: absolute; inset: 0; z-index: 300;
+      background: rgba(0,0,0,0.45); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 16px;
+    ">
+      <div style="
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 16px; overflow: hidden; width: 100%;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        animation: popupIn 0.2s cubic-bezier(0.34,1.56,0.64,1);
+        position: relative;
+      ">
+        <!-- Copy toast -->
+        <div id="color-copy-toast" style="
+          display: none; position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+          background: rgba(0,0,0,0.75); color: #fff; font-size: 11px; font-weight: 600;
+          padding: 5px 12px; border-radius: 20px; white-space: nowrap; z-index: 10;
+          pointer-events: none;
+        ">✓ Copied!</div>
+
+        <div id="color-popup-swatch"
+          style="height: 100px; display: flex; align-items: center; justify-content: center; position: relative;">
+          <span id="color-popup-hex-hero" style="font-size: 22px; font-weight: 800; letter-spacing: 1px;"></span>
+        </div>
+        <div
+          style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border-top: 1px solid var(--border);">
+          <div class="color-fmt-cell" id="cfmt-hex">
+            <div class="cfmt-label">HEX</div>
+            <div class="cfmt-val" id="cfmt-hex-val"></div>
+          </div>
+          <div class="color-fmt-cell" id="cfmt-rgb">
+            <div class="cfmt-label">RGB</div>
+            <div class="cfmt-val" id="cfmt-rgb-val"></div>
+          </div>
+          <div class="color-fmt-cell" id="cfmt-hsl">
+            <div class="cfmt-label">HSL</div>
+            <div class="cfmt-val" id="cfmt-hsl-val"></div>
+          </div>
+          <div class="color-fmt-cell" id="cfmt-cssvar">
+            <div class="cfmt-label">CSS VAR</div>
+            <div class="cfmt-val" id="cfmt-cssvar-val"></div>
+          </div>
+          <div class="color-fmt-cell" id="cfmt-twbg">
+            <div class="cfmt-label">TAILWIND BG</div>
+            <div class="cfmt-val" id="cfmt-twbg-val"></div>
+          </div>
+          <div class="color-fmt-cell" id="cfmt-twtxt">
+            <div class="cfmt-label">TAILWIND TEXT</div>
+            <div class="cfmt-val" id="cfmt-twtxt-val"></div>
+          </div>
+        </div>
+        <div
+          style="padding: 10px 14px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+          <div style="font-size: 11px; color: var(--muted);">Click any cell to copy</div>
+          <button id="btn-close-color-popup"
+            style="padding: 5px 12px; font-size: 11px; font-weight: 600; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; cursor: pointer; color: var(--text);">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      @keyframes popupIn {
+        from {
+          transform: scale(0.88);
+          opacity: 0;
+        }
+
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .color-fmt-cell {
+        background: var(--surface);
+        padding: 10px 12px;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+
+      .color-fmt-cell:hover {
+        background: var(--bg);
+      }
+
+      .cfmt-label {
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 3px;
+      }
+
+      .cfmt-val {
+        font-size: 11px;
+        font-family: monospace;
+        color: var(--text);
+        font-weight: 600;
+        word-break: break-all;
+      }
+    </style>
+
+    <!-- PREMIUM LOADER OVERLAY -->
+    <div id="download-overlay" class="download-overlay">
+      <div class="loader-card">
+        <div class="loader-ring-wrapper">
+          <div class="loader-glow"></div>
+          <div class="loader-ring-bg"></div>
+          <div class="loader-ring-active"></div>
+          <div class="loader-center-icon">
+            <svg width="34" height="34" viewBox="0 0 100 100" fill="none">
+              <path d="M55 15L25 55H45L40 85L75 45H55L55 15Z" fill="var(--accent)" />
+            </svg>
+          </div>
+        </div>
+        <div class="loader-title">Bundling Site</div>
+        <div class="loader-status-text" id="loader-status-text">Scanning assets...</div>
+
+        <div class="loader-bar-bg">
+          <div class="loader-bar-fill" id="loader-bar-fill"></div>
+        </div>
+        <div class="loader-percent" id="loader-percent">0%</div>
+      </div>
+    </div>
+
+    <!-- Empty State Overlay for Invalid URLs -->
+    <div id="invalid-page-overlay"
+      style="display:none; position:absolute; top:52px; left:0; right:0; bottom:0; background:var(--bg); z-index:200; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20px;">
+      <div style="font-size:40px; margin-bottom:12px; filter:grayscale(1); opacity:0.8;">🌐</div>
+      <div style="font-size:16px; font-weight:700; color:var(--text); margin-bottom:4px;">No Webpage Detected</div>
+      <div style="font-size:12px; color:var(--muted); max-width:260px; line-height:1.6;">Open a valid tab (http or
+        https) to use the ZipIt tool. It cannot analyze browser settings pages or empty tabs.</div>
+    </div>
+
+  </div> <!-- End main-wrapper -->
+
+  <div class="paywall-overlay" id="paywall-overlay">
+    <div class="paywall-card">
+      <div class="paywall-tag">Limit Reached</div>
+      <h2 class="paywall-title">You've hit the limit.</h2>
+      <p class="paywall-desc">You've used all 10 free extractions. To continue capturing production-ready code and
+        assets, grab our lifetime deal.</p>
+
+      <div class="paywall-price">$25 <span>$99</span></div>
+      <p style="font-size: 12px; color: var(--muted); margin-bottom: 24px;">One-time payment. Lifetime updates
+        included.
+      </p>
+
+      <button id="btn-upgrade-lifetime" class="btn-upgrade">Upgrade to Lifetime</button>
+      <button id="btn-show-license"
+        style="background: none; border: none; color: var(--muted); font-size: 11px; margin-top: 16px; cursor: pointer; text-decoration: underline;">Already
+        purchased? (Enter License Key)</button>
+    </div>
+  </div>
+
+  <!-- License Key Overlay -->
+  <div class="paywall-overlay" id="license-overlay">
+    <div class="paywall-card">
+      <div class="paywall-tag" style="background: rgba(59, 130, 246, 0.1); color: var(--blue);">Restore Access</div>
+      <h2 class="paywall-title">Enter License Key</h2>
+      <p class="paywall-desc">Enter your ZipIt license key to unlock unlimited downloads and design captures.</p>
+
+      <div style="margin-bottom: 20px;">
+        <input type="text" id="license-key-input" placeholder="ZIPIT-PRO-XXXX"
+          style="width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px; color: var(--text); font-family: 'Courier New', monospace; font-size: 13px; text-align: center; outline: none; transition: border-color 0.2s;">
+        <div id="license-error" style="color: var(--red); font-size: 11px; margin-top: 8px; display: none;">Invalid
+          license key. Please check and try again.</div>
+      </div>
+
+      <button id="btn-submit-license" class="btn-upgrade" style="background: var(--blue);">Activate License</button>
+      <button id="btn-cancel-license"
+        style="background: none; border: none; color: var(--muted); font-size: 11px; margin-top: 16px; cursor: pointer; text-decoration: underline;">Back
+        to Pricing</button>
+    </div>
+  </div>
+
+  <script src="jszip_min.js"></script>
+  <script src="popup.js"></script>
+</body>
+
+</html>
+```

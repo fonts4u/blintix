@@ -1,0 +1,38 @@
+{
+    "manifest_version": 3,
+    "name": "ZipIt - Website to ZIP",
+    "version": "1.3",
+    "description": "Download any website as a ZIP file instantly.",
+    "icons": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    },
+    "permissions": [
+        "activeTab",
+        "downloads",
+        "tabs",
+        "scripting",
+        "sidePanel",
+        "storage",
+        "clipboardWrite"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "side_panel": {
+        "default_path": "popup.html"
+    },
+    "action": {
+        "default_title": "Open ZipIt Side Panel",
+        "default_icon": {
+            "16": "icons/icon16.png",
+            "48": "icons/icon48.png",
+            "128": "icons/icon128.png"
+        }
+    },
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "homepage_url": "https://zipit.blintix.store/"
+}

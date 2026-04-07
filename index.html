@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blintix — Independent Product Studio & MicroSaaS Development Lab</title>
+    <meta name="description"
+        content="Blintix is a premier independent product studio building focused digital tools, VPNs, and MicroSaaS utilities optimized for speed, privacy, and performance.">
+
+    <!-- Canonical & Hreflang URLs -->
+    <link rel="canonical" href="https://blintix.store/">
+    <link rel="alternate" hreflang="en" href="https://blintix.store/" />
+    <link rel="alternate" hreflang="x-default" href="https://blintix.store/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://blintix.store/">
+    <meta property="og:title" content="Blintix — Independent Product Studio & MicroSaaS Lab">
+    <meta property="og:description"
+        content="Blintix is an independent product studio crafting focused digital tools designed for speed and privacy.">
+    <meta property="og:image" content="https://blintix.store/og-image.png?v=1">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://blintix.store/">
+    <meta name="twitter:title" content="Blintix — Independent Product Studio & MicroSaaS Lab">
+    <meta name="twitter:description"
+        content="Blintix is an independent product studio crafting focused digital tools designed for speed and privacy.">
+    <meta name="twitter:image" content="https://blintix.store/og-image.png?v=1">
+
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Blintix Studio",
+      "url": "https://blintix.store/",
+      "logo": "https://blintix.store/favicon.png",
+      "description": "Blintix is a product studio crafting focused digital tools designed for speed, privacy, and simplicity."
+    }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png?v=5">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png?v=5">
+    <link rel="apple-touch-icon" href="/favicon.png?v=5">
+
+    <!-- Motion (Framer Motion for Vanilla JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js" defer></script>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo2.png?v=1.3" alt="Blintix Logo">
+            </a>
+
+            <button class="mobile-menu-toggle" aria-label="Toggle Menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+
+            <div class="nav-content">
+                <a href="index.html" class="logo nav-logo-mobile">
+                    <img src="logo2.png?v=1.3" alt="Blintix Logo">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#about">Studio</a></li>
+                    <li><a href="#products">Ecosystem</a></li>
+                    <li><a href="blog/index.html">Blog</a></li>
+                </ul>
+                <a href="#subscribe" class="btn btn-outline nav-cta">Join Early Access</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <!-- 1️⃣ Hero Section -->
+        <header class="hero">
+            <div class="hero-bg-glow"></div>
+            <div class="container hero-container">
+                <div class="badge reveal">
+                    <div class="badge-dot"></div>
+                    Blintix Product Studio
+                </div>
+                <h1 class="hero-title reveal">
+                    Building Sharp MicroSaaS Products for the <span class="text-gradient">Modern Web.</span>
+                </h1>
+                <p class="hero-subtitle reveal">
+                    We craft focused digital tools — from VPNs to browser utilities — designed to solve real problems
+                    with
+                    absolute simplicity and precision.
+                </p>
+                <div class="hero-actions reveal">
+                    <a href="#products" class="btn btn-primary">Explore Products</a>
+                    <a href="#subscribe" class="btn btn-outline">Follow Our Journey</a>
+                </div>
+            </div>
+        </header>
+
+
+
+        <!-- 1.5️⃣ 3D Visual Showcase -->
+        <section class="showcase-section">
+            <div class="showcase-container">
+                <div class="showcase-glow"></div>
+                <div class="showcase-mockup" id="showcaseMockup">
+                    <video autoplay muted loop playsinline poster="og-image.png">
+                        <source src="animate-lines.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- 2️⃣ What is Blintix? / Brand Story -->
+        <section id="about" class="section text-center">
+            <div class="container">
+                <p class="about-statement reveal">
+                    Blintix is an independent product studio focused on building small, powerful SaaS tools. We believe
+                    not
+                    every problem needs a massive platform.<br>
+                    <span class="highlight">Sometimes, a highly focused micro-product is all it takes.</span>
+                </p>
+
+                <!-- Founder Highlight -->
+                <div class="founder-box reveal">
+                    <div class="founder-avatar">
+                        <img src="favicon.png?v=5" alt="Blintix Logo" loading="lazy"
+                            style="width: 100%; height: 100%; object-fit: contain; padding: 12px; filter: drop-shadow(0 0 12px rgba(167, 139, 250, 0.4));">
+                    </div>
+                    <div class="founder-info">
+                        <strong>Built by a Product Designer</strong>
+                        <span>Obsessed with simplicity, aesthetics, and performance.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3️⃣ What We Build (Bento Grid) -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">The Blintix Ecosystem</h2>
+                    <p class="section-desc">We build lightweight, privacy-first alternative digital tools. Tools that do
+                        one
+                        thing extremely well.</p>
+                </div>
+
+                <div class="bento-grid">
+                    <!-- Large Card -->
+                    <div class="bento-card large reveal">
+                        <div class="bento-icon">
+                            <img src="icons/privacy.png" alt="Privacy Tools" class="bento-img" loading="lazy">
+                        </div>
+                        <div class="bento-content">
+                            <h3 class="bento-title">Privacy Tools</h3>
+                            <p class="bento-desc">Indie VPNs, encryption utilities, and secure browsing tools built
+                                without
+                                tracking pixels or data brokers.</p>
+                        </div>
+                    </div>
+
+                    <!-- Regular Cards -->
+                    <div class="bento-card reveal" style="transition-delay: 100ms;">
+                        <div class="bento-icon">
+                            <img src="icons/utilities.png" alt="Web Utilities" class="bento-img" loading="lazy">
+                        </div>
+                        <div class="bento-content">
+                            <h3 class="bento-title">Web Utilities</h3>
+                            <p class="bento-desc">High-performance browser extensions and developer tools.</p>
+                        </div>
+                    </div>
+
+                    <div class="bento-card reveal" style="transition-delay: 200ms;">
+                        <div class="bento-icon">
+                            <img src="icons/microapp.png" alt="Micro Apps" class="bento-img" loading="lazy">
+                        </div>
+                        <div class="bento-content">
+                            <h3 class="bento-title">Micro Apps</h3>
+                            <p class="bento-desc">Lightweight PWAs and focused dashboards.</p>
+                        </div>
+                    </div>
+
+                    <!-- Wide Card -->
+                    <div class="bento-card wide reveal" style="transition-delay: 300ms;">
+                        <div class="bento-icon">
+                            <img src="icons/radical.png" alt="Radical Simplicity" class="bento-img" loading="lazy">
+                        </div>
+                        <div class="bento-content">
+                            <h3 class="bento-title">Radical Simplicity</h3>
+                            <p class="bento-desc">Eliminating friction from daily workflows. No bloatware, no
+                                unnecessary
+                                features. Just sharp tools that work instantly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5️⃣ Product Showcase Section -->
+        <section id="products" class="section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Current Portfolio</h2>
+                    <p class="section-desc">Track our progress on launched and upcoming software assets.</p>
+                </div>
+
+                <div class="products-wrapper reveal">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="https://zipit.blintix.store/" class="prod-name">
+                                        <div class="prod-icon"><img src="https://zipit.blintix.store/logo.png"
+                                                alt="ZipIt Logo" loading="lazy"></div>
+                                        ZipIt
+                                    </a>
+                                </td>
+                                <td>Capture anything on the web instantly into a clean ZIP folder.</td>
+                                <td><a href="https://zipit.blintix.store/"><span class="badge-status badge-live">●
+                                            Live</span></a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="https://stackwise.blintix.store" target="_blank" rel="noopener noreferrer" class="prod-name">
+                                        <div class="prod-icon">
+                                            <img src="icons/stackwise.svg" alt="Stackwise Logo" class="prod-img" loading="lazy">
+                                        </div>
+                                        Stackwise
+                                    </a>
+                                </td>
+                                <td>Industrial-grade stack management and system architecture tool.</td>
+                                <td><a href="https://stackwise.blintix.store" target="_blank"
+                                        rel="noopener noreferrer"><span class="badge-status badge-live">●
+                                            Live</span></a>
+                                </td>
+                            </tr>
+                              <tr>
+                                <td>
+                                    <a href="https://taskflow.blintix.store/" target="_blank" rel="noopener noreferrer" class="prod-name">
+                                        <div class="prod-icon">
+                                            <img src="icons/taskflow.svg" alt="TaskFlow" class="prod-img">
+                                        </div>
+                                        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700;">TaskFlow</span>
+                                    </a>
+                                </td>
+                                <td>Intelligent data synchronization & task management.</td>
+                                <td><a href="https://taskflow.blintix.store/" target="_blank"
+                                        rel="noopener noreferrer"><span class="badge-status badge-beta">○ Beta</span></a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="https://clarityux.blintix.store" target="_blank" rel="noopener noreferrer"
+                                        class="prod-name">
+                                        <div class="prod-icon">
+                                            <img src="icons/microapp.png" alt="Clarity.ux Logo" loading="lazy">
+                                        </div>
+                                        Clarity.ux
+                                    </a>
+                                </td>
+                                <td>AI-powered UX audit and accessibility analysis tool.</td>
+                                <td><a href="https://clarityux.blintix.store" target="_blank"
+                                        rel="noopener noreferrer"><span
+                                            class="badge-status badge-soon">Building</span></a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="prod-name">
+                                        <div class="prod-icon">
+                                            <img src="icons/privacy.png" alt="X VPN" class="prod-img">
+                                        </div>
+                                        X VPN
+                                    </div>
+                                </td>
+                                <td>Lightweight, unblockable, secure browsing utility.</td>
+                                <td><span class="badge-status badge-beta">○ Beta</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="prod-name">
+                                        <div class="prod-icon">
+                                            <img src="icons/toolkit.png" alt="ToolKit" class="prod-img">
+                                        </div>
+                                        ToolKit
+                                    </div>
+                                </td>
+                                <td>Client-side developer utilities & micro CSS tools.</td>
+                                <td><span class="badge-status badge-soon">Coming Soon</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4️⃣ Our Philosophy -->
+        <section id="philosophy" class="section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Design Philosophy</h2>
+                    <p class="section-desc">The guiding principles behind every interface, API, and extension we build.
+                    </p>
+                </div>
+
+                <div class="philosophy-grid">
+                    <div class="phil-card reveal">
+                        <div class="phil-checkbox">✓</div>
+                        <div class="phil-content">
+                            <h3>Simple <em>over</em> complex</h3>
+                            <p style="color: var(--text-muted); font-size: 0.95rem;">Interfaces should require zero
+                                onboarding.</p>
+                        </div>
+                    </div>
+                    <div class="phil-card reveal" style="transition-delay: 100ms;">
+                        <div class="phil-checkbox">✓</div>
+                        <div class="phil-content">
+                            <h3>Focused <em>over</em> bloated</h3>
+                            <p style="color: var(--text-muted); font-size: 0.95rem;">Do one specific thing better than
+                                anyone else.</p>
+                        </div>
+                    </div>
+                    <div class="phil-card reveal" style="transition-delay: 200ms;">
+                        <div class="phil-checkbox" style="color: var(--accent-secondary);">✓</div>
+                        <div class="phil-content">
+                            <h3>Fast <em>over</em> heavy</h3>
+                            <p style="color: var(--text-muted); font-size: 0.95rem;">Zero-dependency architectures and
+                                instant load times.</p>
+                        </div>
+                    </div>
+                    <div class="phil-card reveal" style="transition-delay: 300ms;">
+                        <div class="phil-checkbox" style="color: #10b981;">✓</div>
+                        <div class="phil-content">
+                            <h3>Privacy <em>over</em> data</h3>
+                            <p style="color: var(--text-muted); font-size: 0.95rem;">Client-side storage by default. No
+                                tracking scripts.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8️⃣ Email Capture (Subscribe) -->
+        <section id="subscribe" class="section subscribe-section">
+            <div class="container reveal">
+                <div class="subscribe-card">
+
+                    <h2 class="section-title">Get early access to the lab.</h2>
+                    <p class="section-desc mx-auto" style="margin-bottom: 24px;">Join the private list. We only email
+                        you
+                        when we ship a new tool or drop a major update. No spam, ever.</p>
+
+                    <!-- Hidden iframe to capture form submission without redirecting -->
+                    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"
+                        onload="if(submitted) {showToast(); document.getElementById('subscribeForm').reset();}"></iframe>
+
+                    <form id="subscribeForm" class="subscribe-form" action="https://formspree.io/f/mkovknkq"
+                        method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+                        <input type="email" name="email" placeholder="example@domain.com" required>
+                        <button class="btn btn-primary" type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Toast Notification -->
+            <div id="toast" class="toast">
+                <div class="toast-icon">✨</div>
+                <div class="toast-content">
+                    <strong>Subscribed!</strong>
+                    <p>Welcome to the lab.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand reveal">
+                    <a href="index.html" class="logo"
+                        style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <img src="logo2.png?v=1.3" alt="Blintix Logo" class="footer-logo"
+                            style="height: 34px; width: auto; filter: invert(1) hue-rotate(180deg) brightness(1.2);">
+                    </a>
+                    <p>Independent Product Studio.<br>Designing for speed and privacy.</p>
+                    <a href="mailto:bharatmodi2012@gmail.com" class="btn btn-outline"
+                        style="border-radius: 8px;">Contact Us</a>
+                </div>
+
+                <div class="footer-tree reveal">
+                    <strong>Blintix (Brand)</strong><br>
+                    <span>├── <a href="https://zipit.blintix.store/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">ZipIt</a></span> <span style="color: #666;">(Live)</span><br>
+                    <span>├── <a href="blog/index.html" style="color: inherit; text-decoration: none;">Journal</a></span> <span style="color: #666;">(New)</span><br>
+                    <span>├── <a href="https://taskflow.blintix.store/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">TaskFlow</a></span> <span style="color: #666;">(Beta Status)</span><br>
+                    <span>├── <a href="https://clarityux.blintix.store/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Clarity.ux</a></span> <span style="color: #666;">(Building)</span><br>
+                    <span>├── <a href="https://stackwise.blintix.store/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Stackwise</a></span> <span style="color: #666;">(Live)</span><br>
+                    <span>├── DevTools</span> <span style="color: #666;">(Beta)</span><br>
+                    <span>├── VPN</span> <span style="color: #666;">(Building)</span><br>
+                    <span>├── Future products</span><br>
+                    <span>└── Experimental lab</span>
+                </div>
+            </div>
+
+            <div class="footer-bottom reveal">
+                <div>&copy; 2026 Blintix Studio. All Rights Reserved.</div>
+                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                    <a href="https://x.com/bharatmodi2014" target="_blank" rel="noopener noreferrer">X / Twitter</a>
+                    <!-- <a href="https://youtube.com/@blintix" target="_blank" rel="noopener noreferrer">YouTube</a> -->
+                    <a href="https://www.linkedin.com/in/bharatmodi/" target="_blank"
+                        rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://www.instagram.com/joyus22/?hl=en" target="_blank"
+                        rel="noopener noreferrer">Instagram</a>
+                    <!-- <a href="https://facebook.com/blintix" target="_blank" rel="noopener noreferrer">Facebook</a> -->
+                    <a href="/privacy.html">Privacy Policy</a>
+                    <div
+                        style="display: flex; align-items: center; gap: 6px; color: var(--text-muted); opacity: 0.8; font-size: 0.8rem; background: rgba(255,255,255,0.03); padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border-subtle);">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                        GDPR Ready
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Formspree hidden iframe submission logic
+        let submitted = false;
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+                submitted = false;
+            }, 5000);
+        }
+
+        window.addEventListener('load', () => {
+            const { animate, inView, stagger, scroll } = Motion;
+
+            // 3D Scroll Perspective Animation
+            const mockup = document.getElementById("showcaseMockup");
+            if (mockup) {
+                const updateMockup = () => {
+                    const scrolled = window.scrollY;
+                    // Dramatic range: 0 to 800px scroll
+                    const progress = Math.min(Math.max(scrolled / 800, 0), 1);
+                    const rotateX = 25 - (progress * 25);
+                    const scale = 0.85 + (progress * 0.15); // Starts smaller (0.85) for more impact
+                    mockup.style.transform = `rotateX(${rotateX}deg) scale(${scale})`;
+                    mockup.style.opacity = 0.5 + (progress * 0.5); // Fade in slightly while straightening
+                };
+                window.addEventListener('scroll', updateMockup);
+                updateMockup(); // Initialize
+            }
+
+            // Hero Animations
+            inView(".hero-container", ({ target }) => {
+                animate(
+                    target.querySelectorAll(".reveal"),
+                    { opacity: [0, 1], y: [30, 0] },
+                    { delay: stagger(0.1), duration: 0.8, easing: [0.16, 1, 0.3, 1] }
+                );
+            });
+
+            // Section Headers & About Statement
+            inView(".section, .about-statement", ({ target }) => {
+                animate(
+                    target.querySelectorAll(".reveal:not(.hero-container .reveal)"),
+                    { opacity: [0, 1], y: [20, 0] },
+                    { delay: stagger(0.1), duration: 0.6, easing: [0.16, 1, 0.3, 1] }
+                );
+            });
+
+            // Bento Grid Items
+            inView(".bento-grid", ({ target }) => {
+                animate(
+                    target.querySelectorAll(".bento-card"),
+                    { opacity: [0, 1], scale: [0.95, 1], y: [20, 0] },
+                    { delay: stagger(0.15), duration: 0.7, easing: [0.16, 1, 0.3, 1] }
+                );
+            });
+
+            // Philosophy Cards
+            inView(".philosophy-grid", ({ target }) => {
+                animate(
+                    target.querySelectorAll(".phil-card"),
+                    { opacity: [0, 1], x: [-20, 0] },
+                    { delay: stagger(0.1), duration: 0.5 }
+                );
+            });
+
+            // Generic reveals for everything else
+            inView(".reveal", ({ target }) => {
+                if (target.classList.contains('visible')) return;
+                animate(
+                    target,
+                    { opacity: [0, 1], y: [20, 0] },
+                    { duration: 0.6, easing: "ease-out" }
+                );
+                target.classList.add('visible');
+            });
+            // Mobile Menu Toggle
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            const navContent = document.querySelector('.nav-content');
+
+            if (menuToggle && navContent) {
+                menuToggle.addEventListener('click', () => {
+                    menuToggle.classList.toggle('active');
+                    navContent.classList.toggle('active');
+                    document.body.classList.toggle('menu-open');
+                });
+
+                // Close menu on link click
+                navContent.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        menuToggle.classList.remove('active');
+                        navContent.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                    });
+                });
+            }
+        });
+    </script>
+    <!-- Floating Back Button -->
+    <a href="https://blintix.store/" class="floating-back" title="Back to Blintix Studio">
+        <img src="https://blintix.store/logo2.png" alt="Blintix" loading="lazy">
+        <span>Studio</span>
+    </a>
+</body>
+
+</html>

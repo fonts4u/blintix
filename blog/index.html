@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blintix Blog — Insights for Modern Web Builders</title>
+    <meta name="description"
+        content="Dive into the Blintix design blog for guides on extracting CSS, downloading web assets, and modern web development workflows.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@700&family=Instrument+Serif:ital@0;1&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../favicon.png?v=5">
+
+    <!-- Motion -->
+    <script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js" defer></script>
+</head>
+
+<body class="blog-body">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="../logo2.png?v=1.3" alt="Blintix Logo">
+            </a>
+
+            <button class="mobile-menu-toggle" aria-label="Toggle Menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+
+            <div class="nav-content">
+                <a href="../index.html" class="logo nav-logo-mobile">
+                    <img src="../logo2.png?v=1.3" alt="Blintix Logo">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html#about">Studio</a></li>
+                    <li><a href="../index.html#products">Ecosystem</a></li>
+                    <li><a href="index.html" class="active">Blog</a></li>
+                </ul>
+                <a href="#subscribe" class="btn btn-outline nav-cta">Join Early Access</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Blog Hero -->
+        <header class="blog-hero">
+            <div class="blog-hero-image">
+                <img src="hero.png" alt="Hero Background">
+            </div>
+            <div class="container text-center">
+                <div class="badge-dot" style="margin: 0 auto 16px;"></div>
+                <h1 class="hero-title reveal" style="margin-bottom: 24px; font-family: 'Instrument Serif', serif;">The <span class="text-gradient">Blintix Journal.</span></h1>
+                <p class="hero-subtitle reveal mx-auto" style="max-width: 600px;">
+                    Technical guides, design trends, and asset extraction hacks for developers and product designers.
+                </p>
+                
+                <div class="category-pills reveal" style="margin-top: 40px;">
+                    <div class="pill active" data-filter="all">All Posts</div>
+                    <div class="pill" data-filter="guides"><span class="pill-dot"></span>Guides</div>
+                    <div class="pill" data-filter="tools"><span class="pill-dot" style="background: var(--accent-secondary);"></span>Tools</div>
+                    <div class="pill" data-filter="assets"><span class="pill-dot" style="background: #10b981;"></span>Assets</div>
+                    <div class="pill" data-filter="inside"><span class="pill-dot" style="background: #3b82f6;"></span>Inside Blintix</div>
+                </div>
+            </div>
+        </header>
+
+        <section class="section">
+            <div class="container">
+                <div class="blog-grid">
+                    
+                    <!-- Post 1 -->
+                    <article class="blog-card reveal" data-category="guides">
+                        <a href="extract-css-guide.html" class="blog-card-link">
+                            <div class="blog-card-thumb">
+                                <img src="css-extract.png" alt="Extract CSS">
+                            </div>
+                            <div class="blog-card-content">
+                                <div class="blog-card-meta">
+                                    <span class="blog-card-category">Guides</span>
+                                    <span>•</span>
+                                    <span>6 Min Read</span>
+                                </div>
+                                <h3 class="blog-card-title">How to Extract CSS from Any Website (2026 Guide)</h3>
+                                <p class="blog-card-excerpt">Learn the most efficient ways to grab production-ready CSS styles, variables, and animations from any modern website without getting lost in DevTools.</p>
+                                <div class="blog-card-footer">
+                                    <span class="read-more">Read Guide →</span>
+                                    <span style="font-size: 0.8rem; opacity: 0.5;">Apr 07, 2026</span>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+
+                    <!-- Post 2 -->
+                    <article class="blog-card reveal" style="transition-delay: 100ms;" data-category="tools">
+                        <a href="best-free-tools-2026.html" class="blog-card-link">
+                            <div class="blog-card-thumb">
+                                <img src="tools.png" alt="Developer Tools">
+                            </div>
+                            <div class="blog-card-content">
+                                <div class="blog-card-meta">
+                                    <span class="blog-card-category" style="color: var(--accent-secondary);">Tools</span>
+                                    <span>•</span>
+                                    <span>8 Min Read</span>
+                                </div>
+                                <h3 class="blog-card-title">Best Free Tools for Developers & Designers (2026 Edition)</h3>
+                                <p class="blog-card-excerpt">Discover the best free tools for developers and designers in 2026. Boost productivity with SEO, CSS, JSON, and UI tools in one place.</p>
+                                <div class="blog-card-footer">
+                                    <span class="read-more">Explore Tools →</span>
+                                    <span style="font-size: 0.8rem; opacity: 0.5;">Apr 05, 2026</span>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+
+                    <!-- Post 3 -->
+                    <article class="blog-card reveal" style="transition-delay: 200ms;" data-category="assets">
+                        <a href="download-assets-guide.html" class="blog-card-link">
+                            <div class="blog-card-thumb">
+                                <img src="assets-download.png" alt="Download Assets">
+                            </div>
+                            <div class="blog-card-content">
+                                <div class="blog-card-meta">
+                                    <span class="blog-card-category" style="color: #10b981;">Assets</span>
+                                    <span>•</span>
+                                    <span>4 Min Read</span>
+                                </div>
+                                <h3 class="blog-card-title">Download Website Assets (Images, Fonts, SVGs) in 1 Click</h3>
+                                <p class="blog-card-excerpt">Stop manually saving images. We show you how to bundle every asset on a page into a clean ZIP folder instantly using ZipIt Pro.</p>
+                                <div class="blog-card-footer">
+                                    <span class="read-more">Learn More →</span>
+                                    <span style="font-size: 0.8rem; opacity: 0.5;">Apr 01, 2026</span>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+
+                    <!-- Post 4 -->
+                    <article class="blog-card reveal" data-category="inside">
+                        <a href="copy-ui-without-coding.html" class="blog-card-link">
+                            <div class="blog-card-thumb">
+                                <img src="copy-ui.png" alt="Copy UI">
+                            </div>
+                            <div class="blog-card-content">
+                                <div class="blog-card-meta">
+                                    <span class="blog-card-category" style="color: #3b82f6;">Inside Blintix</span>
+                                    <span>•</span>
+                                    <span>5 Min Read</span>
+                                </div>
+                                <h3 class="blog-card-title">How to Copy UI from Any Website (Without Coding)</h3>
+                                <p class="blog-card-excerpt">Discover techniques to replicate stunning user interfaces for study or prototyping without touching a single line of code.</p>
+                                <div class="blog-card-footer">
+                                    <span class="read-more">Read Post →</span>
+                                    <span style="font-size: 0.8rem; opacity: 0.5;">Mar 28, 2026</span>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+
+                    <!-- Post 5 -->
+                    <article class="blog-card reveal" style="transition-delay: 100ms;" data-category="tools">
+                        <a href="design-to-figma.html" class="blog-card-link">
+                            <div class="blog-card-thumb">
+                                <img src="figma-convert.png" alt="Design to Figma">
+                            </div>
+                            <div class="blog-card-content">
+                                <div class="blog-card-meta">
+                                    <span class="blog-card-category" style="color: var(--accent-secondary);">Tools</span>
+                                    <span>•</span>
+                                    <span>7 Min Read</span>
+                                </div>
+                                <h3 class="blog-card-title">Convert Website Design to Figma in Minutes (2026 Guide)</h3>
+                                <p class="blog-card-excerpt">Convert any website into editable Figma designs in minutes. Extract layout, typography, and components easily. Perfect for designers.</p>
+                                <div class="blog-card-footer">
+                                    <span class="read-more">Read Post →</span>
+                                    <span style="font-size: 0.8rem; opacity: 0.5;">Mar 25, 2026</span>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+
+                    <!-- Post 6 -->
+                    <article class="blog-card reveal" style="transition-delay: 200ms;" data-category="assets">
+                        <a href="extract-color-palette.html" class="blog-card-link">
+                            <div class="blog-card-thumb">
+                                <img src="color-palette.png" alt="Color Palette">
+                            </div>
+                            <div class="blog-card-content">
+                                <div class="blog-card-meta">
+                                    <span class="blog-card-category" style="color: #10b981;">Assets</span>
+                                    <span>•</span>
+                                    <span>3 Min Read</span>
+                                </div>
+                                <h3 class="blog-card-title">Extract Color Palette from Any Website Instantly</h3>
+                                <p class="blog-card-excerpt">Identify every color in any design with 1:1 precision. Instantly extract hex codes, CSS variables, and design tokens including neon scales and glassmorphic highlights.</p>
+                                <div class="blog-card-footer">
+                                    <span class="read-more">Read Post →</span>
+                                    <span style="font-size: 0.8rem; opacity: 0.5;">Mar 20, 2026</span>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+
+                    <!-- Post 7 -->
+                    <article class="blog-card reveal" data-category="assets">
+                        <a href="download-lottie-animations.html" class="blog-card-link">
+                            <div class="blog-card-thumb">
+                                <img src="lottie.png" alt="Lottie Animations">
+                            </div>
+                            <div class="blog-card-content">
+                                <div class="blog-card-meta">
+                                    <span class="blog-card-category" style="color: #14b8a6;">Assets</span>
+                                    <span>•</span>
+                                    <span>5 Min Read</span>
+                                </div>
+                                <h3 class="blog-card-title">How to Download Lottie Animations from Any Website</h3>
+                                <p class="blog-card-excerpt">Found a cool animation? Learn how to locate and download JSON-based Lottie animations to use in your own prototypes.</p>
+                                <div class="blog-card-footer">
+                                    <span class="read-more">Read Post →</span>
+                                    <span style="font-size: 0.8rem; opacity: 0.5;">Mar 15, 2026</span>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+
+                    <!-- Post 8 -->
+                    <article class="blog-card reveal" style="transition-delay: 100ms;" data-category="guides">
+                        <a href="inspect-code-without-devtools.html" class="blog-card-link">
+                            <div class="blog-card-thumb">
+                                <img src="inspect-visual.png" alt="Inspect Code">
+                            </div>
+                            <div class="blog-card-content">
+                                <div class="blog-card-meta">
+                                    <span class="blog-card-category">Guides</span>
+                                    <span>•</span>
+                                    <span>10 Min Read</span>
+                                </div>
+                                <h3 class="blog-card-title">How to Inspect Website Code Without DevTools</h3>
+                                <p class="blog-card-excerpt">A deep dive into alternative methods for analyzing website structure and behavior when the right-click menu is disabled or restricted.</p>
+                                <div class="blog-card-footer">
+                                    <span class="read-more">Read Post →</span>
+                                    <span style="font-size: 0.8rem; opacity: 0.5;">Mar 10, 2026</span>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+
+                    <!-- Post 9 -->
+                    <article class="blog-card reveal" style="transition-delay: 200ms;" data-category="inside">
+                        <a href="convert-website-to-zip.html" class="blog-card-link">
+                            <div class="blog-card-thumb">
+                                <img src="zip-offline.png" alt="Offline ZIP">
+                            </div>
+                            <div class="blog-card-content">
+                                <div class="blog-card-meta">
+                                    <span class="blog-card-category" style="color: #3b82f6;">Inside Blintix</span>
+                                    <span>•</span>
+                                    <span>12 Min Read</span>
+                                </div>
+                                <h3 class="blog-card-title">Convert Website to Offline ZIP (Full Guide + 1 Click Method)</h3>
+                                <p class="blog-card-excerpt">Download complete websites as ZIP files with HTML, CSS, and assets. Learn how to run websites offline with this full step-by-step guide.</p>
+                                <div class="blog-card-footer">
+                                    <span class="read-more">Read Guide →</span>
+                                    <span style="font-size: 0.8rem; opacity: 0.5;">Mar 05, 2026</span>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+
+                    <!-- Post 10 -->
+                    <article class="blog-card reveal" data-category="tools">
+                        <a href="hidden-developer-tools.html" class="blog-card-link">
+                            <div class="blog-card-thumb">
+                                <img src="hidden-tools.png" alt="Hidden Tools">
+                            </div>
+                            <div class="blog-card-content">
+                                <div class="blog-card-meta">
+                                    <span class="blog-card-category" style="color: var(--accent-secondary);">Tools</span>
+                                    <span>•</span>
+                                    <span>15 Min Read</span>
+                                </div>
+                                <h3 class="blog-card-title">Top 10 Hidden Developer Tools You Should Know</h3>
+                                <p class="blog-card-excerpt">Exclusive look at the secret tools top developers use to speed up their workflow, from custom scripts to obscure browser extensions.</p>
+                                <div class="blog-card-footer">
+                                    <span class="read-more">See List →</span>
+                                    <span style="font-size: 0.8rem; opacity: 0.5;">Feb 28, 2026</span>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+
+
+                </div>
+
+
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section id="subscribe" class="section subscribe-section">
+            <div class="container reveal">
+                <div class="subscribe-card">
+                    <h2 class="section-title">The Blintix Newsletter.</h2>
+                    <p class="section-desc mx-auto" style="margin-bottom: 24px;">Don't miss the next guide. We only email when we ship something truly useful.</p>
+                    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {showToast(); document.getElementById('subscribeForm').reset();}"></iframe>
+                    <form id="subscribeForm" class="subscribe-form" action="https://formspree.io/f/mkovknkq" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+                        <input type="email" name="email" placeholder="example@domain.com" required>
+                        <button class="btn btn-primary" type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Toast Notification -->
+            <div id="toast" class="toast">
+                <div class="toast-icon">✨</div>
+                <div class="toast-content">
+                    <strong>Subscribed!</strong>
+                    <p>Welcome to the laboratory.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand reveal">
+                    <a href="../index.html" class="logo" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <img src="../logo2.png?v=1.3" alt="Blintix Logo" class="footer-logo" style="height: 34px; width: auto; filter: invert(1) hue-rotate(180deg) brightness(1.2);">
+                    </a>
+                    <p>Independent Product Studio.<br>Designing for speed and privacy.</p>
+                    <a href="mailto:bharatmodi2012@gmail.com" class="btn btn-outline" style="border-radius: 8px;">Contact Us</a>
+                </div>
+                <div class="footer-tree reveal">
+                    <strong>Blintix Studio</strong><br>
+                    <span>├── <a href="https://zipit.blintix.store/" target="_blank" style="color: inherit; text-decoration: none;">ZipIt</a></span> <span style="color: #666;">(Live)</span><br>
+                    <span>├── <a href="index.html" style="color: inherit; text-decoration: none;">Blog</a></span> <span style="color: #666;">(Active)</span><br>
+                    <span>├── <a href="../index.html#products" style="color: inherit; text-decoration: none;">Ecosystem</a></span><br>
+                    <span>└── <a href="../index.html#about" style="color: inherit; text-decoration: none;">Studio</a></span>
+                </div>
+            </div>
+            <div class="footer-bottom reveal">
+                <div>&copy; 2026 Blintix Studio. All Rights Reserved.</div>
+                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                    <a href="https://x.com/bharatmodi2014" target="_blank">X / Twitter</a>
+                    <a href="https://www.linkedin.com/in/bharatmodi/" target="_blank">LinkedIn</a>
+                    <a href="../privacy.html">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        let submitted = false;
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+                submitted = false;
+            }, 5000);
+        }
+
+        window.addEventListener('load', () => {
+            const { animate, inView, stagger } = Motion;
+
+            // Animations
+            inView(".reveal", ({ target }) => {
+                if (target.classList.contains('visible')) return;
+                animate(
+                    target,
+                    { opacity: [0, 1], y: [20, 0] },
+                    { duration: 0.6, easing: [0.16, 1, 0.3, 1] }
+                );
+                target.classList.add('visible');
+            });
+
+            // Filtering Logic
+            const pills = document.querySelectorAll('.pill');
+            const cards = document.querySelectorAll('.blog-card');
+
+            pills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    const filter = pill.getAttribute('data-filter');
+                    
+                    // Update Pill Active State
+                    pills.forEach(p => p.classList.remove('active'));
+                    pill.classList.add('active');
+
+                    // Filter Cards
+                    cards.forEach(card => {
+                        const category = card.getAttribute('data-category');
+                        if (filter === 'all' || category === filter) {
+                            card.style.display = 'flex';
+                            animate(card, { opacity: [0, 1], scale: [0.95, 1] }, { duration: 0.4 });
+                        } else {
+                            animate(card, { opacity: 0, scale: 0.95 }, { duration: 0.3 }).then(() => {
+                                card.style.display = 'none';
+                            });
+                        }
+                    });
+                });
+            });
+
+            // Mobile Menu Toggle
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            const navContent = document.querySelector('.nav-content');
+            if (menuToggle && navContent) {
+                menuToggle.addEventListener('click', () => {
+                    menuToggle.classList.toggle('active');
+                    navContent.classList.toggle('active');
+                    document.body.classList.toggle('menu-open');
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZipIt ⚡ Pro Developer Tool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="dark-theme">
+    <div id="app" class="app-container">
+        <!-- Top Bar: URL Input -->
+        <header class="top-bar">
+            <div class="logo">
+                <span class="logo-text">ZipIt</span>
+                <span class="logo-accent">⚡</span>
+            </div>
+            <div class="url-input-container">
+                <div class="input-wrapper">
+                    <i data-lucide="globe" class="input-icon"></i>
+                    <input type="text" id="url-input" placeholder="Paste website URL or drag URL here..."
+                        autocomplete="off">
+                </div>
+                <button id="scan-btn" class="primary-btn">
+                    <span>Scan Website</span>
+                    <i data-lucide="zap" class="btn-icon"></i>
+                </button>
+                <button id="advanced-options-btn" class="icon-btn" title="Advanced Options">
+                    <i data-lucide="settings"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <!-- Left Sidebar: Modes -->
+            <aside class="sidebar glass">
+                <nav class="mode-nav">
+                    <div class="sidebar-label">MODES</div>
+                    <button class="mode-btn active" data-mode="lite">
+                        <i data-lucide="zap"></i>
+                        <span>Lite Extract</span>
+                    </button>
+                    <button class="mode-btn" data-mode="full">
+                        <i data-lucide="package"></i>
+                        <span>Full Offline</span>
+                    </button>
+                    <button class="mode-btn" data-mode="design">
+                        <i data-lucide="palette"></i>
+                        <span>Design Tokens</span>
+                    </button>
+                    <button class="mode-btn" data-mode="inspect">
+                        <i data-lucide="search"></i>
+                        <span>Inspect Site</span>
+                    </button>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <div class="sidebar-label">PRESETS</div>
+                    <div class="presets-list">
+                        <button class="preset-btn" data-preset="quick">⚡ Quick Grab</button>
+                        <button class="preset-btn" data-preset="design">🎨 Design System</button>
+                        <button class="preset-btn" data-preset="full">📦 Full Offline</button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Workspace -->
+            <main class="workspace">
+                <div id="content-view" class="view-container">
+                    <!-- Default State / Empty State -->
+                    <div id="empty-state" class="centered-view">
+                        <div class="hero-icon">
+                            <i data-lucide="layout" size="48"></i>
+                        </div>
+                        <h2>Ready to extract?</h2>
+                        <p>Enter a URL above to start analyzing the website architecture and assets.</p>
+                        <div class="features-grid">
+                            <div class="feature-tag"><i data-lucide="check"></i> Component Detection</div>
+                            <div class="feature-tag"><i data-lucide="check"></i> Design Tokens</div>
+                            <div class="feature-tag"><i data-lucide="check"></i> Offline Export</div>
+                        </div>
+                    </div>
+
+                    <!-- Scanning State (Hidden by default) -->
+                    <div id="scanning-state" class="view-panel hidden">
+                        <div class="progress-section">
+                            <div class="progress-header">
+                                <h3>Scanning website...</h3>
+                                <span class="progress-percent">63%</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" style="width: 63%"></div>
+                            </div>
+                            <ul class="progress-steps">
+                                <li class="completed"><i data-lucide="check-circle-2"></i> HTML structure</li>
+                                <li class="completed"><i data-lucide="check-circle-2"></i> Stylesheets</li>
+                                <li class="active"><i data-lucide="circle-dashed" class="spinning"></i> JavaScript</li>
+                                <li><i data-lucide="circle"></i> Images</li>
+                                <li><i data-lucide="circle"></i> Fonts</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Results Overview (Hidden by default) -->
+                    <div id="results-state" class="view-panel hidden">
+                        <div class="dashboard-header">
+                            <h1>Website Overview</h1>
+                            <div class="actions">
+                                <span class="badge success">Next.js detected</span>
+                                <span class="badge info">Tailwind CSS</span>
+                            </div>
+                        </div>
+
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon colors"><i data-lucide="palette"></i></div>
+                                <div class="stat-value">29</div>
+                                <div class="stat-label">Colors</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon fonts"><i data-lucide="type"></i></div>
+                                <div class="stat-value">7</div>
+                                <div class="stat-label">Fonts</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon images"><i data-lucide="image"></i></div>
+                                <div class="stat-value">14</div>
+                                <div class="stat-label">Images</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon scripts"><i data-lucide="code-2"></i></div>
+                                <div class="stat-value">8</div>
+                                <div class="stat-label">Scripts</div>
+                            </div>
+                        </div>
+
+                        <div class="content-split">
+                            <section class="tokens-section panel glass">
+                                <div class="panel-header">
+                                    <h3>Design System Extracted</h3>
+                                    <div class="dropdown">
+                                        <button class="secondary-btn small">
+                                            Export Tokens <i data-lucide="chevron-down"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="tokens-grid">
+                                    <div class="token-group">
+                                        <div class="token-swatch" style="background: #FF6A00;"></div>
+                                        <div class="token-info">
+                                            <span class="token-name">Primary</span>
+                                            <span class="token-hex">#FF6A00</span>
+                                        </div>
+                                    </div>
+                                    <div class="token-group">
+                                        <div class="token-swatch" style="background: #1A1A1A;"></div>
+                                        <div class="token-info">
+                                            <span class="token-name">Secondary</span>
+                                            <span class="token-hex">#1A1A1A</span>
+                                        </div>
+                                    </div>
+                                    <div class="token-group">
+                                        <div class="token-swatch" style="background: #FF9F45;"></div>
+                                        <div class="token-info">
+                                            <span class="token-name">Accent</span>
+                                            <span class="token-hex">#FF9F45</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="export-formats">
+                                    <button class="format-chip">Tailwind</button>
+                                    <button class="format-chip">CSS Variables</button>
+                                    <button class="format-chip">JSON</button>
+                                    <button class="format-chip">Figma</button>
+                                </div>
+                            </section>
+
+                            <section class="extraction-controls panel glass">
+                                <div class="panel-header">
+                                    <h3>Assets to Include</h3>
+                                </div>
+                                <div class="checkbox-list">
+                                    <label class="checkbox-item"><input type="checkbox" checked> HTML</label>
+                                    <label class="checkbox-item"><input type="checkbox" checked> CSS</label>
+                                    <label class="checkbox-item"><input type="checkbox" checked> JavaScript</label>
+                                    <label class="checkbox-item"><input type="checkbox" checked> Images</label>
+                                    <label class="checkbox-item"><input type="checkbox" checked> Fonts</label>
+                                    <label class="checkbox-item"><input type="checkbox"> Media</label>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <!-- Design mode View (Hidden by default) -->
+                    <div id="design-state" class="view-panel hidden">
+                        <div class="dashboard-header">
+                            <h1>Design System</h1>
+                            <div class="actions">
+                                <button class="primary-btn small">
+                                    <span>Sync to Figma</span>
+                                    <i data-lucide="external-link"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="design-grid">
+                            <section class="token-category panel">
+                                <div class="panel-header">
+                                    <h3>Color Palette</h3>
+                                    <span class="count">12 Tokens</span>
+                                </div>
+                                <div class="color-tokens">
+                                    <div class="color-token-card">
+                                        <div class="swatch" style="background: #FF6A00;"></div>
+                                        <div class="info">
+                                            <div class="name">Primary</div>
+                                            <div class="value">#FF6A00</div>
+                                        </div>
+                                    </div>
+                                    <div class="color-token-card">
+                                        <div class="swatch" style="background: #1A1A1A;"></div>
+                                        <div class="info">
+                                            <div class="name">Secondary</div>
+                                            <div class="value">#1A1A1A</div>
+                                        </div>
+                                    </div>
+                                    <div class="color-token-card">
+                                        <div class="swatch" style="background: #FFFFFF;"></div>
+                                        <div class="info">
+                                            <div class="name">White</div>
+                                            <div class="value">#FFFFFF</div>
+                                        </div>
+                                    </div>
+                                    <div class="color-token-card">
+                                        <div class="swatch" style="background: #22C55E;"></div>
+                                        <div class="info">
+                                            <div class="name">Success</div>
+                                            <div class="value">#22C55E</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="token-category panel">
+                                <div class="panel-header">
+                                    <h3>Typography</h3>
+                                    <span class="count">4 Styles</span>
+                                </div>
+                                <div class="typography-tokens">
+                                    <div class="type-token">
+                                        <div class="type-preview h1">Heading 1 / Inter Bold</div>
+                                        <div class="type-info">32px / 1.2 / -0.02em</div>
+                                    </div>
+                                    <div class="type-token">
+                                        <div class="type-preview body">Body Regular / Inter</div>
+                                        <div class="type-info">16px / 1.5 / 0</div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <!-- Inspect Mode View (Hidden by default) -->
+                    <div id="inspect-state" class="view-panel hidden">
+                        <div class="dashboard-header">
+                            <h1>Inspect Mode</h1>
+                            <div class="actions">
+                                <span class="badge info">Visual Tree</span>
+                                <span class="badge info">Style Inspector</span>
+                            </div>
+                        </div>
+
+                        <div class="inspect-layout">
+                            <aside class="inspect-tree panel">
+                                <div class="panel-header">
+                                    <h3>Site Structure</h3>
+                                    <i data-lucide="layers" class="panel-icon"></i>
+                                </div>
+                                <ul class="tree-view">
+                                    <li class="tree-item expanded">
+                                        <div class="tree-label"><i data-lucide="chevron-down"></i> <span
+                                                class="tag">index.html</span></div>
+                                        <ul>
+                                            <li class="tree-item expanded">
+                                                <div class="tree-label"><i data-lucide="chevron-down"></i> <span
+                                                        class="tag">body</span></div>
+                                                <ul>
+                                                    <li class="tree-item">
+                                                        <div class="tree-label"><i data-lucide="chevron-right"></i>
+                                                            <span class="tag">header</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="tree-item selected">
+                                                        <div class="tree-label"><i data-lucide="chevron-right"></i>
+                                                            <span class="tag">main.hero</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="tree-item">
+                                                        <div class="tree-label"><i data-lucide="chevron-right"></i>
+                                                            <span class="tag">section.features</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="tree-item">
+                                                        <div class="tree-label"><i data-lucide="chevron-right"></i>
+                                                            <span class="tag">footer</span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </aside>
+
+                            <section class="inspect-details panel">
+                                <div class="panel-header">
+                                    <h3>CSS Inspector</h3>
+                                    <span class="selector">.hero</span>
+                                </div>
+                                <div class="css-props">
+                                    <div class="css-line"><span class="prop">display</span>: <span
+                                            class="val">flex</span>;</div>
+                                    <div class="css-line"><span class="prop">gap</span>: <span class="val">32px</span>;
+                                    </div>
+                                    <div class="css-line"><span class="prop">padding</span>: <span
+                                            class="val">80px</span>;</div>
+                                    <div class="css-line"><span class="prop">background</span>: <span
+                                            class="val">var(--bg-panel)</span>;</div>
+                                    <div class="css-line"><span class="prop">border-radius</span>: <span
+                                            class="val">10px</span>;</div>
+                                    <div class="css-line"><span class="prop">justify-content</span>: <span
+                                            class="val">center</span>;</div>
+                                    <div class="css-line"><span class="prop">align-items</span>: <span
+                                            class="val">center</span>;</div>
+                                </div>
+                                <div class="box-model-container">
+                                    <div class="box-margin">
+                                        <div class="box-border">
+                                            <div class="box-padding">
+                                                <div class="box-content">840 x 420</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Download Card (Floats or sticky) -->
+                <div id="download-panel" class="download-card hidden glass">
+                    <div class="card-header">
+                        <i data-lucide="box"></i>
+                        <h3>Ready to Download</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="package-info">
+                            <span class="label">Estimated package:</span>
+                            <span class="value">2.4 MB</span>
+                        </div>
+                        <div class="package-info">
+                            <span class="label">Files:</span>
+                            <span class="value">32 files</span>
+                        </div>
+                        <button id="download-btn" class="primary-btn large width-full">
+                            Download ZIP
+                        </button>
+                        <div class="download-options">
+                            <button class="link-btn small">Explore options</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Status Bar -->
+        <footer class="status-bar">
+            <div class="status-left">
+                <span class="status-indicator online"></span>
+                <span id="status-text">Ready</span>
+            </div>
+            <div class="status-center">
+                <span id="last-scan-info">Last Scan: 12s ago</span>
+                <span class="divider">|</span>
+                <span>29 Colors</span>
+                <span class="divider">|</span>
+                <span>7 Fonts</span>
+            </div>
+            <div class="status-right">
+                <span class="version">v2.0.0-pro</span>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

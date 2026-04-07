@@ -1,0 +1,34 @@
+{
+    "cleanUrls": true,
+    "trailingSlash": true,
+    "rewrites": [
+        {
+            "source": "/sitemap/",
+            "destination": "/sitemap.xml"
+        },
+        {
+            "source": "/sitemap",
+            "destination": "/sitemap.xml"
+        },
+        {
+            "source": "/:path*",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "zipit.blintix.store"
+                }
+            ],
+            "destination": "/zipit/:path*"
+        },
+        {
+            "source": "/:path*",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "stackwise.blintix.store"
+                }
+            ],
+            "destination": "https://stackwise-2.vercel.app/:path*"
+        }
+    ]
+}
