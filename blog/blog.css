@@ -124,7 +124,7 @@
 
 .blog-card-thumb {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    height: auto;
     overflow: hidden;
     position: relative;
     background: #000000;
