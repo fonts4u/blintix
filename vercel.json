@@ -4,11 +4,19 @@
     "rewrites": [
         {
             "source": "/sitemap/",
-            "destination": "/sitemap.xml"
+            "destination": "/sitemap-main.xml"
         },
         {
             "source": "/sitemap",
-            "destination": "/sitemap.xml"
+            "destination": "/sitemap-main.xml"
+        },
+        {
+            "source": "/lottie",
+            "destination": "/zipit/tools/lottie-previewer.html"
+        },
+        {
+            "source": "/lottie-player",
+            "destination": "/zipit/tools/lottie-previewer.html"
         },
         {
             "source": "/:path*",
