@@ -5,6 +5,8 @@
 
 .hero-title {
     font-weight: 400 !important;
+    text-align: center;
+    margin-inline: auto;
 }
 
 .blog-hero {
