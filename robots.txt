@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://blintix.store/sitemap.xml
+Sitemap: https://blintix.store/sitemap-main.xml
