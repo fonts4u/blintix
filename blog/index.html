@@ -9,11 +9,12 @@
         content="Dive into the Blintix design blog for technical guides on extracting CSS, downloading web assets, Lottie animations, and modern web development workflows for designers.">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://blintix.store/blog/" />
+    <link rel="canonical" href="https://blintix.store/blog" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://blintix.store/blog/">
+    <meta property="og:url" content="https://blintix.store/blog">
+    <meta name="keywords" content="developer journal, software engineering blog, product design resources, web app development tips, custom code extraction">
     <meta property="og:title" content="Blintix Blog — Insights for Modern Web Builders">
     <meta property="og:description" content="Technical guides, design trends, and asset extraction hacks for developers and product designers.">
     <meta property="og:image" content="https://blintix.store/og-image.png">
@@ -31,7 +32,7 @@
       "@context": "https://schema.org",
       "@type": "Blog",
       "name": "Blintix Journal",
-      "url": "https://blintix.store/blog/",
+      "url": "https://blintix.store/blog",
       "description": "Technical insights and guides for modern web development, asset extraction, and design workflows.",
       "publisher": {
         "@type": "Organization",
@@ -61,6 +62,9 @@
 
     <!-- Motion -->
     <script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js" defer></script>
+    
+    <!-- Preload Hero Image for faster LCP -->
+    <link rel="preload" as="image" href="/blog/hero.png" fetchpriority="high" />
 </head>
 
 <body class="blog-body">
@@ -68,7 +72,7 @@
     <nav class="navbar">
         <div class="container">
             <a href="/" class="logo">
-                <img src="/logo2.png?v=1.3" alt="Blintix Logo">
+                <img src="/logo2.png?v=1.3" alt="Blintix Logo" height="34" decoding="async">
             </a>
 
             <button class="mobile-menu-toggle" aria-label="Toggle Menu">
@@ -79,12 +83,12 @@
 
             <div class="nav-content">
                 <a href="/" class="logo nav-logo-mobile">
-                    <img src="/logo2.png?v=1.3" alt="Blintix Logo">
+                    <img src="/logo2.png?v=1.3" alt="Blintix Logo" height="34" decoding="async">
                 </a>
                 <ul class="nav-links">
                     <li><a href="/#about">Studio</a></li>
                     <li><a href="/#products">Ecosystem</a></li>
-                    <li><a href="/blog/" class="active">Blog</a></li>
+                    <li><a href="/blog" class="active">Blog</a></li>
                 </ul>
                 <a href="#subscribe" class="btn btn-outline nav-cta">Join Early Access</a>
             </div>
@@ -95,16 +99,16 @@
         <!-- Blog Hero -->
         <header class="blog-hero">
             <div class="blog-hero-image">
-                <img src="/blog/hero.png" alt="Hero Background">
+                <img src="/blog/hero.png" alt="Hero Background" width="1920" height="800" decoding="async" fetchpriority="high">
             </div>
             <div class="container text-center">
                 <div class="badge-dot" style="display: inline-block; margin-bottom: 16px;"></div>
-                <h1 class="hero-title reveal" style="margin-bottom: 24px; font-family: 'Instrument Serif', serif;">The <span class="text-gradient">Blintix Journal.</span></h1>
-                <p class="hero-subtitle reveal mx-auto" style="max-width: 600px;">
+                <h1 class="hero-title" style="margin-bottom: 24px; font-family: 'Instrument Serif', serif;">The <span class="text-gradient">Blintix Journal.</span></h1>
+                <p class="hero-subtitle mx-auto" style="max-width: 600px;">
                     Technical guides, design trends, and asset extraction hacks for developers and product designers.
                 </p>
                 
-                <div class="category-pills reveal" style="margin-top: 40px;">
+                <div class="category-pills" style="margin-top: 40px;">
                     <div class="pill active" data-filter="all">All Posts</div>
                     <div class="pill" data-filter="guides"><span class="pill-dot"></span>Guides</div>
                     <div class="pill" data-filter="tools"><span class="pill-dot" style="background: var(--accent-secondary);"></span>Tools</div>
@@ -120,9 +124,9 @@
                     
                     <!-- Post 1 -->
                     <article class="blog-card reveal" data-category="guides">
-                        <a href="extract-css-guide.html" class="blog-card-link">
+                        <a href="/blog/extract-css-guide" class="blog-card-link">
                             <div class="blog-card-thumb">
-                                <img src="/blog/css-extract.png" alt="Extract CSS">
+                                <img src="/blog/css-extract.png" alt="Extract CSS" width="600" height="400" loading="eager" decoding="async">
                             </div>
                             <div class="blog-card-content">
                                 <div class="blog-card-meta">
@@ -142,9 +146,9 @@
 
                     <!-- Post 2 -->
                     <article class="blog-card reveal" style="transition-delay: 100ms;" data-category="tools">
-                        <a href="best-free-tools-2026.html" class="blog-card-link">
+                        <a href="/blog/best-free-tools-2026" class="blog-card-link">
                             <div class="blog-card-thumb">
-                                <img src="/blog/tools.png" alt="Developer Tools">
+                                <img src="/blog/tools.png" alt="Developer Tools" width="600" height="400" loading="eager" decoding="async">
                             </div>
                             <div class="blog-card-content">
                                 <div class="blog-card-meta">
@@ -164,9 +168,9 @@
 
                     <!-- Post 3 -->
                     <article class="blog-card reveal" style="transition-delay: 200ms;" data-category="assets">
-                        <a href="download-assets-guide.html" class="blog-card-link">
+                        <a href="/blog/download-assets-guide" class="blog-card-link">
                             <div class="blog-card-thumb">
-                                <img src="/blog/assets-download.png" alt="Download Assets" loading="lazy">
+                                <img src="/blog/assets-download.png" alt="Download Assets" width="600" height="400" loading="lazy" decoding="async">
                             </div>
                             <div class="blog-card-content">
                                 <div class="blog-card-meta">
@@ -186,9 +190,9 @@
 
                     <!-- Post 4 -->
                     <article class="blog-card reveal" data-category="inside">
-                        <a href="copy-ui-without-coding.html" class="blog-card-link">
+                        <a href="/blog/copy-ui-without-coding" class="blog-card-link">
                             <div class="blog-card-thumb">
-                                <img src="/blog/copy-ui.png" alt="Copy UI" loading="lazy">
+                                <img src="/blog/copy-ui.png" alt="Copy UI" width="600" height="400" loading="lazy" decoding="async">
                             </div>
                             <div class="blog-card-content">
                                 <div class="blog-card-meta">
@@ -208,9 +212,9 @@
 
                     <!-- Post 5 -->
                     <article class="blog-card reveal" style="transition-delay: 100ms;" data-category="tools">
-                        <a href="design-to-figma.html" class="blog-card-link">
+                        <a href="/blog/design-to-figma" class="blog-card-link">
                             <div class="blog-card-thumb">
-                                <img src="/blog/figma-convert.png" alt="Design to Figma" loading="lazy">
+                                <img src="/blog/figma-convert.png" alt="Design to Figma" width="600" height="400" loading="lazy" decoding="async">
                             </div>
                             <div class="blog-card-content">
                                 <div class="blog-card-meta">
@@ -230,9 +234,9 @@
 
                     <!-- Post 6 -->
                     <article class="blog-card reveal" style="transition-delay: 200ms;" data-category="assets">
-                        <a href="extract-color-palette.html" class="blog-card-link">
+                        <a href="/blog/extract-color-palette" class="blog-card-link">
                             <div class="blog-card-thumb">
-                                <img src="/blog/color-palette-new.png" alt="Color Palette" style="object-position: center;" loading="lazy">
+                                <img src="/blog/color-palette-new.png" alt="Color Palette" style="object-position: center;" width="600" height="400" loading="lazy" decoding="async">
                             </div>
                             <div class="blog-card-content">
                                 <div class="blog-card-meta">
@@ -254,9 +258,9 @@
                     <div id="hidden-posts" style="display: contents;">
                         <!-- Post 7 -->
                     <article class="blog-card reveal" data-category="assets">
-                        <a href="download-lottie-animations.html" class="blog-card-link">
+                        <a href="/blog/download-lottie-animations" class="blog-card-link">
                             <div class="blog-card-thumb">
-                                <img src="/blog/lottie.png" alt="Lottie Animations" loading="lazy">
+                                <img src="/blog/lottie.png" alt="Lottie Animations" width="600" height="400" loading="lazy" decoding="async">
                             </div>
                             <div class="blog-card-content">
                                 <div class="blog-card-meta">
@@ -265,7 +269,7 @@
                                     <span>5 Min Read</span>
                                 </div>
                                 <h3 class="blog-card-title">How to Download Lottie Animations from Any Website</h3>
-                                <p class="blog-card-excerpt">Found a cool animation? Learn how to locate and download JSON-based Lottie animations to use in your own prototypes.</p>
+                                <p class="blog-card-excerpt">Found a cool animation— Learn how to locate and download JSON-based Lottie animations to use in your own prototypes.</p>
                                 <div class="blog-card-footer">
                                     <span class="read-more">Read Post →</span>
                                     <span style="font-size: 0.8rem; opacity: 0.5;">Mar 15, 2026</span>
@@ -276,9 +280,9 @@
 
                     <!-- Post 8 -->
                     <article class="blog-card reveal" style="transition-delay: 100ms;" data-category="guides">
-                        <a href="inspect-code-without-devtools.html" class="blog-card-link">
+                        <a href="/blog/inspect-code-without-devtools" class="blog-card-link">
                             <div class="blog-card-thumb">
-                                <img src="/blog/inspect-visual-v2.jpg" alt="Inspect Code" loading="lazy">
+                                <img src="/blog/inspect-visual-v2.jpg" alt="Inspect Code" width="600" height="400" loading="lazy" decoding="async">
                             </div>
                             <div class="blog-card-content">
                                 <div class="blog-card-meta">
@@ -298,9 +302,9 @@
 
                     <!-- Post 9 -->
                     <article class="blog-card reveal" style="transition-delay: 200ms;" data-category="inside">
-                        <a href="convert-website-to-zip.html" class="blog-card-link">
+                        <a href="/blog/convert-website-to-zip" class="blog-card-link">
                             <div class="blog-card-thumb">
-                                <img src="/blog/zip-offline.png" alt="Offline ZIP" loading="lazy">
+                                <img src="/blog/zip-offline.png" alt="Offline ZIP" width="600" height="400" loading="lazy" decoding="async">
                             </div>
                             <div class="blog-card-content">
                                 <div class="blog-card-meta">
@@ -320,9 +324,9 @@
 
                     <!-- Post 10 -->
                     <article class="blog-card reveal" data-category="tools">
-                        <a href="hidden-developer-tools.html" class="blog-card-link">
+                        <a href="/blog/hidden-developer-tools" class="blog-card-link">
                             <div class="blog-card-thumb">
-                                <img src="/blog/hidden-tools.png" alt="Hidden Tools" loading="lazy">
+                                <img src="/blog/hidden-tools.png" alt="Hidden Tools" width="600" height="400" loading="lazy" decoding="async">
                             </div>
                             <div class="blog-card-content">
                                 <div class="blog-card-meta">
@@ -373,15 +377,15 @@
             <div class="footer-top">
                 <div class="footer-brand reveal">
                     <a href="/" class="logo" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-                        <img src="/logo2.png?v=1.3" alt="Blintix Logo" class="footer-logo" style="height: 34px; width: auto; filter: invert(1) hue-rotate(180deg) brightness(1.2);">
+                        <img src="/logo2.png?v=1.3" alt="Blintix Logo" class="footer-logo" height="34" decoding="async" style="height: 34px; width: auto; filter: invert(1) hue-rotate(180deg) brightness(1.2);">
                     </a>
                     <p>Independent Product Studio.<br>Designing for speed and privacy.</p>
-                    <a href="mailto:bharatmodi2012@gmail.com" class="btn btn-outline" style="border-radius: 8px;">Contact Us</a>
+                    <a href="/blog/mailto:bharatmodi2012@gmail.com" class="btn btn-outline" style="border-radius: 8px;">Contact Us</a>
                 </div>
                 <div class="footer-tree reveal">
                     <strong>Blintix Studio</strong><br>
-                    <span>├── <a href="https://zipit.blintix.store/" target="_blank" style="color: inherit; text-decoration: none;">ZipIt</a></span> <span style="color: #666;">(Live)</span><br>
-                    <span>├── <a href="/blog/" style="color: inherit; text-decoration: none;">Blog</a></span> <span style="color: #666;">(Active)</span><br>
+                    <span>├── <a href="https://zipit.blintix.store" target="_blank" style="color: inherit; text-decoration: none;">ZipIt</a></span> <span style="color: #666;">(Live)</span><br>
+                    <span>├── <a href="/blog" style="color: inherit; text-decoration: none;">Blog</a></span> <span style="color: #666;">(Active)</span><br>
                     <span>├── <a href="/#products" style="color: inherit; text-decoration: none;">Ecosystem</a></span><br>
                     <span>└── <a href="/#about" style="color: inherit; text-decoration: none;">Studio</a></span>
                 </div>
@@ -390,8 +394,8 @@
                 <div>&copy; 2026 Blintix Studio. All Rights Reserved.</div>
                 <div style="display: flex; gap: 24px; flex-wrap: wrap;">
                     <a href="https://x.com/bharatmodi2014" target="_blank">X / Twitter</a>
-                    <a href="https://www.linkedin.com/in/bharatmodi/" target="_blank">LinkedIn</a>
-                    <a href="../privacy.html">Privacy Policy</a>
+                    <a href="https://www.linkedin.com/in/bharatmodi" target="_blank">LinkedIn</a>
+                    <a href="/privacy">Privacy Policy</a>
                 </div>
             </div>
         </div>
@@ -409,7 +413,7 @@
             }, 5000);
         }
 
-        window.addEventListener('load', () => {
+        document.addEventListener('DOMContentLoaded', () => {
             const { animate, inView, stagger } = Motion;
 
             // Animations
