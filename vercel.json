@@ -1,6 +1,6 @@
 {
     "cleanUrls": true,
-    "trailingSlash": true,
+    "trailingSlash": false,
     "redirects": [
         {
             "source": "/:path*",
@@ -12,23 +12,81 @@
             ],
             "destination": "https://blintix.store/:path*",
             "permanent": true
+        },
+        {
+            "source": "/zipit/tools/:tool",
+            "destination": "https://zipit.blintix.store/tools/:tool",
+            "permanent": true
+        },
+        {
+            "source": "/zipit/tools",
+            "destination": "https://zipit.blintix.store/tools",
+            "permanent": true
         }
     ],
     "rewrites": [
         {
-            "source": "/sitemap/",
-            "destination": "/sitemap-main.xml"
+            "source": "/tools",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "zipit.blintix.store"
+                }
+            ],
+            "destination": "/zipit/tools.html"
+        },
+        {
+            "source": "/tools/:path*",
+            "destination": "/zipit/tools/:path*"
+        },
+        {
+            "source": "/zipit/tools/([^/.]+)",
+            "destination": "/zipit/tools/$1.html"
+        },
+        {
+            "source": "/tools/([^/.]+)",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "zipit.blintix.store"
+                }
+            ],
+            "destination": "/zipit/tools/$1.html"
+        },
+        {
+            "source": "/blog/([^/.]+)",
+            "destination": "/blog/$1.html"
+        },
+        {
+            "source": "/services",
+            "destination": "/services.html"
+        },
+        {
+            "source": "/services/",
+            "destination": "/services.html"
+        },
+        {
+            "source": "/web-development-services",
+            "destination": "/services.html"
+        },
+        {
+            "source": "/web-development-services/",
+            "destination": "/services.html"
+        },
+        {
+            "source": "/privacy",
+            "destination": "/privacy.html"
         },
         {
             "source": "/sitemap",
-            "destination": "/sitemap-main.xml"
+            "destination": "/sitemap.xml"
         },
         {
-            "source": "/lottie",
+            "source": "/lottie/",
             "destination": "/zipit/tools/lottie-previewer.html"
         },
         {
-            "source": "/lottie-player",
+            "source": "/lottie-player/",
             "destination": "/zipit/tools/lottie-previewer.html"
         },
         {
@@ -49,12 +107,22 @@
                     "value": "stackwise.blintix.store"
                 }
             ],
-            "destination": "https://stackwise-2.vercel.app/:path*"
+            "destination": "https://stackwise-2-9yiy8vwjj-bharatmodi2012-gmailcoms-projects.vercel.app/:path*"
+        },
+        {
+            "source": "/:path*",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "taskflow.blintix.store"
+                }
+            ],
+            "destination": "https://taskflow-main-ecl2vz76o-bharatmodi2012-gmailcoms-projects.vercel.app/:path*"
         }
     ],
     "headers": [
         {
-            "source": "/(.*).(jpg|jpeg|png|gif|svg|ico|webp|mp4)",
+            "source": "/(.*)\\.(jpg|jpeg|png|gif|svg|ico|webp|mp4)",
             "headers": [
                 {
                     "key": "Cache-Control",
@@ -63,4 +131,4 @@
             ]
         }
     ]
-}
+}

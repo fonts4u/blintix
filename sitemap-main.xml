@@ -2,108 +2,349 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Blintix Main -->
   <url>
-    <loc>https://blintix.store/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://blintix.store</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://blintix.store/privacy/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://blintix.store/services</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://blintix.store/privacy</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <!-- Ecosystem Products -->
   <url>
-    <loc>https://taskflow.blintix.store/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://taskflow.blintix.store</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://stackwise.blintix.store/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://stackwise.blintix.store</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://blintix.store/zipit/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://zipit.blintix.store/alternatives</loc>
+    <lastmod>2026-05-26</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://blintix.store/lottie/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://zipit.blintix.store/features</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/privacy</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/success</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/terms</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/tools</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/accessibility-insights</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/ai-ready-output</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/asset-optimization</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/component-extraction</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/copy-exact-style-css</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/deep-dom-analysis</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/design-token-extraction</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/download-full-websites</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/extract-all-hex-codes</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/extract-design-systems</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/figma-ready-export</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/grab-all-media-assets</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/inspect-any-ui</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/local-path-rewriting</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/media-asset-extraction</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/production-ready-code</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/semantic-html</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/features/zero-dependencies</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/alternatives/best-css-peeper-alternative</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/alternatives/best-sitesucker-alternative</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/alternatives/best-whatfont-alternative</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/alternatives/colorzilla-alternative-chrome</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/alternatives/css-scan-alternative</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/alternatives/devtools-alternative</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/alternatives/gofullpage-screenshot-alternative</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/alternatives/mobbin-copy-to-figma-alternative</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/alternatives/wappalyzer-alternative</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/tools/accessibility-checker</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/tools/asset-extractor</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/tools/color-extractor</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/tools/css-to-tailwind</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/tools/gradient-generator</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/tools/image-optimizer</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/tools/json-to-code</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/tools/lottie-previewer</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/tools/meta-tags-generator</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/tools/responsive-checker</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/tools/seo-audit</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/tools/svg-to-jsx</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/tools/type-scale-generator</loc>
+    <lastmod>2026-05-26</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://zipit.blintix.store/tools</loc>
+    <lastmod>2026-05-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://blintix.store/lottie</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- The Blintix Journal (Blog) -->
   <url>
-    <loc>https://blintix.store/blog/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://blintix.store/blog</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://blintix.store/blog/extract-css-guide/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://blintix.store/blog/extract-css-guide</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://blintix.store/blog/best-free-tools-2026/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://blintix.store/blog/best-free-tools-2026</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://blintix.store/blog/extract-color-palette/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://blintix.store/blog/extract-color-palette</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://blintix.store/blog/convert-website-to-zip/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://blintix.store/blog/convert-website-to-zip</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://blintix.store/blog/copy-ui-without-coding/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://blintix.store/blog/copy-ui-without-coding</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://blintix.store/blog/design-to-figma/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://blintix.store/blog/design-to-figma</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://blintix.store/blog/download-assets-guide/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://blintix.store/blog/download-assets-guide</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://blintix.store/blog/download-lottie-animations/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://blintix.store/blog/download-lottie-animations</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://blintix.store/blog/inspect-code-without-devtools/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://blintix.store/blog/inspect-code-without-devtools</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://blintix.store/blog/hidden-developer-tools/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://blintix.store/blog/hidden-developer-tools</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
