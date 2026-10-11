@@ -97,9 +97,22 @@
       border: 1px solid var(--border-subtle);
       border-radius: 999px;
     }
+    .logo {
+      display: flex;
+      align-items: center;
+      transition: opacity 0.2s ease;
+      text-decoration: none;
+    }
+    .logo:hover {
+      opacity: 0.8;
+    }
+    .logo img {
+      height: 34px;
+      width: auto;
+      filter: invert(1) hue-rotate(180deg) brightness(1.2);
+      display: block;
+    }
     .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; text-decoration: none; letter-spacing: -0.02em; }
-    .brand-logo { height: 24px; width: auto; object-fit: contain; }
-    .brand-mark { width: 18px; height: 18px; border-radius: 6px; background: var(--accent-gradient); }
     .nav-links { display: flex; gap: 24px; font-size: 14px; color: var(--text-muted); }
     .nav-links a { text-decoration: none; transition: color .2s; }
     .nav-links a:hover { color: var(--text-main); }
@@ -242,9 +255,8 @@
 
 <header>
   <nav class="nav" aria-label="Primary">
-    <a class="brand" href="/" aria-label="Blintix home">
-      <img src="/logo2.png?v=1.3" alt="Blintix Logo" class="brand-logo">
-      <span>Blintix</span>
+    <a href="/" class="logo" aria-label="Blintix home">
+      <img src="/logo2.png?v=1.3" alt="Blintix Logo">
     </a>
     <div class="nav-links">
       <a href="#packages">Packages</a>
@@ -471,9 +483,8 @@
   <div class="wrap">
     <div class="foot">
       <div>
-        <a class="brand" href="/" aria-label="Blintix home">
-          <img src="/logo2.png?v=1.3" alt="Blintix Logo" class="brand-logo">
-          <span>Blintix</span>
+        <a href="/" class="logo" aria-label="Blintix home" style="margin-bottom: 16px;">
+          <img src="/logo2.png?v=1.3" alt="Blintix Logo">
         </a>
         <p>Independent product studio. Designing for speed and privacy.</p>
       </div>
