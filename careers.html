@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers — Blintix Product Studio</title>
+    <meta name="description"
+        content="Join Blintix, an independent product studio crafting focused digital tools designed for speed and privacy.">
+
+    <!-- Canonical & Hreflang URLs -->
+    <link rel="canonical" href="https://blintix.store/careers.html" />
+    <link rel="alternate" hreflang="en" href="https://blintix.store/careers.html" />
+    <link rel="alternate" hreflang="x-default" href="https://blintix.store/careers.html" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://blintix.store/careers.html">
+    <meta name="keywords" content="independent product studio, careers, microsaas development, software engineering jobs">
+    <meta property="og:title" content="Careers — Blintix Product Studio">
+    <meta property="og:description"
+        content="Join Blintix and help us build fast, privacy-focused MicroSaaS tools.">
+    <meta property="og:image" content="https://blintix.store/og-image.png?v=1">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png?v=5">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png?v=5">
+    <link rel="apple-touch-icon" href="/favicon.png?v=5">
+
+    <!-- Motion (Framer Motion for Vanilla JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js" defer></script>
+
+    <style>
+        .careers-section {
+            padding: 120px 0 80px;
+            min-height: 80vh;
+        }
+        
+        .open-positions {
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .job-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .job-card:hover {
+            border-color: rgba(167, 139, 250, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .job-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+        
+        .job-meta {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .job-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.05);
+            padding: 6px 12px;
+            border-radius: 99px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            overflow-y: auto;
+            padding: 40px 20px;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+            justify-content: center;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            background: #111111;
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 750px;
+            padding: 40px;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            text-align: left;
+            margin: auto;
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            display: flex;
+            transition: all 0.2s ease;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        .job-details-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .job-details-header h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .job-details-body {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+        
+        .job-details-body h4 {
+            color: #fff;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.125rem;
+        }
+        
+        .job-details-body ul {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+        
+        .job-details-body li {
+            margin-bottom: 10px;
+            padding-left: 0;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
+        }
+        
+        .form-group select option {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .submit-btn {
+            width: 100%;
+            margin-top: 10px;
+            padding: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .status-message {
+            margin-top: 20px;
+            font-size: 0.875rem;
+            text-align: center;
+            display: none;
+        }
+        
+        .status-message.success {
+            color: #10b981;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .status-message.error {
+            color: #ef4444;
+            display: block;
+        }
+
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            display: none;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+        
+        .loading .loader {
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .job-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            .job-card .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">
+                <img src="logo2.png?v=1.3" alt="Blintix Logo">
+            </a>
+
+            <button class="mobile-menu-toggle" aria-label="Toggle Menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+
+            <div class="nav-content">
+                <a href="/" class="logo nav-logo-mobile">
+                    <img src="logo2.png?v=1.3" alt="Blintix Logo">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="/#about">Studio</a></li>
+                    <li><a href="/#products">Ecosystem</a></li>
+                    <li><a href="https://zipit.blintix.store/tools" class="text-accent-orange" style="font-weight: 600;">Free Tools</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                </ul>
+                <a href="/#subscribe" class="btn btn-outline nav-cta">Join Early Access</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <!-- Careers Section -->
+        <section class="section text-center careers-section">
+            <div class="container">
+                <div class="badge reveal">
+                    <div class="badge-dot"></div>
+                    We're Hiring
+                </div>
+                <h1 class="hero-title reveal" style="font-size: 3rem; margin-top: 20px; margin-bottom: 20px;">
+                    Join <span class="text-gradient">Blintix Studio.</span>
+                </h1>
+                <p class="hero-subtitle reveal" style="max-width: 600px; margin: 0 auto 60px;">
+                    We are always looking for talented engineers and designers who care deeply about aesthetics, privacy, and performance.
+                </p>
+
+                <!-- Open Positions List -->
+                <div class="open-positions reveal">
+                    <div class="job-card">
+                        <div class="job-info">
+                            <h3>Senior Web3 Developer</h3>
+                            <div class="job-meta">
+                                <span>🌐 100% Remote</span>
+                                <span>📅 12-Month Project</span>
+                                <span>⚡ React / Ethers / Web3</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline" onclick="openModal('web3-developer')">View Details</button>
+                    </div>
+                </div>
+
+                <div class="form-container reveal" id="apply-section">
+                    <h3 style="margin-bottom: 30px; font-size: 1.5rem; text-align: left;">Submit your application</h3>
+                    <div id="formStatus" class="status-message"></div>
+                    <form id="applicationForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="John Doe" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jobTitle">Position</label>
+                            <select id="jobTitle" name="jobTitle" required>
+                                <option value="" disabled selected>Select an open role...</option>
+                                <option value="Senior Web3 Developer">Senior Web3 Developer</option>
+                                <option value="Frontend Engineer">Frontend Engineer (React / Next.js)</option>
+                                <option value="Product Designer">Product Designer (UI/UX)</option>
+                                <option value="Backend Engineer">Backend Engineer (Node / Python)</option>
+                                <option value="General Application">General Application</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="resume">Resume / CV (PDF, DOCX)</label>
+                            <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" style="padding: 10px 16px;">
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 30px;">
+                            <label for="portfolio">Portfolio / GitHub URL (Optional)</label>
+                            <input type="url" id="portfolio" name="portfolio" placeholder="https://github.com/...">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary submit-btn" id="submitBtn">
+                            <span>Submit Application</span>
+                            <div class="loader"></div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Job Details Modal -->
+    <div class="modal-overlay" id="jobModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            
+            <div class="job-details-header">
+                <h2>🚀 We're Hiring: Senior Web3 Developer (Remote)</h2>
+                <p style="color: var(--text-muted); margin-top: 10px;">Blintix is looking for an experienced Senior Web3 Developer to take our existing MVP, to a commercial-grade platform.</p>
+            </div>
+            
+            <div class="job-details-body">
+                <h4>🔧 What You'll Build</h4>
+                <ul>
+                    <li>✅ Refine and elevate the existing React frontend into a premium trading & betting experience</li>
+                    <li>✅ Integrate real-time UFC odds and sports data APIs</li>
+                    <li>✅ Build analytics for PnL, betting ROI, and wallet performance</li>
+                    <li>✅ Optimize blockchain infrastructure for high-traffic Fight Night events</li>
+                    <li>✅ Develop a mobile-first Progressive Web App (PWA)</li>
+                    <li>✅ Build a secure admin dashboard for platform management</li>
+                </ul>
+
+                <h4>✅ What We're Looking For</h4>
+                <ul>
+                    <li>✔️ 3+ years of professional Web3 development experience</li>
+                    <li>✔️ Strong experience with React.js</li>
+                    <li>✔️ Hands-on with Ethers.js, Wagmi, or Viem</li>
+                    <li>✔️ Deep understanding of EVM chains (PulseChain, Ethereum, BNB Chain)</li>
+                    <li>✔️ Experience integrating smart contracts and wallet transaction signing</li>
+                    <li>✔️ Bonus if you've built DeFi platforms, sports betting products, or Web3 dashboards</li>
+                </ul>
+
+                <h4>📅 Engagement</h4>
+                <ul>
+                    <li>📌 12-month project</li>
+                    <li>📌 Long-term collaboration with iterative feature releases and maintenance</li>
+                    <li>📌 100% Remote (global applicants welcome)</li>
+                    <li>📌 Ability to overlap with our primary timezone for weekly syncs</li>
+                </ul>
+                
+                <p style="margin-top: 30px; font-style: italic;">If you have experience building scalable Web3 applications and want to work on an exciting blockchain betting platform, we'd love to hear from you.</p>
+                <p style="margin-top: 20px;">📩 You can also send your portfolio directly to: <a href="mailto:team@blintix.store" class="text-accent-primary">team@blintix.store</a></p>
+
+                <div style="margin-top: 40px; text-align: center;">
+                    <button class="btn btn-primary" onclick="applyForRole('Senior Web3 Developer')" style="padding-left: 40px; padding-right: 40px;">Apply for this Role</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand reveal">
+                    <a href="/" class="logo"
+                        style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <img src="logo2.png?v=1.3" alt="Blintix Logo" class="footer-logo"
+                            style="height: 34px; width: auto; filter: invert(1) hue-rotate(180deg) brightness(1.2);">
+                    </a>
+                    <p>Independent Product Studio.<br>Designing for speed and privacy.</p>
+                    <a href="mailto:bharatmodi2012@gmail.com" class="btn btn-outline"
+                        style="border-radius: 8px;">Contact Us</a>
+                </div>
+                
+
+                <!-- Interactive Robot Companion (TV head: rectangle) -->
+                <div class="footer-robot-card reveal" id="footerRobotCard">
+                    <div class="robot-card-header">
+                        <div class="robot-live-badge">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Blinti • Robot</span>
+                        </div>
+                        <div class="robot-header-actions">
+                            <select class="robot-shape-select" id="robotShapeSelect" title="Select TV Head Shape" aria-label="Select Robot Shape">
+                                <option value="rectangle" selected>TV (Rectangle)</option>
+                                <option value="square">Square</option>
+                                <option value="circle">Circle</option>
+                                <option value="hexagon">Hexagon</option>
+                            </select>
+                            <button type="button" class="robot-poke-btn" id="robotPokeBtn" title="Poke Blinti to interact">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                                </svg>
+                                <span>Poke</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Speech Bubble -->
+                    <div class="robot-speech" id="robotSpeech" aria-live="polite">
+                        <span class="speech-text" id="robotSpeechText">👋 Hi! Move your cursor or tap my modes below!</span>
+                        <div class="speech-tail"></div>
+                    </div>
+
+                    <!-- Interactive Canvas Stage -->
+                    <div class="robot-stage" id="footerRobotStage" title="Click to poke me!" role="region" aria-label="Interactive Robot Canvas"></div>
+
+                    <!-- Expressions / States -->
+                    <div class="robot-controls">
+                        <span class="robot-controls-label">Interactive Expressions</span>
+                        <div class="robot-state-chips" id="robotStateChips" role="group" aria-label="Robot Expression Modes">
+                            <button type="button" class="state-chip active" data-state="idle" aria-pressed="true">Idle</button>
+                            <button type="button" class="state-chip" data-state="happy" aria-pressed="false">Happy</button>
+                            <button type="button" class="state-chip" data-state="thinking" aria-pressed="false">Thinking</button>
+                            <button type="button" class="state-chip" data-state="searching" aria-pressed="false">Search</button>
+                            <button type="button" class="state-chip" data-state="speaking" aria-pressed="false">Speak</button>
+                            <button type="button" class="state-chip" data-state="working" aria-pressed="false">Work</button>
+                            <button type="button" class="state-chip" data-state="sleeping" aria-pressed="false">Sleep</button>
+                        </div>
+                    </div>
+
+                    <!-- Shell Color Swatches -->
+                    <div class="robot-palette-row">
+                        <span class="palette-label">Shell:</span>
+                        <div class="robot-color-swatches" id="robotColorSwatches" role="radiogroup" aria-label="Robot Shell Color">
+                            <button type="button" class="swatch-btn active" data-color="#2b49a3" style="--c: #2b49a3;" title="Cobalt (Default)" aria-label="Cobalt Blue" aria-selected="true"></button>
+                            <button type="button" class="swatch-btn" data-color="#7c3aed" style="--c: #7c3aed;" title="Blintix Violet" aria-label="Blintix Violet" aria-selected="false"></button>
+                            <button type="button" class="swatch-btn" data-color="#0891b2" style="--c: #0891b2;" title="Cyber Cyan" aria-label="Cyber Cyan" aria-selected="false"></button>
+                            <button type="button" class="swatch-btn" data-color="#059669" style="--c: #059669;" title="Emerald Green" aria-label="Emerald Green" aria-selected="false"></button>
+                            <button type="button" class="swatch-btn" data-color="#c8372d" style="--c: #c8372d;" title="Tomato Red" aria-label="Tomato Red" aria-selected="false"></button>
+                            <button type="button" class="swatch-btn" data-color="#242735" style="--c: #242735;" title="Obsidian Slate" aria-label="Obsidian Slate" aria-selected="false"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-tree reveal">
+                    <strong>Blintix (Brand)</strong><br>
+                    <span>├── <a href="https://zipit.blintix.store" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">ZipIt</a></span> <span style="color: #666;">(Live)</span><br>
+                    <span>│── <a href="https://zipitweb.blintix.store/" style="color: var(--accent-primary); text-decoration: none;">ZipIt Web</a></span> <span style="color: #666;">(New)</span><br>
+                    <span>├── <a href="https://taskflow.blintix.store" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">TaskFlow</a></span> <span style="color: #666;">(Beta Status)</span><br>
+                    <span>├── <a href="https://clarityux.blintix.store" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Clarity.ux</a></span> <span style="color: #666;">(Building)</span><br>
+                    <span>├── <a href="https://stackwise.blintix.store" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Stackwise</a></span> <span style="color: #666;">(Live)</span><br>
+                    <span>├── VPN</span> <span style="color: #666;">(Building)</span><br>
+                    <span>└── Experimental lab</span>
+                </div>
+            </div>
+
+            <div class="footer-bottom reveal">
+                <div>&copy; 2026 Blintix Studio. All Rights Reserved.</div>
+                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                    <a href="https://x.com/bharatmodi2014" target="_blank" rel="noopener noreferrer">X / Twitter</a>
+                    <!-- <a href="https://youtube.com/@blintix" target="_blank" rel="noopener noreferrer">YouTube</a> -->
+                    <a href="https://www.linkedin.com/in/bharatmodi" target="_blank"
+                        rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://www.instagram.com/joyus22/—hl=en" target="_blank"
+                        rel="noopener noreferrer">Instagram</a>
+                    <!-- <a href="https://facebook.com/blintix" target="_blank" rel="noopener noreferrer">Facebook</a> -->
+                    <a href="/careers.html">Careers</a>
+                    <a href="/privacy">Privacy Policy</a>
+                    <div
+                        style="display: flex; align-items: center; gap: 6px; color: var(--text-muted); opacity: 0.8; font-size: 0.8rem; background: rgba(255,255,255,0.03); padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border-subtle);">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                        GDPR Ready
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Modal Logic
+        const modal = document.getElementById('jobModal');
+        
+        function openModal(jobId) {
+            modal.style.display = 'flex';
+            // slight delay to trigger css transition
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+        
+        function closeModal() {
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300); // match transition duration
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close on clicking outside modal content
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Apply pre-filling
+        function applyForRole(roleName) {
+            closeModal();
+            
+            // Set the dropdown value
+            const select = document.getElementById('jobTitle');
+            let found = false;
+            for(let i=0; i<select.options.length; i++) {
+                if(select.options[i].value === roleName) {
+                    select.selectedIndex = i;
+                    found = true;
+                    break;
+                }
+            }
+            
+            // Scroll down to the form smoothly
+            document.getElementById('apply-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Focus on name input
+            setTimeout(() => {
+                document.getElementById('name').focus();
+            }, 800);
+        }
+
+        window.addEventListener('load', () => {
+            const { animate, inView, stagger } = Motion;
+
+            // Hero Animations
+            inView(".careers-section", ({ target }) => {
+                animate(
+                    target.querySelectorAll(".reveal"),
+                    { opacity: [0, 1], y: [30, 0] },
+                    { delay: stagger(0.1), duration: 0.8, easing: [0.16, 1, 0.3, 1] }
+                );
+            });
+
+            // Mobile Menu Toggle
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            const navContent = document.querySelector('.nav-content');
+
+            if (menuToggle && navContent) {
+                menuToggle.addEventListener('click', () => {
+                    menuToggle.classList.toggle('active');
+                    navContent.classList.toggle('active');
+                    document.body.classList.toggle('menu-open');
+                });
+            }
+            
+            // Handle form submission to Vercel API
+            const form = document.getElementById('applicationForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const statusMsg = document.getElementById('formStatus');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // Set loading state
+                submitBtn.classList.add('loading');
+                submitBtn.disabled = true;
+                statusMsg.className = 'status-message';
+                
+                const applicantData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    jobTitle: document.getElementById('jobTitle').value,
+                    portfolio: document.getElementById('portfolio').value
+                };
+                
+                const resumeInput = document.getElementById('resume');
+                if (resumeInput && resumeInput.files.length > 0) {
+                    const file = resumeInput.files[0];
+                    applicantData.resumeName = file.name;
+                    
+                    try {
+                        const base64Str = await new Promise((resolve, reject) => {
+                            const reader = new FileReader();
+                            reader.readAsDataURL(file);
+                            reader.onload = () => resolve(reader.result.split(',')[1]);
+                            reader.onerror = error => reject(error);
+                        });
+                        applicantData.resumeBase64 = base64Str;
+                    } catch (err) {
+                        console.error("Error reading file", err);
+                        statusMsg.textContent = "Error attaching resume. Please try again.";
+                        statusMsg.className = 'status-message error';
+                        submitBtn.classList.remove('loading');
+                        submitBtn.disabled = false;
+                        return;
+                    }
+                }
+
+                try {
+                    const response = await fetch('/api/apply', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(applicantData)
+                    });
+
+                    if (response.ok) {
+                        form.style.display = 'none';
+                        statusMsg.innerHTML = "<span style='font-size: 3rem; margin-bottom: 15px;'>🎉</span><strong style='font-size: 1.5rem; margin-bottom: 10px; color: #fff;'>Woohoo! Awesome to meet you!</strong><br>Your application was submitted successfully. We've sent a confirmation to your email and our team will review it shortly!";
+                        statusMsg.className = 'status-message success';
+                        form.reset();
+                        
+                        // Fire confetti!
+                        if (typeof confetti === 'function') {
+                            const duration = 3000;
+                            const end = Date.now() + duration;
+
+                            (function frame() {
+                                confetti({
+                                    particleCount: 5,
+                                    angle: 60,
+                                    spread: 55,
+                                    origin: { x: 0 },
+                                    colors: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444']
+                                });
+                                confetti({
+                                    particleCount: 5,
+                                    angle: 120,
+                                    spread: 55,
+                                    origin: { x: 1 },
+                                    colors: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444']
+                                });
+
+                                if (Date.now() < end) {
+                                    requestAnimationFrame(frame);
+                                }
+                            }());
+                        }
+                    } else {
+                        const errorData = await response.json();
+                        statusMsg.textContent = "Error: " + (errorData.error.message || "Something went wrong.");
+                        statusMsg.className = 'status-message error';
+                    }
+                } catch (error) {
+                    statusMsg.textContent = "Network error. Please try again later.";
+                    statusMsg.className = 'status-message error';
+                } finally {
+                    // Remove loading state
+                    submitBtn.classList.remove('loading');
+                    submitBtn.disabled = false;
+                }
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <!-- Interactive Robot Scripts -->
+    <script src="robot-head.js"></script>
+    <script src="footer-robot.js"></script>
+
+</body>
+
+</html>
