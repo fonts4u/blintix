@@ -1,6 +1,9 @@
 /**
- * Blintix Studio - Interactive Footer Robot Companion
- * Powered by robot-heads (shape: rectangle)
+ * Blintix Studio - Auto-Animated TV Robot (shape: rectangle)
+ * Powered by robot-heads
+ * 
+ * Auto-cycles through lively expressions & states while remaining
+ * fully interactive to mouse tracking & direct poke clicks.
  */
 (function () {
     function initFooterRobot() {
@@ -12,70 +15,79 @@
         }
 
         const speechEl = document.getElementById('robotSpeechText');
-        const stateChips = document.querySelectorAll('.state-chip');
-        const swatchBtns = document.querySelectorAll('.swatch-btn');
-        const shapeSelect = document.getElementById('robotShapeSelect');
-        const pokeBtn = document.getElementById('robotPokeBtn');
 
-        const quotes = {
-            idle: [
-                "👀 Watching your cursor... move around!",
-                "👋 Hi! I'm Blinti. Poke me or change my mood!",
-                "✨ Blintix Studio: Ultra-fast & private.",
-                "⚡ Designed for speed, craft, and radical simplicity.",
-                "📡 Standing by for your next command."
-            ],
-            poked: [
-                "💥 Boing! That tickles!",
-                "🚀 Whoosh! Antenna bouncing!",
-                "⚡ Blintix power surge!",
-                "😄 Wheee! Nice poke!",
-                "🎯 Direct hit! Wide awake and ready!",
-                "✨ Spring physics activated!"
-            ],
-            happy: [
-                "✨ Loving the Blintix vibe!",
-                "🎉 100% happiness score achieved!",
-                "🚀 Great products start with speed & craft!",
-                "💖 High five, human!",
-                "🌟 Everything is running at 60 FPS!"
-            ],
-            thinking: [
-                "🧠 Pondering zero-latency architectures...",
-                "💡 Processing creative studio layouts...",
-                "🤔 Analyzing UX micro-interactions...",
-                "📊 Optimizing web performance metrics...",
-                "⚙️ Computing next breakthrough..."
-            ],
-            searching: [
-                "🔍 Scanning the web for clean code...",
-                "📡 Sweeping radar for bugs & bottlenecks...",
-                "🌐 Searching high and low across cyberspace...",
-                "🛰️ Signal locked on next-gen tech!",
-                "🔎 Analyzing digital tokens..."
-            ],
-            working: [
-                "⚙️ Compiling pixels into magic...",
-                "⚡ Shipping production-ready software...",
-                "🔨 Polishing high-performance UI components...",
-                "🚀 Deploying with zero compromises!",
-                "💻 Writing crisp, typed JavaScript..."
-            ],
-            speaking: [
-                "🗣️ Welcome to Blintix Studio!",
-                "🎙️ Privacy-first, speed-obsessed.",
-                "💬 Let's build something extraordinary together!",
-                "📢 Explore ZipIt, Services, and our Journal!",
-                "👋 Need custom engineering? Reach out to us!"
-            ],
-            sleeping: [
-                "😴 Zzz... wake me up with a poke...",
-                "🌙 Recharging solar capacitors...",
-                "💤 Low-power standby mode active...",
-                "🛌 Dreaming in clean binary code...",
-                "✨ Snoozing until you click me..."
-            ]
-        };
+        // Sequence of auto-animated states with duration and contextual dialogue
+        const sequence = [
+            {
+                state: 'idle',
+                duration: 6500,
+                quotes: [
+                    "👀 Watching your cursor... move around!",
+                    "👋 Hi! I'm Blinti. Tap me anytime!",
+                    "✨ Blintix Studio: Ultra-fast & private.",
+                    "⚡ Radically simple, high-performance tech."
+                ]
+            },
+            {
+                state: 'happy',
+                duration: 5500,
+                quotes: [
+                    "🎉 100% happiness score achieved!",
+                    "✨ Loving the Blintix vibe!",
+                    "🚀 Great products start with craft & speed!",
+                    "🌟 Everything running at smooth 60 FPS!"
+                ]
+            },
+            {
+                state: 'thinking',
+                duration: 5500,
+                quotes: [
+                    "🧠 Pondering zero-latency architectures...",
+                    "💡 Processing creative studio layouts...",
+                    "🤔 Analyzing UX micro-interactions...",
+                    "📊 Optimizing web performance metrics..."
+                ]
+            },
+            {
+                state: 'searching',
+                duration: 5000,
+                quotes: [
+                    "🔍 Scanning cyberspace for clean code...",
+                    "📡 Sweeping radar for bugs & bottlenecks...",
+                    "🌐 Searching high and low across the web...",
+                    "🛰️ Signal locked on next-gen tech!"
+                ]
+            },
+            {
+                state: 'speaking',
+                duration: 5000,
+                quotes: [
+                    "🗣️ Welcome to Blintix Studio!",
+                    "💬 Privacy-first, speed-obsessed.",
+                    "📢 Explore ZipIt, Services, and our Journal!",
+                    "🚀 Let's build something extraordinary together!"
+                ]
+            },
+            {
+                state: 'working',
+                duration: 5500,
+                quotes: [
+                    "⚙️ Compiling pixels into magic...",
+                    "⚡ Shipping production-ready software...",
+                    "🔨 Polishing interactive UI components...",
+                    "💻 Writing crisp, typed JavaScript..."
+                ]
+            }
+        ];
+
+        const pokeQuotes = [
+            "💥 Boing! That tickles!",
+            "🚀 Whoosh! Antenna bouncing!",
+            "⚡ Blintix power surge!",
+            "😄 Wheee! Nice poke!",
+            "🎯 Direct hit! Wide awake and bouncing!",
+            "✨ Spring physics activated!"
+        ];
 
         function setSpeech(text) {
             if (!speechEl) return;
@@ -88,96 +100,68 @@
             }, 120);
         }
 
-        function getRandomQuote(category) {
-            const list = quotes[category] || quotes.idle;
-            return list[Math.floor(Math.random() * list.length)];
+        function pickRandom(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
         }
 
-        // Initialize Robot Head (Default shape: rectangle as requested)
+        // Initialize TV Robot Head (shape="rectangle")
         const bot = window.createRobotHead(stage, {
-            shape: 'rectangle', // classic TV monitor with antenna & knob ears
-            state: 'idle',
-            size: 150,
-            color: '#2b49a3', // Cobalt
+            shape: 'rectangle',
+            state: sequence[0].state,
+            size: 160,
+            color: '#2b49a3',
             trimColor: '#93a6c8',
             screenColor: '#e8f2ff',
             interactive: true,
             floorShadow: true,
             antenna: true,
-            onPoke: function (currentState) {
-                setSpeech(getRandomQuote('poked'));
-                if (currentState === 'sleeping') {
-                    setActiveState('happy');
-                }
+            onPoke: function () {
+                handlePoke();
             }
         });
 
         if (!bot) return;
 
-        function setActiveState(state) {
-            bot.setState(state);
-            stateChips.forEach(chip => {
-                if (chip.getAttribute('data-state') === state) {
-                    chip.classList.add('active');
-                    chip.setAttribute('aria-pressed', 'true');
-                } else {
-                    chip.classList.remove('active');
-                    chip.setAttribute('aria-pressed', 'false');
-                }
-            });
-            setSpeech(getRandomQuote(state));
+        let currentIndex = 0;
+        let timer = null;
+        let pokeCooldown = false;
+
+        function runStep() {
+            if (pokeCooldown) return;
+            const current = sequence[currentIndex];
+            bot.setState(current.state);
+            setSpeech(pickRandom(current.quotes));
+
+            timer = setTimeout(() => {
+                currentIndex = (currentIndex + 1) % sequence.length;
+                runStep();
+            }, current.duration);
         }
 
-        // State Chips
-        stateChips.forEach(chip => {
-            chip.addEventListener('click', (e) => {
-                e.preventDefault();
-                const state = chip.getAttribute('data-state');
-                if (state) {
-                    setActiveState(state);
-                }
-            });
-        });
+        function handlePoke() {
+            setSpeech(pickRandom(pokeQuotes));
+            pokeCooldown = true;
+            if (timer) clearTimeout(timer);
 
-        // Color Swatches
-        swatchBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const color = btn.getAttribute('data-color');
-                if (color) {
-                    bot.setColors(color);
-                    swatchBtns.forEach(b => {
-                        b.classList.remove('active');
-                        b.setAttribute('aria-selected', 'false');
-                    });
-                    btn.classList.add('active');
-                    btn.setAttribute('aria-selected', 'true');
-                    setSpeech("🎨 Fresh coat of paint! Looking sharp.");
-                }
-            });
-        });
-
-        // Shape Selector (Rectangle TV is default)
-        if (shapeSelect) {
-            shapeSelect.addEventListener('change', (e) => {
-                const shape = e.target.value;
-                bot.setShape(shape);
-                setSpeech(`✨ Shape switched to ${shape.toUpperCase()} TV!`);
-            });
+            // Resume auto sequence after 4.5 seconds
+            timer = setTimeout(() => {
+                pokeCooldown = false;
+                currentIndex = (currentIndex + 1) % sequence.length;
+                runStep();
+            }, 4500);
         }
 
-        // Poke Button
-        if (pokeBtn) {
-            pokeBtn.addEventListener('click', (e) => {
-                e.preventDefault();
+        // Click anywhere on card to poke
+        const card = document.getElementById('footerRobotCard');
+        if (card) {
+            card.addEventListener('click', () => {
                 bot.poke();
             });
         }
 
-        // Set initial random idle greeting
-        setSpeech(getRandomQuote('idle'));
+        // Start auto-animation loop
+        runStep();
 
-        // Expose instance for developer console exploration
         window.blintixRobot = bot;
     }
 
