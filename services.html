@@ -563,11 +563,22 @@ section { padding-block: 72px; }
 footer { border-top: 1px solid var(--border-subtle); padding-block: 48px 56px; margin-top: 48px; }
 .foot { display: grid; gap: 32px; grid-template-columns: minmax(0, 1.1fr) auto minmax(0, 1fr); align-items: center; }
 .foot p { color: var(--text-muted); font-size: 0.92rem; margin-top: 12px; max-width: 36ch; }
-.footer-robot-wrap { display: flex; justify-content: center; align-items: center; }
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+.footer-robot-wrap { display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .robot-stage { position: relative; width: 165px; height: 165px; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; }
 .robot-stage span[role="img"] { transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
 .robot-stage:hover span[role="img"] { transform: scale(1.06); }
 .robot-stage:active span[role="img"] { transform: scale(0.96); }
+.robot-name-tag { margin-top: 6px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-family: 'Press Start 2P', monospace; font-size: 0.72rem; letter-spacing: 0.18em; user-select: none; cursor: pointer; transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+.robot-name-tag:hover { transform: scale(1.08); filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.6)); }
+.robot-name-tag.poked { animation: pixel-bounce 0.35s ease-out; }
+.pixel-prefix { color: var(--accent-primary, #a78bfa); font-size: 0.65rem; opacity: 0.8; text-shadow: 0 0 8px var(--accent-primary, #a78bfa); animation: prefix-flicker 3s infinite; }
+.pixel-name { background: linear-gradient(90deg, #e8f2ff 0%, #a78bfa 50%, #7fe7ff 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 10px rgba(167, 139, 250, 0.5), 0 0 20px rgba(127, 231, 255, 0.25); animation: pixel-shimmer 4s linear infinite; display: inline-block; font-weight: 400; }
+.pixel-cursor { display: inline-block; width: 6px; height: 11px; background: var(--accent-primary, #a78bfa); box-shadow: 0 0 8px var(--accent-primary, #a78bfa); animation: pixel-blink 0.9s steps(1) infinite; vertical-align: middle; }
+@keyframes pixel-blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+@keyframes pixel-shimmer { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+@keyframes prefix-flicker { 0%, 100% { opacity: 0.85; } 50% { opacity: 0.35; } 52% { opacity: 0.95; } 54% { opacity: 0.45; } }
+@keyframes pixel-bounce { 0% { transform: translateY(0) scale(1); } 40% { transform: translateY(-4px) scale(1.12); } 100% { transform: translateY(0) scale(1); } }
 .tree { font-family: var(--font-mono); font-size: 12.5px; line-height: 1.9; color: var(--text-muted); overflow-x: auto; }
 .tree a { text-decoration: none; transition: color .2s; }
 .tree a:hover { color: var(--text-main); }
@@ -947,9 +958,14 @@ footer { border-top: 1px solid var(--border-subtle); padding-block: 48px 56px; m
         </a>
         <p>Independent product studio. Designing for speed and privacy.</p>
       </div>
-      <!-- Auto-Animated TV Robot (shape: rectangle) -->
+            <!-- Auto-Animated TV Robot (shape: rectangle) -->
       <div class="footer-robot-wrap" id="footerRobotCard">
         <div class="robot-stage" id="footerRobotStage" role="region" aria-label="Interactive TV Robot"></div>
+        <div class="robot-name-tag" aria-label="Robot name: Blinky">
+          <span class="pixel-prefix">&gt;</span>
+          <span class="pixel-name">BLINKY</span>
+          <span class="pixel-cursor"></span>
+        </div>
       </div>
       <div class="tree" aria-label="Blintix products">
 <b style="color:var(--text-main);font-weight:500;">Blintix (Brand)</b><br>

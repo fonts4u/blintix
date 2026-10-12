@@ -1,9 +1,10 @@
 /**
  * Blintix Studio - Auto-Animated TV Robot (shape: rectangle)
+ * Robot Name: Blinky
  * Powered by robot-heads
  * 
- * Auto-cycles through lively expressions & states while remaining
- * fully interactive to mouse tracking & direct poke clicks.
+ * Auto-cycles through lively expressions while remaining
+ * fully interactive to 3D mouse tracking & direct poke clicks.
  */
 (function () {
     function initFooterRobot() {
@@ -14,101 +15,21 @@
             return;
         }
 
-        const speechEl = document.getElementById('robotSpeechText');
-
-        // Sequence of auto-animated states with duration and contextual dialogue
+        // Auto-animated expression sequence
         const sequence = [
-            {
-                state: 'idle',
-                duration: 6500,
-                quotes: [
-                    "👀 Watching your cursor... move around!",
-                    "👋 Hi! I'm Blinti. Tap me anytime!",
-                    "✨ Blintix Studio: Ultra-fast & private.",
-                    "⚡ Radically simple, high-performance tech."
-                ]
-            },
-            {
-                state: 'happy',
-                duration: 5500,
-                quotes: [
-                    "🎉 100% happiness score achieved!",
-                    "✨ Loving the Blintix vibe!",
-                    "🚀 Great products start with craft & speed!",
-                    "🌟 Everything running at smooth 60 FPS!"
-                ]
-            },
-            {
-                state: 'thinking',
-                duration: 5500,
-                quotes: [
-                    "🧠 Pondering zero-latency architectures...",
-                    "💡 Processing creative studio layouts...",
-                    "🤔 Analyzing UX micro-interactions...",
-                    "📊 Optimizing web performance metrics..."
-                ]
-            },
-            {
-                state: 'searching',
-                duration: 5000,
-                quotes: [
-                    "🔍 Scanning cyberspace for clean code...",
-                    "📡 Sweeping radar for bugs & bottlenecks...",
-                    "🌐 Searching high and low across the web...",
-                    "🛰️ Signal locked on next-gen tech!"
-                ]
-            },
-            {
-                state: 'speaking',
-                duration: 5000,
-                quotes: [
-                    "🗣️ Welcome to Blintix Studio!",
-                    "💬 Privacy-first, speed-obsessed.",
-                    "📢 Explore ZipIt, Services, and our Journal!",
-                    "🚀 Let's build something extraordinary together!"
-                ]
-            },
-            {
-                state: 'working',
-                duration: 5500,
-                quotes: [
-                    "⚙️ Compiling pixels into magic...",
-                    "⚡ Shipping production-ready software...",
-                    "🔨 Polishing interactive UI components...",
-                    "💻 Writing crisp, typed JavaScript..."
-                ]
-            }
+            { state: 'idle', duration: 7000 },
+            { state: 'happy', duration: 5500 },
+            { state: 'thinking', duration: 5500 },
+            { state: 'searching', duration: 5000 },
+            { state: 'speaking', duration: 5000 },
+            { state: 'working', duration: 5500 }
         ];
-
-        const pokeQuotes = [
-            "💥 Boing! That tickles!",
-            "🚀 Whoosh! Antenna bouncing!",
-            "⚡ Blintix power surge!",
-            "😄 Wheee! Nice poke!",
-            "🎯 Direct hit! Wide awake and bouncing!",
-            "✨ Spring physics activated!"
-        ];
-
-        function setSpeech(text) {
-            if (!speechEl) return;
-            speechEl.style.opacity = '0';
-            speechEl.style.transform = 'translateY(2px)';
-            setTimeout(() => {
-                speechEl.textContent = text;
-                speechEl.style.opacity = '1';
-                speechEl.style.transform = 'translateY(0)';
-            }, 120);
-        }
-
-        function pickRandom(arr) {
-            return arr[Math.floor(Math.random() * arr.length)];
-        }
 
         // Initialize TV Robot Head (shape="rectangle")
         const bot = window.createRobotHead(stage, {
             shape: 'rectangle',
             state: sequence[0].state,
-            size: 160,
+            size: 165,
             color: '#2b49a3',
             trimColor: '#93a6c8',
             screenColor: '#e8f2ff',
@@ -130,7 +51,6 @@
             if (pokeCooldown) return;
             const current = sequence[currentIndex];
             bot.setState(current.state);
-            setSpeech(pickRandom(current.quotes));
 
             timer = setTimeout(() => {
                 currentIndex = (currentIndex + 1) % sequence.length;
@@ -139,9 +59,15 @@
         }
 
         function handlePoke() {
-            setSpeech(pickRandom(pokeQuotes));
             pokeCooldown = true;
             if (timer) clearTimeout(timer);
+
+            // Animate pixel name tag on poke
+            const tags = document.querySelectorAll('.robot-name-tag');
+            tags.forEach(tag => {
+                tag.classList.add('poked');
+                setTimeout(() => tag.classList.remove('poked'), 400);
+            });
 
             // Resume auto sequence after 4.5 seconds
             timer = setTimeout(() => {
@@ -151,7 +77,15 @@
             }, 4500);
         }
 
-        // Click anywhere on card to poke
+        // Allow clicking name tag or card to poke
+        const nameTags = document.querySelectorAll('.robot-name-tag');
+        nameTags.forEach(tag => {
+            tag.addEventListener('click', (e) => {
+                e.stopPropagation();
+                bot.poke();
+            });
+        });
+
         const card = document.getElementById('footerRobotCard');
         if (card) {
             card.addEventListener('click', () => {
