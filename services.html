@@ -603,6 +603,189 @@ footer { border-top: 1px solid var(--border-subtle); padding-block: 48px 56px; m
   * { transition: none !important; }
   .av-float, .avatar::before, .av-blink, .av-wave, .av-live, .av-bubble, .pkg::before, .pkg::after, .fstep.is-active .i3d, .fpanel, .fstep::after, .rot-track, .fl, .w-cursor, .w-card, .w-line::after, .w-sub::after, .w-track i { animation: none !important; }
 }
+
+/* Case studies: sticky stacking cards */
+.work { padding-block: 72px 24px; }
+.stack { padding-bottom: 24px; }
+.case {
+  --top: calc(88px + var(--i) * 62px);
+  position: sticky; top: var(--top); margin-bottom: 36px; overflow: hidden;
+  background: #0d0d0d; border: 1px solid rgba(255,255,255,0.12); border-radius: 24px;
+  box-shadow: 0 -24px 50px -26px #000, 0 30px 60px -30px rgba(0,0,0,.9);
+  transform-origin: 50% 0; transform: scale(var(--s, 1)); filter: brightness(var(--b, 1));
+  will-change: transform;
+}
+.case:last-child { margin-bottom: 0; }
+.case-h { display: flex; align-items: center; gap: 14px; height: 62px; padding: 0 22px; border-bottom: 1px solid rgba(255,255,255,0.12); background: #0d0d0d; }
+.case-h h3 { font: 500 15px/1 var(--font-mono); letter-spacing: 0; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.case-go { flex: none; display: inline-grid; place-items: center; width: 38px; height: 26px; border-radius: 8px; color: #111; text-decoration: none; background: linear-gradient(#f5f5f5, #b9b9b9); box-shadow: 0 2px 0 #6f6f6f, inset 0 1px 0 #fff; transition: transform .15s, box-shadow .15s; }
+.case-go:hover { transform: translateY(1px); box-shadow: 0 1px 0 #6f6f6f, inset 0 1px 0 #fff; }
+.case-tag { margin-left: auto; padding: 5px 10px; border: 1px solid var(--border-subtle); border-radius: 999px; font: 11px var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; }
+.case-y { font: 14px var(--font-mono); color: #5f5f5f; }
+.case-grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; }
+.case-main { min-width: 0; border-right: 1px solid rgba(255,255,255,0.12); display: flex; flex-direction: column; }
+.case-media { position: relative; flex: 1; min-height: 360px; display: grid; place-items: center; overflow: hidden; padding: 28px; background: var(--bg); border-bottom: 1px solid rgba(255,255,255,0.12); }
+.case-media::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(70% 60% at 30% 0%, rgba(255,255,255,.28), transparent 70%); }
+.case-brief { padding: 24px 28px 28px; display: grid; gap: 10px; }
+.case-brief .label { color: #5f5f5f; }
+.case-brief p { font: 400 clamp(14px, 1.5vw, 17px)/1.55 var(--font-mono); color: #d4d4d4; max-width: 46ch; }
+.case-side { display: flex; flex-direction: column; gap: 26px; padding: 24px 28px 28px; min-width: 0; }
+.case-lbl { display: flex; align-items: center; gap: 12px; font: 11px var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: #6b6b6b; }
+.case-lbl::before, .case-lbl::after { content: ""; flex: 1; height: 1px; background: rgba(255,255,255,0.12); }
+.case-stack { margin-top: 14px; text-align: center; font: 500 14px/1.6 var(--font-mono); color: #e5e5e5; }
+.case-impact { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+.case-impact b { display: block; font: 700 clamp(22px, 2.4vw, 30px)/1.1 var(--font-mono); color: #fff; letter-spacing: -.02em; }
+.case-impact span { display: block; margin-top: 6px; font: 12.5px/1.4 var(--font-mono); color: #8c8c8c; }
+.case-btn { margin-top: auto; appearance: none; cursor: pointer; padding: 16px 20px; border: 0; border-radius: 12px; font: 500 15px/1 var(--font-mono); color: #111; background: linear-gradient(#fbfbfb, #c4c4c4); box-shadow: 0 3px 0 #707070, inset 0 1px 0 #fff; transition: transform .15s, box-shadow .15s; }
+.case-btn:hover { transform: translateY(2px); box-shadow: 0 1px 0 #707070, inset 0 1px 0 #fff; }
+.case-btn:focus-visible, .case-go:focus-visible { outline: 2px solid var(--accent-primary); outline-offset: 3px; }
+
+/* Mock UI inside the media panel */
+.mk { position: relative; z-index: 1; border-radius: 16px; overflow: hidden; box-shadow: 0 40px 70px -28px rgba(0,0,0,.55), 0 0 0 1px rgba(0,0,0,.25); font-family: var(--font-main); }
+.mk-dark { background: #0b0b10; color: #fff; }
+.mk-light { background: #fff; color: #111; }
+.mk-cream { background: #fbf8f1; color: #1c1917; padding: 16px; display: grid; gap: 12px; }
+.mk-bar { display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-bottom: 1px solid rgba(128,128,128,.25); }
+.mk-bar i { width: 8px; height: 8px; border-radius: 50%; background: rgba(128,128,128,.5); }
+.mk-url { flex: 1; margin-left: 8px; padding: 3px 12px; border-radius: 999px; background: rgba(128,128,128,.16); font: 10px var(--font-mono); opacity: .8; }
+.mk-body { position: relative; display: grid; padding: 18px; }
+.mk-col { display: grid; gap: 9px; align-content: start; }
+.mk-k { font: 10px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; opacity: .55; }
+.mk-big { font-size: 34px; line-height: 1; font-weight: 800; letter-spacing: -.03em; }
+.mk-big small { font-size: 13px; opacity: .5; margin-left: 2px; }
+.mk-sk { display: block; height: 7px; border-radius: 4px; background: rgba(128,128,128,.28); }
+.w90{width:90%}.w80{width:80%}.w70{width:70%}.w60{width:60%}.w50{width:50%}
+.mk-check { display: flex; align-items: center; gap: 8px; }
+.mk-check i { width: 14px; height: 14px; border-radius: 5px; border: 1.5px solid rgba(255,255,255,.35); flex: none; }
+.mk-check i.on { background: #b9a4ff; border-color: #b9a4ff; }
+.mk-check .mk-sk { flex: 1; }
+.mk-chart { width: 100%; height: auto; display: block; }
+.mk-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.mk-chip { padding: 4px 9px; border-radius: 999px; font: 600 10px var(--font-main); background: rgba(185,164,255,.2); color: #d9ceff; }
+.mk-chip.alt { background: rgba(110,231,183,.18); color: #a7f3d0; }
+.mk-chip.lt { background: #f1f1f1; color: #333; }
+.mk-dark .mk-tags .mk-chip:not(.alt) { }
+.pin { position: absolute; z-index: 3; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: #ff5a3c; color: #fff; font: 700 11px var(--font-main); box-shadow: 0 0 0 4px rgba(255,90,60,.28), 0 6px 12px rgba(0,0,0,.4); }
+.mk-input { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; padding: 8px 8px 8px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.05); font-size: 12px; }
+.mk-input u { text-decoration: none; color: #7dd3fc; }
+.mk-input em { font-style: normal; font-weight: 700; font-size: 11px; padding: 6px 14px; border-radius: 999px; background: #fff; color: #000; }
+.mk-input.lt { border-color: #e2e8f0; background: #f8fafc; color: #475569; }
+.mk-input.lt em { background: #0f172a; color: #fff; }
+.mk-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; }
+.mk-tiles span { display: grid; justify-items: center; gap: 6px; padding: 12px 6px; border-radius: 12px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.04); font-size: 10px; color: #cbd5e1; }
+.mk-tiles i { width: 28px; height: 28px; border-radius: 9px; background: linear-gradient(135deg, var(--g)); }
+.mk-pop-h { display: flex; align-items: center; gap: 8px; font-weight: 800; }
+.mk-logo { width: 18px; height: 18px; border-radius: 6px; background: #ea580c; }
+.mk-pop-h em { margin-left: auto; font: 600 10px var(--font-main); font-style: normal; padding: 3px 8px; border-radius: 999px; background: #1c1917; color: #fbf8f1; }
+.mk-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; border-radius: 10px; background: #efe9dc; font-size: 11px; font-weight: 600; text-align: center; }
+.mk-tabs span { padding: 6px 0; border-radius: 7px; color: #78716c; }
+.mk-tabs .on { background: #fff; color: #1c1917; box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+.mk-sw { display: flex; gap: 8px; } .mk-sw i { width: 32px; height: 32px; border-radius: 10px; }
+.mk-sw.sm i { width: 22px; height: 22px; border-radius: 7px; }
+.mk-font { display: flex; align-items: center; gap: 12px; padding: 8px 10px; border-radius: 10px; background: #fff; border: 1px solid #ebe5d6; font-size: 12px; font-weight: 700; }
+.mk-font b { font-size: 20px; color: #ea580c; } .mk-font small { display: block; font-weight: 500; font-size: 10px; color: #78716c; }
+.mk-btn { padding: 11px; border-radius: 10px; text-align: center; font-size: 12px; font-weight: 700; background: #1c1917; color: #fbf8f1; }
+.mk-btn.sm { padding: 8px 10px; font-size: 10.5px; border-radius: 8px; background: #ff7a4d; color: #fff; }
+.mk-btn.dk { background: #0f172a; } .mk-btn.ghost { background: #fff; color: #0f172a; border: 1px solid #cbd5e1; }
+.mk-shelf { display: flex; align-items: center; gap: 6px; padding: 8px 10px; border-radius: 999px; background: #1c1917; color: #fbf8f1; font-size: 10.5px; font-weight: 600; }
+.mk-shelf i { width: 16px; height: 16px; border-radius: 5px; background: #ea580c; } .mk-shelf i:nth-child(2) { background: #fdba74; } .mk-shelf i:nth-child(3) { background: #fbf8f1; }
+.mk-shelf span { margin-left: 4px; }
+.mk-trio { position: relative; z-index: 1; width: 100%; max-width: 560px; display: flex; align-items: flex-end; justify-content: center; gap: 14px; }
+.mk-ed { display: grid; grid-template-columns: 22px 1fr 70px; gap: 8px; padding: 8px; }
+.mk-tools { display: grid; gap: 6px; align-content: start; } .mk-tools i { width: 20px; height: 20px; border-radius: 6px; background: #eee; } .mk-tools i.on { background: #ff7a4d; }
+.mk-canvas { position: relative; aspect-ratio: 4/3; border-radius: 8px; overflow: hidden; margin: 8px; background: linear-gradient(135deg, #fde68a, #fb923c 55%, #f472b6); }
+.mk-ed .mk-canvas { margin: 0; }
+.mk-canvas.tall { aspect-ratio: 3/4; margin: 8px; }
+.mk-subj { position: absolute; left: 50%; bottom: 0; width: 46%; height: 72%; transform: translateX(-50%); border-radius: 999px 999px 0 0; background: repeating-conic-gradient(#fff 0 25%, #d4d4d8 0 50%) 0 0/10px 10px; border: 2px solid rgba(255,255,255,.9); }
+.mk-panel { display: grid; gap: 6px; align-content: start; font-size: 9px; } .mk-panel b { font-size: 10px; }
+.mk-phone { width: 24%; border-radius: 22px; padding: 6px 4px 8px; display: grid; gap: 4px; border: 4px solid #111; }
+.mk-grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.mk-card { display: grid; gap: 8px; align-content: start; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0; background: #f8fafc; } .mk-card b { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: #64748b; }
+.mk-f { padding: 4px 8px; border-radius: 6px; background: #e2e8f0; font: 10px var(--font-mono); color: #334155; justify-self: start; }
+.mk-row { display: flex; gap: 8px; }
+
+/* Case study dialog */
+.cs-dlg { width: min(860px, calc(100% - 24px)); max-height: calc(100dvh - 32px); padding: 0; border: 1px solid var(--border-hover); border-radius: 28px; background: #0c0c0e; color: var(--text-main); overflow-y: auto; overscroll-behavior: contain; box-shadow: 0 40px 120px rgba(0,0,0,.8); }
+.cs-dlg::backdrop { background: rgba(0,0,0,.72); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.cs-dlg[open] { animation: cs-in .35s cubic-bezier(.2,.8,.2,1); }
+@keyframes cs-in { from { opacity: 0; transform: translateY(18px) scale(.98); } to { opacity: 1; transform: none; } }
+.cs-x { position: sticky; top: 0; z-index: 2; display: flex; justify-content: flex-end; height: 0; margin: 0; }
+.cs-x button { appearance: none; margin: 16px 16px 0 0; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(0,0,0,.25); background: rgba(255,255,255,.92); color: #000; font-size: 24px; line-height: 1; cursor: pointer; }
+.cs-hero { padding: clamp(28px, 5vw, 48px); background: radial-gradient(90% 120% at 0% 0%, color-mix(in srgb, var(--bg) 55%, transparent), transparent 70%), #101013; border-bottom: 1px solid var(--border-subtle); }
+.cs-hero h2 { margin-top: 12px; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; }
+.cs-hero p { margin-top: 14px; max-width: 56ch; color: var(--text-soft); font-size: 1.05rem; }
+.cs-meta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; border-bottom: 1px solid var(--border-subtle); }
+.cs-meta div { display: grid; gap: 4px; align-content: start; padding: 18px clamp(16px, 3vw, 28px); } .cs-meta div + div { border-left: 1px solid var(--border-subtle); }
+.cs-meta dt { font: 11px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); } .cs-meta dd { margin: 0; font-weight: 600; font-size: .92rem; }
+.cs-sec { display: grid; gap: 14px; padding: 28px clamp(20px, 5vw, 48px); border-bottom: 1px solid var(--border-subtle); }
+.cs-sec > p { color: var(--text-soft); max-width: 66ch; }
+.cs-two { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; } .cs-two > div { display: grid; gap: 14px; align-content: start; }
+.cs-steps { display: grid; gap: 0; counter-reset: cs; padding: 0; margin: 0; list-style: none; }
+.cs-steps li { counter-increment: cs; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 2px 12px; padding: 16px 0; border-top: 1px solid var(--border-subtle); }
+.cs-steps li::before { content: counter(cs, decimal-leading-zero); grid-row: span 2; font: 13px var(--font-mono); color: var(--accent-primary); padding-top: 3px; }
+.cs-steps h4 { margin: 0; font-size: 1.05rem; } .cs-steps p { color: var(--text-muted); font-size: .95rem; max-width: 62ch; }
+.cs-dlg .incl li::before { background: var(--accent-gradient); }
+.cs-foot { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 20px; padding: 22px clamp(20px, 5vw, 48px); }
+.cs-foot .label { overflow-wrap: anywhere; }
+
+.cs-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+.cs-tile { display: grid; gap: 6px; align-content: start; padding: 16px; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-surface); }
+.cs-tile b { font: 700 1.6rem/1.1 var(--font-mono); letter-spacing: -.02em; background: var(--accent-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.cs-tile span { font-size: .88rem; color: var(--text-soft); line-height: 1.4; }
+.cs-tile small { font: 10.5px var(--font-mono); letter-spacing: .04em; color: var(--text-muted); }
+.cs-insight { padding: 16px 18px; border-left: 2px solid var(--accent-primary); background: rgba(167,139,250,.07); border-radius: 0 12px 12px 0; }
+.cs-insight p { margin-top: 6px; color: var(--text-soft); font-size: .95rem; max-width: 70ch; }
+.cs-src { font-size: .82rem; color: var(--text-muted); } .cs-src a { color: var(--text-soft); margin-right: 10px; text-underline-offset: 3px; }
+body.cs-lock { overflow: hidden; }
+
+@media (max-width: 900px) {
+  .case { --top: calc(80px + var(--i) * 56px); }
+  .case-h { height: 56px; padding: 0 16px; gap: 10px; }
+  .case-tag { display: none; } .case-y { margin-left: auto; }
+  .case-grid { grid-template-columns: minmax(0, 1fr); }
+  .case-main { border-right: 0; }
+  .case-media { min-height: 280px; padding: 20px 14px; }
+  .case-side { border-top: 1px solid rgba(255,255,255,.12); padding: 20px; gap: 20px; }
+  .case-btn { margin-top: 0; }
+  .cs-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); } .cs-meta div:nth-child(3) { border-left: 0; } .cs-meta div:nth-child(n+3) { border-top: 1px solid var(--border-subtle); }
+  .cs-two { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 480px) {
+  .mk-tiles { grid-template-columns: repeat(2, 1fr); }
+  .mk-trio .mk:nth-child(3) { display: none; } .mk-trio .mk:first-child { width: 70% !important; } .mk-phone { width: 30%; }
+}
+@media (prefers-reduced-motion: reduce) { .case { transform: none !important; filter: none !important; } .cs-dlg[open] { animation: none; } }
+
+/* Astronaut avatar */
+.avatar { overflow: visible; }
+.av-bubble { bottom: -4%; left: -14%; }
+.avatar svg { overflow: visible; }
+.as-drift { transform-origin: 100px 120px; animation: as-drift 7s ease-in-out infinite; }
+.as-glare { animation: as-glare 6s ease-in-out infinite; }
+.as-eyes { transform-box: fill-box; transform-origin: center; animation: as-blink 5s infinite; }
+.as-look { animation: as-look 7s ease-in-out infinite; }
+.as-brows { animation: as-brows 7s ease-in-out infinite; }
+.as-mouth { transform-box: fill-box; transform-origin: 50% 0; animation: as-talk 7s ease-in-out infinite; }
+.tw { animation: as-tw 3s ease-in-out infinite; } .d2 { animation-delay: -.8s; } .d3 { animation-delay: -1.6s; } .d4 { animation-delay: -2.2s; }
+.as-orbit { position: absolute; inset: -1px; border-radius: 50%; animation: bm-spin 16s linear infinite; pointer-events: none; }
+.as-orbit i { position: absolute; border-radius: 50%; }
+.as-orbit .p1 { top: 7%; right: 11%; width: 15px; height: 15px; background: radial-gradient(circle at 30% 30%, #ffe0a8, #ff8c00); box-shadow: 0 0 14px rgba(255,140,0,.7); }
+.as-orbit .p2 { bottom: 12%; left: 6%; width: 11px; height: 11px; background: radial-gradient(circle at 30% 30%, #e4d9ff, #7c5ae0); box-shadow: 0 0 12px rgba(167,139,250,.8); }
+.as-orbit .p3 { top: 46%; left: -4%; width: 7px; height: 7px; background: #fff; box-shadow: 0 0 10px #fff; }
+@keyframes as-drift { 0%, 100% { transform: translate(0, 2px) rotate(-1.6deg); } 50% { transform: translate(0, -5px) rotate(1.6deg); } }
+@keyframes as-glare { 0%, 55% { transform: translateX(0); } 85%, 100% { transform: translateX(190px); } }
+@keyframes as-blink { 0%, 90%, 100% { transform: scaleY(1); } 93% { transform: scaleY(.08); } }
+@keyframes as-look { 0%, 100% { transform: translate(0, 0); } 20% { transform: translate(-2px, 0); } 45% { transform: translate(2px, -1px); } 70% { transform: translate(1px, 1px); } }
+@keyframes as-brows { 0%, 100% { transform: translateY(0); } 30%, 40% { transform: translateY(-2px); } }
+@keyframes as-talk { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.18); } }
+@keyframes as-tw { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .as-drift, .as-glare, .as-eyes, .as-look, .as-brows, .as-mouth, .tw, .as-orbit { animation: none !important; } }
+
+.as3d { position: absolute; inset: 9px; border-radius: 50%; overflow: hidden; background: radial-gradient(circle at 35% 25%, #2a2150, #090910 75%); opacity: 0; transition: opacity .5s; }
+.as3d canvas { display: block; width: 100%; height: 100%; }
+.avatar.is-3d .as3d { opacity: 1; }
+.avatar.is-3d > svg { opacity: 0; transition: opacity .5s .2s; }
+
 </style>
 </head>
 <body>
@@ -613,6 +796,7 @@ footer { border-top: 1px solid var(--border-subtle); padding-block: 48px 56px; m
       <img src="/logo2.png?v=1.3" alt="Blintix Logo">
     </a>
     <div class="nav-links">
+      <a href="#work">Work</a>
       <a href="#packages">Packages</a>
       <a href="#scope">Scope</a>
       <a href="#process">Process</a>
@@ -670,7 +854,188 @@ footer { border-top: 1px solid var(--border-subtle); padding-block: 48px 56px; m
     </div>
   </div>
 
-  <section id="packages" aria-labelledby="packages-h">
+  <section id="work" class="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="label">Selected work</span>
+        <h2 id="work-h">Case studies</h2>
+        <p>Product design and UX audits for AI, design and creative tools. Scroll to stack the cards, then open a case study for the full story.</p>
+      </div>
+      <div class="stack" data-stack>
+      <article class="case" style="--i:0;--bg:#c4b5fd" aria-labelledby="cs-onbeacon-t">
+        <header class="case-h">
+          <h3 id="cs-onbeacon-t">onBeacon</h3>
+          <a class="case-go" href="https://onbeacon.ai/" target="_blank" rel="noopener" aria-label="Open onBeacon in a new tab"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+          <span class="case-tag">UX audit</span>
+          <time class="case-y">2026</time>
+        </header>
+        <div class="case-grid">
+          <div class="case-main">
+            <div class="case-media" aria-hidden="true">
+<div class="mk mk-dark" style="width:78%">
+  <div class="mk-bar"><i></i><i></i><i></i><span class="mk-url">app.onbeacon.ai</span></div>
+  <div class="mk-body" style="grid-template-columns:.9fr 1.4fr;gap:18px">
+    <div class="mk-col">
+      <span class="mk-k">UX score</span>
+      <b class="mk-big">72<small>/100</small></b>
+      <span class="mk-sk w80"></span><span class="mk-sk w60"></span>
+      <div class="mk-check"><i class="on"></i><span class="mk-sk w70"></span></div>
+      <div class="mk-check"><i class="on"></i><span class="mk-sk w50"></span></div>
+      <div class="mk-check"><i></i><span class="mk-sk w60"></span></div>
+    </div>
+    <div class="mk-col">
+      <span class="mk-k">Week-4 retention</span>
+      <svg viewBox="0 0 200 90" class="mk-chart" aria-hidden="true"><defs><linearGradient id="obg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#b9a4ff" stop-opacity=".45"/><stop offset="1" stop-color="#b9a4ff" stop-opacity="0"/></linearGradient></defs><path d="M0 14 C30 40 50 54 80 60 S140 66 200 62 L200 90 L0 90Z" fill="url(#obg)"/><path d="M0 14 C30 40 50 54 80 60 S140 66 200 62" fill="none" stroke="#b9a4ff" stroke-width="2.5"/><path d="M0 14 C30 34 60 40 90 40 S150 34 200 24" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 5" opacity=".7"/></svg>
+      <div class="mk-tags"><span class="mk-chip">High impact</span><span class="mk-chip alt">Quick win</span></div>
+      <span class="mk-sk w90"></span><span class="mk-sk w70"></span>
+    </div>
+    <span class="pin" style="left:6%;top:30%">1</span>
+    <span class="pin" style="left:52%;top:18%">2</span>
+    <span class="pin" style="left:80%;top:62%">3</span>
+  </div>
+</div></div>
+            <div class="case-brief"><span class="label">Brief</span><p>AI that reviews your UX like a senior designer. The audit shortened the path to a first useful suggestion and gave teams a reason to come back.</p></div>
+          </div>
+          <aside class="case-side">
+            <div class="case-blk"><span class="case-lbl">Tool stack</span><p class="case-stack">Figma, ChatGPT, Loom</p></div>
+            <div class="case-blk"><span class="case-lbl">Impact</span><div class="case-impact"><div><b>130+</b><span>Behavioural principles checked</span></div><div><b>6</b><span>Review areas in one tool</span></div></div></div>
+            <button class="case-btn" type="button" data-open="cs-onbeacon">View Case Study <span aria-hidden="true">&rarr;</span></button>
+          </aside>
+        </div>
+      </article>
+      <article class="case" style="--i:1;--bg:#7dd3fc" aria-labelledby="cs-codiris-t">
+        <header class="case-h">
+          <h3 id="cs-codiris-t">Codiris</h3>
+          <a class="case-go" href="https://www.codiris.build/" target="_blank" rel="noopener" aria-label="Open Codiris in a new tab"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+          <span class="case-tag">UX audit</span>
+          <time class="case-y">2026</time>
+        </header>
+        <div class="case-grid">
+          <div class="case-main">
+            <div class="case-media" aria-hidden="true">
+<div class="mk mk-dark" style="width:78%">
+  <div class="mk-bar"><i></i><i></i><i></i><span class="mk-url">codiris.build</span></div>
+  <div class="mk-body" style="gap:16px;justify-items:center">
+    <div class="mk-input"><span>Transform <u>airbnb.com</u> into an Agent-first app</span><em>Go</em></div>
+    <div class="mk-tiles">
+      <span><i style="--g:#7dd3fc,#38bdf8"></i>Email</span>
+      <span><i style="--g:#a5b4fc,#818cf8"></i>Calendar</span>
+      <span><i style="--g:#6ee7b7,#34d399"></i>CRM</span>
+      <span><i style="--g:#fcd34d,#fb923c"></i>Inbox</span>
+    </div>
+    <div class="mk-tags"><span class="mk-chip">Agentizer</span><span class="mk-chip">Agentnet</span><span class="mk-chip">Iris</span></div>
+    <span class="pin" style="left:8%;top:10%">1</span>
+    <span class="pin" style="left:88%;top:6%">2</span>
+    <span class="pin" style="left:22%;top:86%">3</span>
+  </div>
+</div></div>
+            <div class="case-brief"><span class="label">Brief</span><p>A product for building software for agents and people. The audit made the offer easier to understand and gave first-time visitors a clear next step.</p></div>
+          </div>
+          <aside class="case-side">
+            <div class="case-blk"><span class="case-lbl">Tool stack</span><p class="case-stack">Figma, ChatGPT, Loom</p></div>
+            <div class="case-blk"><span class="case-lbl">Impact</span><div class="case-impact"><div><b>6</b><span>Product-lifecycle stages in one workspace</span></div><div><b>7</b><span>Priority UX issues flagged</span></div></div></div>
+            <button class="case-btn" type="button" data-open="cs-codiris">View Case Study <span aria-hidden="true">&rarr;</span></button>
+          </aside>
+        </div>
+      </article>
+      <article class="case" style="--i:2;--bg:#ea580c" aria-labelledby="cs-zipit-t">
+        <header class="case-h">
+          <h3 id="cs-zipit-t">ZipIt (Browser Extension)</h3>
+          <a class="case-go" href="https://zipit.blintix.store/" target="_blank" rel="noopener" aria-label="Open ZipIt (Browser Extension) in a new tab"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+          <span class="case-tag">Product design</span>
+          <time class="case-y">2026</time>
+        </header>
+        <div class="case-grid">
+          <div class="case-main">
+            <div class="case-media" aria-hidden="true">
+<div class="mk mk-cream" style="width:min(300px,62%)">
+  <div class="mk-pop-h"><b class="mk-logo"></b><span>ZipIt</span><em>Pro</em></div>
+  <div class="mk-tabs"><span class="on">Download</span><span>Design</span><span>Inspect</span></div>
+  <div class="mk-sw"><i style="background:#ea580c"></i><i style="background:#1c1917"></i><i style="background:#fbf8f1;border:1px solid #d6d3d1"></i><i style="background:#fdba74"></i><i style="background:#78716c"></i></div>
+  <div class="mk-font"><b>Aa</b><span>DM Sans<small>Heading · 700</small></span></div>
+  <div class="mk-font"><b>Aa</b><span>Inter<small>Body · 400</small></span></div>
+  <div class="mk-btn">Export as ZIP</div>
+  <div class="mk-shelf"><i></i><i></i><i></i><span>Shelf · 3 assets</span></div>
+</div></div>
+            <div class="case-brief"><span class="label">Brief</span><p>A browser extension for designers that captures a site&#x27;s code, design tokens, fonts, colors and components, and hands them over as a ZIP or Figma-ready files.</p></div>
+          </div>
+          <aside class="case-side">
+            <div class="case-blk"><span class="case-lbl">Tool stack</span><p class="case-stack">Figma, Vercel, ChatGPT, Adobe After Effects</p></div>
+            <div class="case-blk"><span class="case-lbl">Impact</span><div class="case-impact"><div><b>1000+</b><span>Users (self-reported)</span></div><div><b>4.9</b><span>Average rating (self-reported)</span></div></div></div>
+            <button class="case-btn" type="button" data-open="cs-zipit">View Case Study <span aria-hidden="true">&rarr;</span></button>
+          </aside>
+        </div>
+      </article>
+      <article class="case" style="--i:3;--bg:#ff7a4d" aria-labelledby="cs-inpixio-t">
+        <header class="case-h">
+          <h3 id="cs-inpixio-t">inPixio: AI Image Editor</h3>
+          <a class="case-go" href="https://www.inpixio.com/" target="_blank" rel="noopener" aria-label="Open inPixio: AI Image Editor in a new tab"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+          <span class="case-tag">Product design</span>
+          <time class="case-y">2026</time>
+        </header>
+        <div class="case-grid">
+          <div class="case-main">
+            <div class="case-media" aria-hidden="true">
+<div class="mk-trio">
+  <div class="mk mk-light" style="width:62%">
+    <div class="mk-bar"><i></i><i></i><i></i><span class="mk-url">Desktop</span></div>
+    <div class="mk-ed"><div class="mk-tools"><i></i><i class="on"></i><i></i><i></i></div><div class="mk-canvas"><span class="mk-subj"></span></div><div class="mk-panel"><b>AI tools</b><span class="mk-sk w80"></span><span class="mk-sk w60"></span><div class="mk-btn sm">Remove BG</div></div></div>
+  </div>
+  <div class="mk mk-light mk-phone">
+    <div class="mk-canvas tall"><span class="mk-subj"></span></div>
+    <div class="mk-btn sm">One-click AI</div>
+  </div>
+  <div class="mk mk-light" style="width:46%">
+    <div class="mk-bar"><i></i><i></i><i></i><span class="mk-url">Web</span></div>
+    <div class="mk-canvas"><span class="mk-subj"></span></div>
+    <div class="mk-tags" style="padding:8px 10px"><span class="mk-chip lt">Object removal</span><span class="mk-chip lt">AI backgrounds</span></div>
+  </div>
+</div></div>
+            <div class="case-brief"><span class="label">Brief</span><p>AI-based photo editing across web, mobile app and desktop. One set of one-click tools that feels the same wherever a beginner picks it up.</p></div>
+          </div>
+          <aside class="case-side">
+            <div class="case-blk"><span class="case-lbl">Tool stack</span><p class="case-stack">Figma, ChatGPT (Image Creation), Adobe After Effects</p></div>
+            <div class="case-blk"><span class="case-lbl">Impact</span><div class="case-impact"><div><b>4.0</b><span>Trustpilot score, 11.8K reviews</span></div><div><b>3</b><span>Platforms: web, iOS, Windows</span></div></div></div>
+            <button class="case-btn" type="button" data-open="cs-inpixio">View Case Study <span aria-hidden="true">&rarr;</span></button>
+          </aside>
+        </div>
+      </article>
+      <article class="case" style="--i:4;--bg:#cbd5e1" aria-labelledby="cs-zipitweb-t">
+        <header class="case-h">
+          <h3 id="cs-zipitweb-t">ZipIt Web</h3>
+          <a class="case-go" href="https://zipitweb.blintix.store/" target="_blank" rel="noopener" aria-label="Open ZipIt Web in a new tab"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+          <span class="case-tag">Product design</span>
+          <time class="case-y">2026</time>
+        </header>
+        <div class="case-grid">
+          <div class="case-main">
+            <div class="case-media" aria-hidden="true">
+<div class="mk mk-light" style="width:78%">
+  <div class="mk-bar"><i></i><i></i><i></i><span class="mk-url">zipitweb.blintix.store</span></div>
+  <div class="mk-body" style="gap:14px">
+    <div class="mk-input lt"><span>https://example.com</span><em>Extract</em></div>
+    <div class="mk-grid3">
+      <div class="mk-card"><b>Colors</b><div class="mk-sw sm"><i style="background:#0f172a"></i><i style="background:#6366f1"></i><i style="background:#e2e8f0"></i><i style="background:#f59e0b"></i></div></div>
+      <div class="mk-card"><b>Fonts</b><span class="mk-f">Inter</span><span class="mk-f">DM Sans</span></div>
+      <div class="mk-card"><b>Tokens</b><span class="mk-f">JSON</span><span class="mk-f">CSS vars</span></div>
+    </div>
+    <div class="mk-row"><div class="mk-btn sm dk">Download bundle</div><div class="mk-btn sm ghost">Save to cloud</div></div>
+  </div>
+</div></div>
+            <div class="case-brief"><span class="label">Brief</span><p>The browser-based version of ZipIt. Paste a URL, get code, tokens, fonts and components, then save them online so they are there when you need them.</p></div>
+          </div>
+          <aside class="case-side">
+            <div class="case-blk"><span class="case-lbl">Tool stack</span><p class="case-stack">Figma, Vercel, ChatGPT, Adobe After Effects</p></div>
+            <div class="case-blk"><span class="case-lbl">Impact</span><div class="case-impact"><div><b>1000</b><span>Developers served (self-reported)</span></div><div><b>$12</b><span>Pro plan per month</span></div></div></div>
+            <button class="case-btn" type="button" data-open="cs-zipitweb">View Case Study <span aria-hidden="true">&rarr;</span></button>
+          </aside>
+        </div>
+      </article>
+      </div>
+    </div>
+  </section>
+
+<section id="packages" aria-labelledby="packages-h">
     <div class="wrap">
       <div class="sec-head">
         <span class="label">Packages</span>
@@ -909,34 +1274,78 @@ footer { border-top: 1px solid var(--border-subtle); padding-block: 48px 56px; m
         <div class="av-wrap" aria-hidden="true">
           <div class="av-float">
             <div class="avatar">
-              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <clipPath id="avClip"><circle cx="100" cy="100" r="96"/></clipPath>
-                  <linearGradient id="avBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#17141f"/><stop offset="1" stop-color="#0b0b0e"/></linearGradient>
-                  <linearGradient id="avHead" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d9ceff"/><stop offset="1" stop-color="#ffc58a"/></linearGradient>
-                  <linearGradient id="avBody" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#6d4fd6"/></linearGradient>
-                </defs>
-                <g clip-path="url(#avClip)">
-                  <rect width="200" height="200" fill="url(#avBg)"/>
-                  <path d="M14 204 C18 154 58 138 100 138 C142 138 182 154 186 204 Z" fill="url(#avBody)"/>
-                  <rect x="88" y="118" width="24" height="26" rx="9" fill="#e8c9b0"/>
-                  <g class="av-wave">
-                    <path d="M150 192 L160 146" stroke="#8c6cf0" stroke-width="15" stroke-linecap="round" fill="none"/>
-                    <circle cx="161" cy="138" r="11" fill="url(#avHead)"/>
-                  </g>
-                  <circle cx="100" cy="88" r="44" fill="url(#avHead)"/>
-                  <ellipse class="av-blink" cx="84" cy="90" rx="5" ry="7" fill="#0a0a0a"/>
-                  <ellipse class="av-blink" cx="116" cy="90" rx="5" ry="7" fill="#0a0a0a"/>
-                  <circle cx="76" cy="104" r="6" fill="#ff8c00" opacity="0.28"/>
-                  <circle cx="124" cy="104" r="6" fill="#ff8c00" opacity="0.28"/>
-                  <path d="M87 106 Q100 118 113 106" stroke="#0a0a0a" stroke-width="4" stroke-linecap="round" fill="none"/>
-                  <path d="M54 88 A46 46 0 0 1 146 88" stroke="#ffffff" stroke-width="5" stroke-linecap="round" fill="none"/>
-                  <rect x="46" y="80" width="13" height="26" rx="6.5" fill="#ffffff"/>
-                  <rect x="141" y="80" width="13" height="26" rx="6.5" fill="#ffffff"/>
-                  <path d="M52 104 Q52 126 76 126" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-                  <circle cx="79" cy="126" r="4.5" fill="#ff8c00"/>
-                </g>
-              </svg>
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" overflow="visible" aria-hidden="true">
+  <defs>
+    <clipPath id="asClip"><circle cx="100" cy="100" r="96"/></clipPath>
+    <clipPath id="asFaceClip"><ellipse cx="100" cy="80" rx="33" ry="28.5"/></clipPath>
+    <radialGradient id="asBg" cx="35%" cy="25%" r="90%"><stop offset="0" stop-color="#2a2150"/><stop offset="1" stop-color="#090910"/></radialGradient>
+    <linearGradient id="asSuit" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#e4ebf6"/><stop offset="1" stop-color="#a9b8d3"/></linearGradient>
+    <linearGradient id="asShade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#14203d" stop-opacity=".35"/><stop offset=".25" stop-color="#14203d" stop-opacity="0"/><stop offset=".75" stop-color="#14203d" stop-opacity="0"/><stop offset="1" stop-color="#14203d" stop-opacity=".42"/></linearGradient>
+    <radialGradient id="asHelm" cx="34%" cy="24%" r="85%"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#eef3fb"/><stop offset="1" stop-color="#a9b8d3"/></radialGradient>
+    <linearGradient id="asBlue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6f9dff"/><stop offset=".6" stop-color="#3a69e8"/><stop offset="1" stop-color="#2146b0"/></linearGradient>
+    <linearGradient id="asYellow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe07a"/><stop offset="1" stop-color="#f2a30a"/></linearGradient>
+    <linearGradient id="asChrome" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f6fa"/><stop offset=".45" stop-color="#9aa6bb"/><stop offset=".7" stop-color="#e6eaf2"/><stop offset="1" stop-color="#7f8ca3"/></linearGradient>
+    <radialGradient id="asSkin" cx="45%" cy="40%" r="75%"><stop offset="0" stop-color="#f1b98d"/><stop offset="1" stop-color="#cf8a5c"/></radialGradient>
+    <radialGradient id="asEye" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9dfea"/></radialGradient>
+    <linearGradient id="asGlass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fa6ff" stop-opacity=".28"/><stop offset=".5" stop-color="#7fa6ff" stop-opacity="0"/><stop offset="1" stop-color="#ffb347" stop-opacity=".12"/></linearGradient>
+    <linearGradient id="asGlare" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  </defs>
+  <g clip-path="url(#asClip)">
+    <rect width="200" height="200" fill="url(#asBg)"/>
+    <g fill="#fff">
+      <circle class="tw" cx="28" cy="40" r="1.5"/><circle class="tw d2" cx="170" cy="52" r="1.2"/><circle class="tw d3" cx="30" cy="150" r="1.1"/>
+      <circle class="tw d4" cx="168" cy="140" r="1.5"/><circle class="tw d2" cx="150" cy="22" r="1"/><circle class="tw d3" cx="20" cy="96" r="1"/>
+    </g>
+    <g class="as-drift">
+      <!-- torso -->
+      <path d="M26 214 C26 166 48 140 100 140 C152 140 174 166 174 214 Z" fill="url(#asSuit)"/>
+      <path d="M26 214 C26 166 48 140 100 140 C152 140 174 166 174 214 Z" fill="url(#asShade)"/>
+      <path d="M44 156 C38 176 38 196 40 214" fill="none" stroke="#c3cfe4" stroke-width="2" stroke-linecap="round"/>
+      <path d="M156 156 C162 176 162 196 160 214" fill="none" stroke="#c3cfe4" stroke-width="2" stroke-linecap="round"/>
+      <!-- chest panel -->
+      <rect x="70" y="162" width="60" height="44" rx="9" fill="url(#asYellow)"/>
+      <rect x="73" y="165" width="54" height="8" rx="4" fill="#fff" opacity=".35"/>
+      <circle cx="84" cy="180" r="6" fill="url(#asBlue)"/><circle cx="100" cy="180" r="6" fill="#e5484d"/><circle cx="98.5" cy="178" r="1.8" fill="#fff" opacity=".6"/>
+      <rect x="110" y="175" width="14" height="10" rx="4" fill="#7a4fd6"/>
+      <!-- collar ring -->
+      <ellipse cx="100" cy="137" rx="42" ry="12" fill="#6f7b91"/>
+      <ellipse cx="100" cy="134" rx="42" ry="12" fill="url(#asChrome)"/>
+      <ellipse cx="100" cy="131" rx="33" ry="7.5" fill="#56627a"/>
+      <!-- shoulder pods -->
+      <circle cx="58" cy="144" r="10" fill="url(#asBlue)"/><circle cx="62" cy="150" r="3" fill="#e5484d"/><circle cx="55" cy="140" r="3" fill="#fff" opacity=".4"/>
+      <circle cx="142" cy="144" r="10" fill="url(#asBlue)"/><circle cx="138" cy="150" r="3" fill="#e5484d"/><circle cx="139" cy="140" r="3" fill="#fff" opacity=".4"/>
+      <!-- ear modules -->
+      <rect x="31" y="66" width="6" height="26" rx="3" fill="url(#asYellow)"/><rect x="163" y="66" width="6" height="26" rx="3" fill="url(#asYellow)"/>
+      <rect x="35" y="62" width="17" height="34" rx="8.5" fill="url(#asBlue)"/><rect x="148" y="62" width="17" height="34" rx="8.5" fill="url(#asBlue)"/>
+      <rect x="39" y="68" width="3" height="20" rx="1.5" fill="#fff" opacity=".35"/>
+      <!-- helmet + crest -->
+      <circle cx="100" cy="80" r="54" fill="url(#asHelm)"/>
+      <path d="M80 36 Q80 16 92 15 L108 15 Q120 16 120 36 Q100 30 80 36 Z" fill="url(#asBlue)"/>
+      <path d="M86 24 Q90 19 98 19" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".5"/>
+      <ellipse cx="68" cy="52" rx="12" ry="6" fill="#fff" opacity=".7" transform="rotate(-38 68 52)"/>
+      <!-- visor frame + face -->
+      <ellipse cx="100" cy="80" rx="39" ry="34" fill="url(#asChrome)"/>
+      <ellipse cx="100" cy="80" rx="35" ry="30" fill="#5d6a83"/>
+      <ellipse cx="100" cy="80" rx="33" ry="28.5" fill="url(#asSkin)"/>
+      <g clip-path="url(#asFaceClip)">
+        <path d="M60 74 Q60 46 100 44 Q140 46 140 74 Q132 58 100 58 Q68 58 60 74 Z" fill="#2b1a10"/>
+        <g class="as-brows"><path d="M75 68 Q85 62 96 66" fill="none" stroke="#2b1a10" stroke-width="3.6" stroke-linecap="round"/><path d="M104 66 Q115 62 125 68" fill="none" stroke="#2b1a10" stroke-width="3.6" stroke-linecap="round"/></g>
+        <g class="as-eyes">
+          <ellipse cx="86" cy="79" rx="8" ry="8.6" fill="url(#asEye)"/><ellipse cx="114" cy="79" rx="8" ry="8.6" fill="url(#asEye)"/>
+          <g class="as-look"><circle cx="86.5" cy="80" r="5.4" fill="#2a1a12"/><circle cx="114.5" cy="80" r="5.4" fill="#2a1a12"/><circle cx="84.6" cy="77.6" r="1.9" fill="#fff"/><circle cx="112.6" cy="77.6" r="1.9" fill="#fff"/></g>
+        </g>
+        <path d="M97 88 Q100 92.5 103 88" fill="none" stroke="#b46f46" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="100" cy="87" rx="4" ry="2.6" fill="#f6c9a3" opacity=".7"/>
+        <circle cx="76" cy="92" r="5.5" fill="#e5645c" opacity=".28"/><circle cx="124" cy="92" r="5.5" fill="#e5645c" opacity=".28"/>
+        <g class="as-mouth"><path d="M91 95 Q100 107 109 95 Q100 98.5 91 95 Z" fill="#7a2330"/><path d="M92.5 95.4 Q100 99 107.5 95.4 Q100 98 92.5 95.4 Z" fill="#fff"/></g>
+        <ellipse cx="100" cy="80" rx="33" ry="28.5" fill="url(#asGlass)"/>
+        <g class="as-glare"><rect x="-34" y="40" width="20" height="90" fill="url(#asGlare)" transform="skewX(-20)"/></g>
+        <path d="M70 62 Q84 50 106 50" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".3"/>
+      </g>
+    </g>
+  </g>
+</svg>
+<span class="as-orbit" aria-hidden="true"><i class="p1"></i><i class="p2"></i><i class="p3"></i></span>
             </div>
             <span class="av-pill"><span class="av-live"></span>Booking open</span>
             <span class="av-bubble">Got a project in mind?</span>
@@ -947,6 +1356,87 @@ footer { border-top: 1px solid var(--border-subtle); padding-block: 48px 56px; m
     </div>
   </section>
 </main>
+
+<dialog class="cs-dlg" id="cs-onbeacon" aria-labelledby="cs-onbeacon-h" style="--bg:#c4b5fd">
+  <form method="dialog" class="cs-x"><button aria-label="Close case study">&times;</button></form>
+  <div class="cs-hero"><span class="label">UX audit · Retention · Onboarding</span><h2 id="cs-onbeacon-h">onBeacon</h2><p>AI that reviews your UX like a senior designer. The audit shortened the path to a first useful suggestion and gave teams a reason to come back.</p></div>
+  <dl class="cs-meta"><div><dt>Role</dt><dd>UX auditor / Product designer</dd></div><div><dt>Format</dt><dd>2 x 60-min sessions + report</dd></div><div><dt>Platform</dt><dd>Web app</dd></div><div><dt>Focus</dt><dd>Retention, onboarding, feature UX</dd></div></dl>
+  <div class="cs-sec"><span class="label">Platform research &middot; metrics</span><div class="cs-tiles"><div class="cs-tile"><b>130+</b><span>Behavioural-science principles and heuristics checked</span><small>AIPure listing</small></div><div class="cs-tile"><b>6</b><span>Review areas: visual, consistency, flow and funnel, microcopy, behaviour, tasks</span><small>AIPure listing</small></div><div class="cs-tile"><b>5</b><span>Core use cases: onboarding, checkout, pre-release UI, design-system governance, A/B hypotheses</span><small>AIPure listing</small></div><div class="cs-tile"><b>Freemium</b><span>Pricing model; tier names and prices are not public</span><small>AIPure listing</small></div><div class="cs-tile"><b>n/a</b><span>No public user counts or case-study results found</span><small>Searched Oct 2026</small></div></div>
+    <div class="cs-insight"><strong>What the research showed</strong><p>The product page is a JavaScript app with no visible copy for crawlers or first-time visitors, and public listings give no tiers, limits or proof. That makes onboarding, a visible free-plan limit and a before and after example the highest-value places to improve.</p></div>
+    <p class="cs-src">Sources, checked Oct 2026: <a href="https://onbeacon.ai/" target="_blank" rel="noopener">onBeacon</a><a href="https://aipure.ai/products/onbeacon" target="_blank" rel="noopener">AIPure listing</a>. Figures marked self-reported come from the product's own site.</p></div>
+  <div class="cs-sec"><span class="label">The challenge</span><p>onBeacon promises senior-designer feedback in minutes. That promise only holds if a new team reaches its first useful suggestion quickly, and then has a reason to return. The brief was to improve the existing features, tighten onboarding and build retention.</p></div>
+  <div class="cs-sec"><span class="label">Approach</span><ol class="cs-steps"><li><h4>Walk the activation path</h4><p>Mapped every step from landing to first suggestion and marked where a new user has to think, wait or guess.</p></li><li><h4>Review how feedback is delivered</h4><p>Checked how suggestions are worded, ranked and acted on, so a team knows what to fix first.</p></li><li><h4>Design the return loop</h4><p>Looked for moments after the first audit that give a team a reason to come back: re-scans, progress and change tracking.</p></li><li><h4>Prioritise</h4><p>Scored every finding by impact and effort and grouped them into quick wins and bigger bets.</p></li></ol></div>
+  <div class="cs-sec cs-two">
+    <div><span class="label">Key findings</span><ul class="incl"><li>The first-run experience should show value on the user&#x27;s own page before asking for anything else.</li><li>Suggestions need a visible priority, so teams can tell a critical fix from a nice-to-have.</li><li>Without progress tracking, a finished audit gives no reason to return.</li><li>Empty and loading states are the best place to teach what the product does.</li></ul></div>
+    <div><span class="label">Recommendations</span><ul class="incl"><li>Open onboarding with a sample audit of the user&#x27;s own URL, so they see value in the first minute.</li><li>Add a short, progressive setup checklist that ends with the first fix marked as done.</li><li>Rank suggestions by impact and add one-click states such as fixed, later and not relevant.</li><li>Send a weekly re-scan digest showing the score trend and the next best fix.</li></ul></div>
+  </div>
+  <div class="cs-sec"><span class="label">Deliverables</span><ul class="incl"><li>Annotated screenshots of the key flows</li><li>Prioritised action plan (impact vs effort)</li><li>Written summary for the team</li><li>Follow-up session to answer questions</li></ul></div>
+  <div class="cs-foot"><span class="label">Tool stack &middot; Figma, ChatGPT, Loom</span><a class="btn btn-primary btn-sm" href="https://onbeacon.ai/" target="_blank" rel="noopener">Visit onBeacon &nearr;</a></div>
+</dialog>
+<dialog class="cs-dlg" id="cs-codiris" aria-labelledby="cs-codiris-h" style="--bg:#7dd3fc">
+  <form method="dialog" class="cs-x"><button aria-label="Close case study">&times;</button></form>
+  <div class="cs-hero"><span class="label">UX audit · Clarity · Conversion</span><h2 id="cs-codiris-h">Codiris</h2><p>A product for building software for agents and people. The audit made the offer easier to understand and gave first-time visitors a clear next step.</p></div>
+  <dl class="cs-meta"><div><dt>Role</dt><dd>UX auditor / Product designer</dd></div><div><dt>Format</dt><dd>2 x 60-min sessions + report</dd></div><div><dt>Platform</dt><dd>Web</dd></div><div><dt>Focus</dt><dd>Clarity, navigation, trust, CTAs</dd></div></dl>
+  <div class="cs-sec"><span class="label">Platform research &middot; metrics</span><div class="cs-tiles"><div class="cs-tile"><b>6</b><span>Lifecycle stages in one workspace: brainstorm, research, design, code, test, deploy</span><small>Humiris launch post</small></div><div class="cs-tile"><b>5</b><span>Target roles: PMs, designers, developers, indie hackers, rapid prototypers</span><small>Humiris launch post</small></div><div class="cs-tile"><b>3</b><span>Related products on the site: Agentizer, Agentnet, Iris</span><small>codiris.build</small></div><div class="cs-tile"><b>2-3 mo</b><span>Planned full rollout after the first demo</span><small>Humiris launch post</small></div><div class="cs-tile"><b>7</b><span>Priority UX issues found in the audit</span><small>Audit of codiris.build</small></div><div class="cs-tile"><b>n/a</b><span>No public user or adoption figures found</span><small>Searched Oct 2026</small></div></div>
+    <div class="cs-insight"><strong>What the research showed</strong><p>Codiris describes itself as an agentic Product Development Environment for the whole lifecycle, but the homepage shows only a prompt box and desktop-style controls. The gap between the big promise and the first screen is the core UX problem.</p></div>
+    <p class="cs-src">Sources, checked Oct 2026: <a href="https://www.codiris.build/" target="_blank" rel="noopener">Codiris</a><a href="https://humiris.substack.com/p/exclusive-first-look-codiris-agentic" target="_blank" rel="noopener">Humiris launch post</a>. Figures marked self-reported come from the product's own site.</p></div>
+  <div class="cs-sec"><span class="label">The challenge</span><p>Codiris lets a visitor turn a website or an idea into an agent-first app. The idea is strong, but a first-time visitor has to work out what &#x27;agent-first&#x27; means, what they will get and what to do next.</p></div>
+  <div class="cs-sec"><span class="label">Approach</span><ol class="cs-steps"><li><h4>First-visit review</h4><p>Read the page as a new visitor would, with no prior context, and noted every moment of hesitation.</p></li><li><h4>Language and jargon pass</h4><p>Listed the terms that are never defined and the labels that do not say what is behind them.</p></li><li><h4>Navigation and CTA check</h4><p>Reviewed how the related products, domains and calls to action guide a visitor forward.</p></li><li><h4>Trust and polish</h4><p>Checked the signals that tell a visitor the product is reliable, including the disclaimer and meta data.</p></li></ol></div>
+  <div class="cs-sec cs-two">
+    <div><span class="label">Key findings</span><ul class="incl"><li>The outcome is unclear: &#x27;Transform [site] into an Agent-first app&#x27; does not say what the user gets or how it works.</li><li>&#x27;Agent-first&#x27; and &#x27;agents&#x27; are never defined for a visitor who has not met the idea.</li><li>Related products (Agentizer, Agentnet, Iris) have no descriptions behind their names.</li><li>No primary call to action, sign-up or pricing is visible; the prompt box is the only way forward.</li><li>The &#x27;Codiris can make mistakes&#x27; notice is small and easy to miss.</li><li>Several Codiris domains appear without context, which weakens orientation.</li><li>Empty or duplicated meta tags suggest the page may not preview cleanly when shared.</li></ul></div>
+    <div><span class="label">Recommendations</span><ul class="incl"><li>Add a one-line definition of &#x27;agent-first&#x27; and a visual preview of the generated app.</li><li>Give every related product a short description and a clear role in the journey.</li><li>Introduce one primary CTA and show what happens after the first prompt.</li><li>Make the trust note readable and place it next to the output it refers to.</li></ul></div>
+  </div>
+  <div class="cs-sec"><span class="label">Deliverables</span><ul class="incl"><li>Annotated screenshots with the seven priority issues</li><li>Prioritised action plan</li><li>Copy suggestions for the hero and product labels</li><li>Written summary for the team</li></ul></div>
+  <div class="cs-foot"><span class="label">Tool stack &middot; Figma, ChatGPT, Loom</span><a class="btn btn-primary btn-sm" href="https://www.codiris.build/" target="_blank" rel="noopener">Visit Codiris &nearr;</a></div>
+</dialog>
+<dialog class="cs-dlg" id="cs-zipit" aria-labelledby="cs-zipit-h" style="--bg:#ea580c">
+  <form method="dialog" class="cs-x"><button aria-label="Close case study">&times;</button></form>
+  <div class="cs-hero"><span class="label">Own product · Browser extension · Design tool</span><h2 id="cs-zipit-h">ZipIt (Browser Extension)</h2><p>A browser extension for designers that captures a site&#x27;s code, design tokens, fonts, colors and components, and hands them over as a ZIP or Figma-ready files.</p></div>
+  <dl class="cs-meta"><div><dt>Role</dt><dd>Product design, branding, front end</dd></div><div><dt>Timeline</dt><dd>Self-initiated product</dd></div><div><dt>Platform</dt><dd>Chrome, Edge, Brave, Opera, Firefox, Arc</dd></div><div><dt>Model</dt><dd>Free tier + $25 lifetime plan</dd></div></dl>
+  <div class="cs-sec"><span class="label">Platform research &middot; metrics</span><div class="cs-tiles"><div class="cs-tile"><b>1000+</b><span>Users</span><small>Self-reported on zipit.blintix.store</small></div><div class="cs-tile"><b>4.9 / 5</b><span>Average rating</span><small>Self-reported</small></div><div class="cs-tile"><b>99%</b><span>Accuracy rate</span><small>Self-reported</small></div><div class="cs-tile"><b>6</b><span>Browsers: Chrome, Edge, Brave, Opera, Firefox, Arc</span><small>Product page</small></div><div class="cs-tile"><b>11</b><span>Features listed; 6 core ways to use a capture</span><small>Product page</small></div><div class="cs-tile"><b>9</b><span>Stack integrations shown: Chrome, Figma, Tailwind, HTML5, CSS3, React, Vue, LottieFiles, SVG</span><small>Product page</small></div><div class="cs-tile"><b>10+</b><span>Interface languages</span><small>Product page</small></div><div class="cs-tile"><b>10</b><span>Free exports before upgrade</span><small>Product page</small></div><div class="cs-tile"><b>$25</b><span>Lifetime plan, down from $69 (-64%)</span><small>Product page; discount calculated</small></div><div class="cs-tile"><b>$9 to $49</b><span>Early-bird price ladder, rising per batch of buyers</span><small>Product page</small></div><div class="cs-tile"><b>v2.1</b><span>Latest Firefox release; 5 versions published</span><small>Socket.dev, Oct 2026</small></div></div>
+    <div class="cs-insight"><strong>What the research showed</strong><p>Early-bird pricing in batches creates urgency, and the 10-export free tier lets a designer prove value before paying. The metrics above are the product&#x27;s own claims and have not been independently verified.</p></div>
+    <p class="cs-src">Sources, checked Oct 2026: <a href="https://zipit.blintix.store/" target="_blank" rel="noopener">ZipIt</a><a href="https://addons.mozilla.org/en-GB/firefox/addon/zipit-website-to-zip/" target="_blank" rel="noopener">Firefox add-on</a><a href="https://socket.dev/firefox/package/zipit@blintix.store" target="_blank" rel="noopener">Socket.dev</a>. Figures marked self-reported come from the product's own site.</p></div>
+  <div class="cs-sec"><span class="label">The challenge</span><p>Designers who study or rebuild a site jump between DevTools, download folders, screenshots and Figma. Each switch costs time and loses context. ZipIt is designed to collapse that into one capture workflow.</p></div>
+  <div class="cs-sec"><span class="label">Approach</span><ol class="cs-steps"><li><h4>Map the workflow</h4><p>Listed every step a designer takes to pull assets from a live site and found where the tools break the flow.</p></li><li><h4>Define the modes</h4><p>Split the product into Download, Design and Inspect modes so each job has a clear home.</p></li><li><h4>Add the floating shelf</h4><p>Designed a temporary shelf that collects assets while browsing, so nothing is lost between pages.</p></li><li><h4>Brand and launch</h4><p>Built a warm, editorial identity in orange, near-black and cream, with a landing page, demo videos and pricing.</p></li></ol></div>
+  <div class="cs-sec cs-two">
+    <div><span class="label">Design decisions</span><ul class="incl"><li>Designers think in jobs (grab a font, copy a color), not file types, so the modes follow the job.</li><li>A shelf that persists across pages removes the need to export after every capture.</li><li>Keeping data on the device is a trust requirement for client work, so it is stated up front.</li></ul></div>
+    <div><span class="label">What it does</span><ul class="incl"><li>Download Mode: a complete offline copy with HTML, CSS, images and fonts.</li><li>Design Mode: fonts, colors, gradients, SVGs, Lottie files and video.</li><li>Inspect Mode: styles, spacing and structure, with component export to Figma.</li><li>AI Rebuild: turns a capture into a prompt for ChatGPT, Claude, Cursor and v0.</li><li>Accessibility and SEO audit: WCAG and contrast checks plus SEO insights.</li></ul></div>
+  </div>
+  <div class="cs-sec"><span class="label">Deliverables</span><ul class="incl"><li>Product and interaction design</li><li>Brand identity and design tokens</li><li>Landing page and demo videos</li><li>Pricing: free tier with 10 exports, $25 lifetime</li></ul></div>
+  <div class="cs-foot"><span class="label">Tool stack &middot; Figma, Vercel, ChatGPT, Adobe After Effects</span><a class="btn btn-primary btn-sm" href="https://zipit.blintix.store/" target="_blank" rel="noopener">Visit ZipIt &nearr;</a></div>
+</dialog>
+<dialog class="cs-dlg" id="cs-inpixio" aria-labelledby="cs-inpixio-h" style="--bg:#ff7a4d">
+  <form method="dialog" class="cs-x"><button aria-label="Close case study">&times;</button></form>
+  <div class="cs-hero"><span class="label">Product design · Web · App · Desktop</span><h2 id="cs-inpixio-h">inPixio: AI Image Editor</h2><p>AI-based photo editing across web, mobile app and desktop. One set of one-click tools that feels the same wherever a beginner picks it up.</p></div>
+  <dl class="cs-meta"><div><dt>Role</dt><dd>Product designer</dd></div><div><dt>Surfaces</dt><dd>Web, mobile app, Windows desktop</dd></div><div><dt>Audience</dt><dd>Beginners, small businesses, photo fans</dd></div><div><dt>Focus</dt><dd>Consistency across platforms</dd></div></dl>
+  <div class="cs-sec"><span class="label">Platform research &middot; metrics</span><div class="cs-tiles"><div class="cs-tile"><b>4.0 / 5</b><span>Trustpilot TrustScore</span><small>Trustpilot UK</small></div><div class="cs-tile"><b>11,828</b><span>Trustpilot reviews, 340 in the last 12 months</span><small>Trustpilot UK</small></div><div class="cs-tile"><b>54%</b><span>5-star reviews (15% are 1-star)</span><small>Trustpilot UK</small></div><div class="cs-tile"><b>3.8 / 5</b><span>Capterra rating from 114 verified reviews</span><small>Capterra</small></div><div class="cs-tile"><b>3</b><span>Product lines: Windows software, online editor, iOS app</span><small>inpixio.com</small></div><div class="cs-tile"><b>5</b><span>Interface languages: EN, FR, DE, ES, IT</span><small>inpixio.com</small></div><div class="cs-tile"><b>7</b><span>Feature entries in the main menu</span><small>inpixio.com</small></div></div>
+    <div class="cs-insight"><strong>What users say</strong><p>Praise centres on ease of use, speed and the background and object removal tools. Complaints centre on billing and cancellation clarity, slow support, object removal that sometimes cuts into the subject, and a new version that long-time users find less familiar. Those four themes shaped the design priorities: clear plan and billing states, visible undo, preview-before-apply for AI tools, and a consistent layout across platforms.</p></div>
+    <p class="cs-src">Sources, checked Oct 2026: <a href="https://www.inpixio.com/" target="_blank" rel="noopener">inPixio</a><a href="https://uk.trustpilot.com/review/inpixio.com" target="_blank" rel="noopener">Trustpilot</a><a href="https://www.capterra.com/p/213175/inPixio-Photo-Studio/reviews/" target="_blank" rel="noopener">Capterra</a>. Figures marked self-reported come from the product's own site.</p></div>
+  <div class="cs-sec"><span class="label">The challenge</span><p>Beginners want professional-looking photos without learning an editor. inPixio offers the same AI tools on the web, on a phone and on the desktop, so the design has to feel familiar on each surface while respecting how people use it.</p></div>
+  <div class="cs-sec"><span class="label">Approach</span><ol class="cs-steps"><li><h4>Find the core jobs</h4><p>Reduced the editor to the jobs people come for: remove a background, remove an object, swap a backdrop, adjust and export.</p></li><li><h4>Design once, adapt three times</h4><p>Built shared patterns and components, then adapted them to the web canvas, the touch screen and the offline desktop.</p></li><li><h4>Make AI feel safe</h4><p>Added clear before and after states, undo and previews so one-click actions feel reversible.</p></li><li><h4>Add motion</h4><p>Prototyped transitions that explain what the AI did, such as the cut-out lifting off its background.</p></li></ol></div>
+  <div class="cs-sec cs-two">
+    <div><span class="label">Design decisions</span><ul class="incl"><li>Beginners judge an editor by the first result, so the main AI actions sit one tap from the image.</li><li>A consistent tool order across platforms lets people switch device without relearning.</li><li>Reversible actions raise confidence to try AI tools.</li></ul></div>
+    <div><span class="label">What it does</span><ul class="incl"><li>One-click background removal and transparent exports for product photos.</li><li>AI-generated backgrounds and sky swaps with live previews.</li><li>Magic eraser for object removal with a clear before and after.</li><li>Core adjustments, crop, resize, text and filters kept in the same order on every surface.</li></ul></div>
+  </div>
+  <div class="cs-sec"><span class="label">Deliverables</span><ul class="incl"><li>Design system and shared components</li><li>Web, app and desktop screens</li><li>Motion prototypes for key AI actions</li><li>Handover specs for development</li></ul></div>
+  <div class="cs-foot"><span class="label">Tool stack &middot; Figma, ChatGPT (Image Creation), Adobe After Effects</span><a class="btn btn-primary btn-sm" href="https://www.inpixio.com/" target="_blank" rel="noopener">Visit inPixio: AI Image Editor &nearr;</a></div>
+</dialog>
+<dialog class="cs-dlg" id="cs-zipitweb" aria-labelledby="cs-zipitweb-h" style="--bg:#cbd5e1">
+  <form method="dialog" class="cs-x"><button aria-label="Close case study">&times;</button></form>
+  <div class="cs-hero"><span class="label">Own product · Web app · Cloud library</span><h2 id="cs-zipitweb-h">ZipIt Web</h2><p>The browser-based version of ZipIt. Paste a URL, get code, tokens, fonts and components, then save them online so they are there when you need them.</p></div>
+  <dl class="cs-meta"><div><dt>Role</dt><dd>Product design, branding, front end</dd></div><div><dt>Timeline</dt><dd>Self-initiated product</dd></div><div><dt>Platform</dt><dd>Web, with Chrome extension</dd></div><div><dt>Model</dt><dd>Free 10 exports; Pro $12/mo; Desktop $69; Ultimate $149</dd></div></dl>
+  <div class="cs-sec"><span class="label">Platform research &middot; metrics</span><div class="cs-tiles"><div class="cs-tile"><b>1000</b><span>Developers served</span><small>Self-reported on zipitweb.blintix.store</small></div><div class="cs-tile"><b>$0</b><span>Starter plan with 10 high-speed exports</span><small>Product page</small></div><div class="cs-tile"><b>$12 / mo</b><span>Pro plan with 5 cloud projects and dashboard</span><small>Product page</small></div><div class="cs-tile"><b>$69</b><span>Desktop app, one-time</span><small>Product page</small></div><div class="cs-tile"><b>$149</b><span>Ultimate bundle, one-time, includes 1 year of Pro</span><small>Product page</small></div><div class="cs-tile"><b>-30%</b><span>Ultimate vs buying Pro for a year ($144) plus Desktop ($69) = $213</span><small>Calculated from listed prices</small></div><div class="cs-tile"><b>4</b><span>Steps in the how-it-works flow</span><small>Product page</small></div><div class="cs-tile"><b>3</b><span>Modes: bundle, tokens, inspector</span><small>Product page</small></div><div class="cs-tile"><b>7</b><span>Export formats: ZIP, JSON, CSS, Figma-ready, PNG, JPG, WebP</span><small>Product page</small></div></div>
+    <div class="cs-insight"><strong>What the research showed</strong><p>Four plans cover three buyer types: try it free, pay monthly, or buy once. Ultimate is the best value for anyone who would use both web and desktop, so the pricing page leads with it. The user count is self-reported and unverified.</p></div>
+    <p class="cs-src">Sources, checked Oct 2026: <a href="https://zipitweb.blintix.store/" target="_blank" rel="noopener">ZipIt Web</a><a href="https://zipit.blintix.store/" target="_blank" rel="noopener">ZipIt extension</a>. Figures marked self-reported come from the product's own site.</p></div>
+  <div class="cs-sec"><span class="label">The challenge</span><p>The extension needs an install, and some people just want assets from a URL right now. ZipIt Web removes the setup and adds a dashboard where captured assets are saved for later.</p></div>
+  <div class="cs-sec"><span class="label">Approach</span><ol class="cs-steps"><li><h4>Cut the setup</h4><p>Moved the core flow to a single URL field so a first capture takes seconds.</p></li><li><h4>Design the output</h4><p>Organised results into colors, fonts, media and tokens, each exportable as JSON, CSS variables or Figma-ready tokens.</p></li><li><h4>Add the cloud library</h4><p>Designed a dashboard to save, search and revisit captured assets.</p></li><li><h4>Package it</h4><p>Created pricing tiers that fit freelancers, teams and people who prefer a one-time purchase.</p></li></ol></div>
+  <div class="cs-sec cs-two">
+    <div><span class="label">Design decisions</span><ul class="incl"><li>A URL field is the lowest-friction start for a tool like this.</li><li>People want the same assets in different forms, so every capture offers several export formats.</li><li>A saved library turns a one-off capture into a reference collection.</li></ul></div>
+    <div><span class="label">What it does</span><ul class="incl"><li>Full bundle: HTML, CSS, JavaScript, images, fonts and media as a ZIP.</li><li>Design tokens: colors, fonts, spacing and media exported as JSON, CSS variables or Figma-ready tokens.</li><li>DOM inspector: click an element to see styles and structure, with export to Figma layers or component code.</li><li>Accessibility (WCAG) and SEO audits, plus AI-ready output for regenerating components.</li></ul></div>
+  </div>
+  <div class="cs-sec"><span class="label">Deliverables</span><ul class="incl"><li>Web app UI and interaction design</li><li>Dashboard for saved assets</li><li>Brand and landing page</li><li>Pricing and plan structure</li></ul></div>
+  <div class="cs-foot"><span class="label">Tool stack &middot; Figma, Vercel, ChatGPT, Adobe After Effects</span><a class="btn btn-primary btn-sm" href="https://zipitweb.blintix.store/" target="_blank" rel="noopener">Visit ZipIt Web &nearr;</a></div>
+</dialog>
 
 <footer>
   <div class="wrap">
@@ -1117,6 +1607,271 @@ footer { border-top: 1px solid var(--border-subtle); padding-block: 48px 56px; m
 })();
 </script>
 <!-- Auto-Animated TV Robot Scripts -->
+
+<!-- Case Study Dialogs & Stacking Interaction -->
+<script>
+(function() {
+  // Case Study Dialogs
+  document.querySelectorAll('[data-open]').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var id = btn.getAttribute('data-open');
+      var dlg = document.getElementById(id);
+      if (dlg && typeof dlg.showModal === 'function') {
+        dlg.showModal();
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+
+  document.querySelectorAll('dialog.cs-dlg').forEach(function(dlg) {
+    dlg.addEventListener('close', function() {
+      document.body.style.overflow = '';
+    });
+    dlg.addEventListener('click', function(e) {
+      var rect = dlg.getBoundingClientRect();
+      var inDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+                      rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+      if (!inDialog) {
+        dlg.close();
+      }
+    });
+  });
+
+  // Stacking card scaling on scroll
+  function updateStack() {
+    var cards = document.querySelectorAll('.case');
+    if (!cards.length) return;
+    cards.forEach(function(card, i) {
+      if (i === cards.length - 1) return;
+      var nextCard = cards[i + 1];
+      var rect = nextCard.getBoundingClientRect();
+      var topThreshold = 88 + (i + 1) * 62;
+      var diff = rect.top - topThreshold;
+      if (diff < 200 && diff > 0) {
+        var progress = 1 - (diff / 200);
+        card.style.setProperty('--s', (1 - progress * 0.04).toFixed(3));
+        card.style.setProperty('--b', (1 - progress * 0.25).toFixed(3));
+      } else if (diff <= 0) {
+        card.style.setProperty('--s', '0.96');
+        card.style.setProperty('--b', '0.75');
+      } else {
+        card.style.setProperty('--s', '1');
+        card.style.setProperty('--b', '1');
+      }
+    });
+  }
+  window.addEventListener('scroll', updateStack, { passive: true });
+  updateStack();
+})();
+</script>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+
+(function () {
+  var host = document.querySelector('.avatar');
+  if (!host) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
+  } catch (e) { return; }
+  if (!renderer || !renderer.getContext()) return;
+
+  var wrap = document.createElement('div');
+  wrap.className = 'as3d';
+  wrap.setAttribute('aria-hidden', 'true');
+  wrap.appendChild(renderer.domElement);
+  host.appendChild(wrap);
+
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.95;
+
+  var scene = new THREE.Scene();
+  var pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+  var camera = new THREE.PerspectiveCamera(30, 1, 0.1, 60);
+  camera.position.set(0, -0.3, 8.0);
+  camera.lookAt(0, -0.6, 0);
+
+  /* lights */
+  var key = new THREE.DirectionalLight(0xfff0dc, 1.7); key.position.set(3, 4, 5); scene.add(key);
+  var fill = new THREE.DirectionalLight(0x8aa4ff, 1.1); fill.position.set(-4, 1, 3); scene.add(fill);
+  var rim = new THREE.PointLight(0xff9a3c, 60, 14, 2); rim.position.set(3.4, -0.6, -2.6); scene.add(rim);
+  var rim2 = new THREE.PointLight(0xa78bfa, 40, 14, 2); rim2.position.set(-3.4, 1.2, -2.6); scene.add(rim2);
+
+  /* materials */
+  var M = THREE.MeshPhysicalMaterial;
+  var suit = new M({ color: 0xf3f6fb, roughness: 0.42, metalness: 0, clearcoat: 0.35, clearcoatRoughness: 0.4, sheen: 0.6, sheenColor: new THREE.Color(0xdfe8ff), sheenRoughness: 0.5 });
+  var shell = new M({ color: 0xf8fafd, roughness: 0.22, metalness: 0, clearcoat: 0.9, clearcoatRoughness: 0.12, side: THREE.DoubleSide });
+  var blue = new M({ color: 0x2f62e6, roughness: 0.28, metalness: 0.05, clearcoat: 0.8, clearcoatRoughness: 0.15 });
+  var yellow = new M({ color: 0xf6b21a, roughness: 0.32, clearcoat: 0.7, clearcoatRoughness: 0.2 });
+  var red = new M({ color: 0xe5484d, roughness: 0.3, clearcoat: 0.8 });
+  var purple = new M({ color: 0x7a4fd6, roughness: 0.3, clearcoat: 0.8 });
+  var chrome = new M({ color: 0xe9edf5, roughness: 0.12, metalness: 1, envMapIntensity: 1.4 });
+  var skin = new M({ color: 0xc98859, roughness: 0.62, sheen: 0.5, sheenColor: new THREE.Color(0xffc9a0), sheenRoughness: 0.5 });
+  var hairM = new M({ color: 0x24140c, roughness: 0.7 });
+  var white = new M({ color: 0xffffff, roughness: 0.15, clearcoat: 1 });
+  var dark = new M({ color: 0x1a110c, roughness: 0.25, clearcoat: 1 });
+  var mouthM = new M({ color: 0x6e1f2b, roughness: 0.5 });
+  var glass = new M({ color: 0xffffff, transparent: true, opacity: 0.16, roughness: 0, metalness: 0, clearcoat: 1, clearcoatRoughness: 0, envMapIntensity: 2.2, depthWrite: false });
+
+  function mesh(g, m, x, y, z) { var o = new THREE.Mesh(g, m); o.position.set(x || 0, y || 0, z || 0); return o; }
+
+  var root = new THREE.Group(); scene.add(root);
+  var body = new THREE.Group(); root.add(body);
+
+  /* helmet shell with a circular window facing +z */
+  var WIN = 0.82;
+  var shellG = new THREE.SphereGeometry(1, 72, 48, 0, Math.PI * 2, WIN, Math.PI - WIN); shellG.rotateX(Math.PI / 2);
+  body.add(mesh(shellG, shell));
+  var glassG = new THREE.SphereGeometry(1.004, 64, 32, 0, Math.PI * 2, 0, WIN); glassG.rotateX(Math.PI / 2);
+  var glassM = mesh(glassG, glass); glassM.renderOrder = 5; body.add(glassM);
+  var rimR = Math.sin(WIN), rimZ = Math.cos(WIN);
+  var rimT = mesh(new THREE.TorusGeometry(rimR, 0.055, 24, 96), chrome, 0, 0, rimZ); body.add(rimT);
+  var rimIn = mesh(new THREE.TorusGeometry(rimR - 0.04, 0.02, 12, 96), blue, 0, 0, rimZ - 0.02); body.add(rimIn);
+
+  /* head inside helmet */
+  var head = new THREE.Group(); head.position.set(0, -0.02, -0.06); body.add(head);
+  var HR = 0.64;
+  head.add(mesh(new THREE.SphereGeometry(HR, 48, 32), skin));
+  var hairG = new THREE.SphereGeometry(HR + 0.025, 48, 24, 0, Math.PI * 2, 0, 1.12); hairG.rotateX(-0.28);
+  head.add(mesh(hairG, hairM));
+  function onHead(x, y, off) { var z = Math.sqrt(Math.max(HR * HR - x * x - y * y, 0.001)); return [x, y, z + (off || 0)]; }
+
+  var eyes = new THREE.Group(); head.add(eyes);
+  var eyeL = new THREE.Group(), eyeR = new THREE.Group();
+  [[eyeL, -0.2], [eyeR, 0.2]].forEach(function (p) {
+    var g = p[0], x = p[1], pos = onHead(x, 0.08, 0.0);
+    g.position.set(pos[0], pos[1], pos[2]);
+    var ball = mesh(new THREE.SphereGeometry(0.125, 32, 24), white); ball.scale.set(1, 1.08, 0.7); g.add(ball);
+    var iris = new THREE.Group(); iris.position.z = 0.055; g.add(iris);
+    iris.add(mesh(new THREE.SphereGeometry(0.076, 24, 18), new M({ color: 0x4a2c1a, roughness: 0.2, clearcoat: 1 })));
+    iris.children[0].scale.set(1, 1, 0.5);
+    iris.add(mesh(new THREE.SphereGeometry(0.038, 16, 12), dark, 0, 0, 0.022));
+    var hl = mesh(new THREE.SphereGeometry(0.02, 10, 8), new THREE.MeshBasicMaterial({ color: 0xffffff }), -0.03, 0.035, 0.05); iris.add(hl);
+    g.userData.iris = iris;
+    eyes.add(g);
+  });
+  var browG = new THREE.CapsuleGeometry(0.026, 0.17, 4, 10);
+  [[-0.21, 0.22], [0.21, -0.22]].forEach(function (p) {
+    var pos = onHead(p[0], 0.28, 0.02), b = mesh(browG, hairM, pos[0], pos[1], pos[2]);
+    b.rotation.z = Math.PI / 2 + p[1] * 0.55; b.rotation.y = p[0] * 0.8; head.add(b);
+  });
+  var np = onHead(0, -0.05, 0.035); var nose = mesh(new THREE.SphereGeometry(0.062, 24, 18), skin, np[0], np[1], np[2]); nose.scale.set(1, 0.85, 0.9); head.add(nose);
+  var mp = onHead(0, -0.22, 0.012);
+  var mouth = new THREE.Group(); mouth.position.set(mp[0], mp[1], mp[2]); head.add(mouth);
+  var smileG = new THREE.TorusGeometry(0.13, 0.017, 10, 32, Math.PI);
+  var smile = mesh(smileG, mouthM); smile.rotation.z = Math.PI; smile.position.y = 0.05; mouth.add(smile);
+  var teeth = mesh(new THREE.CircleGeometry(0.122, 32, Math.PI, Math.PI), white, 0, 0.05, -0.004); teeth.scale.y = 0.75; mouth.add(teeth);
+  var inner = mesh(new THREE.CircleGeometry(0.122, 32, Math.PI, Math.PI), mouthM, 0, 0.05, -0.008); inner.scale.y = 1; mouth.add(inner);
+  [-0.32, 0.32].forEach(function (x) {
+    var pp = onHead(x, -0.1, 0.004);
+    var c = mesh(new THREE.CircleGeometry(0.09, 24), new THREE.MeshBasicMaterial({ color: 0xe5645c, transparent: true, opacity: 0.2, depthWrite: false }), pp[0], pp[1], pp[2]);
+    c.lookAt(pp[0] * 2, pp[1] * 2, pp[2] * 2 + 1); head.add(c);
+  });
+
+  /* helmet details */
+  var crest = mesh(new RoundedBoxGeometry(0.6, 0.34, 0.5, 6, 0.12), blue, 0, 1.0, 0.1); crest.rotation.x = -0.42; body.add(crest);
+  [-1, 1].forEach(function (s) {
+    var pod = mesh(new THREE.CapsuleGeometry(0.2, 0.3, 8, 20), blue, s * 1.0, 0.0, -0.02); pod.scale.set(0.8, 1, 1.05); body.add(pod);
+    var ring = mesh(new THREE.CapsuleGeometry(0.15, 0.28, 8, 20), yellow, s * 1.15, 0.0, -0.02); ring.scale.set(0.5, 1, 0.95); body.add(ring);
+  });
+
+  /* neck + torso */
+  var neck = mesh(new THREE.TorusGeometry(0.7, 0.12, 24, 80), chrome, 0, -0.98, 0); neck.rotation.x = Math.PI / 2; body.add(neck);
+  var neck2 = mesh(new THREE.TorusGeometry(0.76, 0.08, 20, 80), blue, 0, -1.12, 0); neck2.rotation.x = Math.PI / 2; body.add(neck2);
+  var torso = mesh(new THREE.SphereGeometry(1, 64, 40), suit, 0, -2.1, 0); torso.scale.set(1.38, 1.0, 0.92); body.add(torso);
+  [-1, 1].forEach(function (s) {
+    body.add(mesh(new THREE.SphereGeometry(0.46, 40, 28), suit, s * 1.12, -1.55, 0));
+    var pod = mesh(new THREE.SphereGeometry(0.2, 28, 20), blue, s * 0.72, -1.3, 0.5); body.add(pod);
+    body.add(mesh(new THREE.SphereGeometry(0.055, 16, 12), red, s * 0.72 + s * 0.06, -1.3 - 0.07, 0.68));
+  });
+  var panel = mesh(new RoundedBoxGeometry(1.05, 0.74, 0.16, 6, 0.09), yellow, 0, -2.0, 0.84); panel.rotation.x = -0.12; body.add(panel);
+  function cyl(m, x) { var c = mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.07, 28), m, x, -2.0, 0.95); c.rotation.x = Math.PI / 2 - 0.12; return c; }
+  body.add(cyl(blue, -0.3)); body.add(cyl(red, -0.02));
+  var pbtn = mesh(new RoundedBoxGeometry(0.24, 0.15, 0.07, 4, 0.05), purple, 0.3, -2.0, 0.95); pbtn.rotation.x = -0.12; body.add(pbtn);
+
+  /* arms */
+  var waveArm = new THREE.Group(); waveArm.position.set(1.22, -1.5, 0.05); body.add(waveArm);
+  waveArm.add(mesh(new THREE.CapsuleGeometry(0.22, 0.7, 8, 24), suit, 0, 0.5, 0));
+  var glove = mesh(new THREE.SphereGeometry(0.27, 32, 24), blue, 0, 1.12, 0); waveArm.add(glove);
+  waveArm.add(mesh(new THREE.TorusGeometry(0.22, 0.05, 12, 32), chrome, 0, 0.88, 0)).rotation.x = Math.PI / 2;
+  var restArm = new THREE.Group(); restArm.position.set(-1.3, -1.45, 0.05); restArm.rotation.z = 0.18; body.add(restArm);
+  restArm.add(mesh(new THREE.CapsuleGeometry(0.22, 0.75, 8, 24), suit, 0, -0.55, 0));
+  restArm.add(mesh(new THREE.SphereGeometry(0.27, 32, 24), blue, 0, -1.2, 0));
+
+  /* stars */
+  var N = 70, sp = new Float32Array(N * 3);
+  for (var i = 0; i < N; i++) { sp[i * 3] = (Math.random() - 0.5) * 9; sp[i * 3 + 1] = (Math.random() - 0.5) * 9 - 0.5; sp[i * 3 + 2] = -5 - Math.random() * 3; }
+  var sg = new THREE.BufferGeometry(); sg.setAttribute('position', new THREE.BufferAttribute(sp, 3));
+  var stars = new THREE.Points(sg, new THREE.PointsMaterial({ color: 0xffffff, size: 0.05, transparent: true, opacity: 0.8, depthWrite: false }));
+  scene.add(stars);
+
+  /* sizing */
+  function resize() {
+    var w = wrap.clientWidth || 280, h = wrap.clientHeight || w;
+    renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+  }
+  resize();
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(wrap); else window.addEventListener('resize', resize);
+
+  /* pointer look */
+  var look = { x: 0, y: 0, tx: 0, ty: 0 };
+  window.addEventListener('pointermove', function (e) {
+    var r = host.getBoundingClientRect();
+    look.tx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (window.innerWidth * 0.5)));
+    look.ty = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (window.innerHeight * 0.5)));
+  }, { passive: true });
+
+  var clock = new THREE.Clock(), nextBlink = 2.5, blinkT = -1, visible = true, raf = 0;
+  function frame() {
+    raf = 0;
+    var t = clock.getElapsedTime();
+    look.x += (look.tx - look.x) * 0.06; look.y += (look.ty - look.y) * 0.06;
+    var idleX = reduce ? 0 : Math.sin(t * 0.5) * 0.18, idleY = reduce ? 0 : Math.sin(t * 0.7) * 0.05;
+    root.position.y = reduce ? 0 : Math.sin(t * 0.9) * 0.07;
+    root.rotation.y = idleX + look.x * 0.32; root.rotation.x = idleY + look.y * 0.1;
+    eyes.children.forEach(function (g) {
+      g.userData.iris.position.x = look.x * 0.03; g.userData.iris.position.y = -look.y * 0.02;
+    });
+    if (!reduce) {
+      waveArm.rotation.z = -0.28 + Math.sin(t * 3.2) * 0.2 * (Math.sin(t * 0.5) > -0.2 ? 1 : 0.15);
+      glove.rotation.z = Math.sin(t * 3.2) * 0.3;
+      restArm.rotation.z = 0.18 + Math.sin(t * 0.9) * 0.03;
+      mouth.scale.y = 1 + Math.sin(t * 1.4) * 0.06;
+      stars.material.opacity = 0.65 + Math.sin(t * 1.3) * 0.2;
+      if (t > nextBlink && blinkT < 0) { blinkT = t; }
+      if (blinkT >= 0) {
+        var k = (t - blinkT) / 0.16;
+        if (k >= 1) { blinkT = -1; nextBlink = t + 2.6 + Math.random() * 2.4; eyes.scale.y = 1; }
+        else eyes.scale.y = 1 - Math.sin(k * Math.PI) * 0.92;
+      }
+      rim.position.x = 3.4 + Math.sin(t * 0.6) * 0.8;
+    }
+    renderer.render(scene, camera);
+    if (!reduce && visible) raf = requestAnimationFrame(frame);
+  }
+  frame();
+  host.classList.add('is-3d');
+  if (!reduce) {
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) {
+        visible = en[0].isIntersecting;
+        if (visible && !raf) raf = requestAnimationFrame(frame);
+      }, { threshold: 0.05 }).observe(host);
+    }
+  }
+})();
+
+</script>
 <script src="/robot-head.js"></script>
 <script src="/footer-robot.js"></script>
 </body>
